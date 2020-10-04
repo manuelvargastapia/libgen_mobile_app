@@ -104,6 +104,14 @@ class BookSearchDelegate extends SearchDelegate {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(snapshot.data.bookList[index].title),
+                      leading: IconButton(
+                        icon: Icon(Icons.download_rounded),
+                        onPressed: () {
+                          InheritedBlocs.of(context)
+                              .bookBloc
+                              .downloadBook(snapshot.data.bookList[index].md5);
+                        },
+                      ),
                     );
                   });
             }

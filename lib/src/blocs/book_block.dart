@@ -1,3 +1,4 @@
+import 'package:libgen/src/models/downloadLink.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../models/result.dart';
@@ -12,6 +13,12 @@ class BookBloc {
   fetchBooks(String query) async {
     Result result = await _repository.searchBooks(query);
     _booksFetcher.sink.add(result);
+  }
+
+  downloadBook(String md5) async {
+    DownloadLink downloadLink = await _repository.getDownloadLink(md5);
+    // TODO: download
+    print(downloadLink.url);
   }
 
   dispose() {
