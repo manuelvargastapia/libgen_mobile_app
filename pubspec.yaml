@@ -32,6 +32,12 @@ dependencies:
   # Project-specific dependencies
   rxdart: ^0.24.1
   http: ^0.12.2
+  flutter_downloader:
+    git:
+      url: git://github.com/valerybodak/flutter_downloader.git # Patch solution to augment default timeout from 15s to 45s
+  downloads_path_provider: ^0.1.0
+  permission_handler: ^5.0.1+1
+
 
 dev_dependencies:
   flutter_test:
