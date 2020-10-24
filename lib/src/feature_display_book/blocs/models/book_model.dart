@@ -10,7 +10,7 @@ class BookModel {
   String author;
   int year;
   String md5;
-  //String coverUrl;
+  String coverUrl;
 
   BookModel(
       {@required this.id,
@@ -18,8 +18,7 @@ class BookModel {
       @required this.author,
       @required this.year,
       @required this.md5,
-      //@required this.coverUrl
-      });
+      @required this.coverUrl});
 
   factory BookModel.fromJson(Map<String, dynamic> json) =>
       _$BookModelFromJson(json);

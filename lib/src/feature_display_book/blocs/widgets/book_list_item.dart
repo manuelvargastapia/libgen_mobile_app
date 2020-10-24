@@ -17,18 +17,17 @@ class BookListItem extends StatelessWidget {
         child: Text(book.id.toString()),
       ),
       children: [
-        Container()
-        // book?.coverUrl == null
-        //     ? Container()
-        //     : Image.network(
-        //         book.coverUrl,
-        //         loadingBuilder: (context, widget, imageChunkEvent) {
-        //           return imageChunkEvent == null
-        //               ? widget
-        //               : CircularProgressIndicator();
-        //         },
-        //         height: 300,
-        //       )
+        book?.coverUrl == null
+            ? Container()
+            : Image.network(
+                book.coverUrl,
+                loadingBuilder: (context, widget, imageChunkEvent) {
+                  return imageChunkEvent == null
+                      ? widget
+                      : CircularProgressIndicator();
+                },
+                height: 300,
+              )
       ],
     );
   }
