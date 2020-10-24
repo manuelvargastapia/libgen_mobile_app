@@ -1,0 +1,28 @@
+import 'package:flutter/foundation.dart';
+import 'package:libgen/src/feature_display_book/blocs/models/book_model.dart';
+
+abstract class BookState {
+  const BookState();
+}
+
+class BookInitialState extends BookState {
+  const BookInitialState();
+}
+
+class BookLoadingState extends BookState {
+  final String message;
+
+  const BookLoadingState({@required this.message});
+}
+
+class BookSuccessState extends BookState {
+  final List<BookModel> books;
+
+  const BookSuccessState({@required this.books});
+}
+
+class BookErrorState extends BookState {
+  final String error;
+
+  const BookErrorState({@required this.error});
+}
