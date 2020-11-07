@@ -14,3 +14,10 @@ A few src.feature_display_book.blocs.resources to get you started if this is you
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+## TODO
+
+- [ ] Cover URL error handling (HTTP request failed)
+- [ ] Improve lazy loading of fetching books
+- [ ] Find a good solution for constant and impredictable IP changes in Library Genesis (see /home/manuel/development/libgen_mobile_app/flutter_app/libgen/android/app/src/main/res/xml/network_security_config.xml)
