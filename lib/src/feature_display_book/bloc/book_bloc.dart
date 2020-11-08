@@ -45,14 +45,14 @@ class BookBloc extends Bloc<BookEvent, BookState> {
         yield BookErrorState(error: response);
       }
     } else if (event is DownloadBookEvent) {
-      yield DownloadInProgress(message: 'Downloading book', md5: event.md5);
+      yield DownloadInProgress(message: 'Downloading book');
       final response = await bookRepository.getDownloadLink(md5: event.md5);
       if (response is http.Response) {
         if (response.statusCode == 200) {
           final String downloadLink =
               DownloadLinkModel.fromJson(jsonDecode(response.body)['data'])
                   .downloadLink;
-          yield DownloadSuccessful(message: downloadLink, md5: event.md5);
+          yield DownloadSuccessful(message: downloadLink);
           await Permission.storage.request();
           Directory downloadsDirectory =
               await DownloadsPathProvider.downloadsDirectory;
@@ -66,10 +66,10 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             );
           }
         } else {
-          yield DownloadError(error: response.body, md5: event.md5);
+          yield DownloadError(error: response.body);
         }
       } else if (response is String) {
-        yield DownloadError(error: response, md5: event.md5);
+        yield DownloadError(error: response);
       }
     }
   }

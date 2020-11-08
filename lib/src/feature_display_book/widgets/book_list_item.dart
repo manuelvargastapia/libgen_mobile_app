@@ -4,6 +4,7 @@ import 'package:libgen/src/feature_display_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_display_book/bloc/book_event.dart';
 import 'package:libgen/src/feature_display_book/bloc/book_state.dart';
 import 'package:libgen/src/feature_display_book/models/book_model.dart';
+import 'package:libgen/src/feature_display_book/repository/book_repository.dart';
 
 class BookListItem extends StatelessWidget {
   final BookModel book;
@@ -16,9 +17,10 @@ class BookListItem extends StatelessWidget {
       title: Text(book.title),
       subtitle: Text('${book.author}, ${book.year}'),
       childrenPadding: const EdgeInsets.all(16),
-      leading: BlocConsumer<BookBloc, BookState>(
-        listener: (context, downloadState) {
-          if (downloadState.md5 == book.md5) {
+      leading: BlocProvider(
+        create: (context) => BookBloc(bookRepository: BookRepository()),
+        child: BlocConsumer<BookBloc, BookState>(
+          listener: (context, downloadState) {
             if (downloadState is DownloadInProgress) {
               Scaffold.of(context)
                   .showSnackBar(SnackBar(content: Text(downloadState.message)));
@@ -29,22 +31,21 @@ class BookListItem extends StatelessWidget {
               Scaffold.of(context)
                   .showSnackBar(SnackBar(content: Text(downloadState.error)));
             }
-          }
-        },
-        builder: (context, downloadState) {
-          if (downloadState is DownloadSuccessful &&
-              downloadState.md5 == book.md5) {
-            context.bloc<BookBloc>().isDownloading = false;
-            Scaffold.of(context).hideCurrentSnackBar();
-          }
-          return Container(
-            margin: EdgeInsets.only(top: 8),
-            child: DownloadIcon(
-              downloadState: downloadState,
-              md5: book.md5,
-            ),
-          );
-        },
+          },
+          builder: (context, downloadState) {
+            if (downloadState is DownloadSuccessful) {
+              context.bloc<BookBloc>().isDownloading = false;
+              Scaffold.of(context).hideCurrentSnackBar();
+            }
+            return Container(
+              margin: EdgeInsets.only(top: 8),
+              child: DownloadIcon(
+                downloadState: downloadState,
+                md5: book.md5,
+              ),
+            );
+          },
+        ),
       ),
       children: [
         book?.coverUrl == null
@@ -71,7 +72,7 @@ class DownloadIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (downloadState is DownloadInProgress && downloadState.md5 == md5) {
+    if (downloadState is DownloadInProgress) {
       return CircularProgressIndicator();
     }
 
