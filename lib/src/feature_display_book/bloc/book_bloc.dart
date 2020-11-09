@@ -26,10 +26,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
   Stream<BookState> mapEventToState(BookEvent event) async* {
     if (event is BookFetchEvent) {
       yield BookLoadingState(message: 'Loading books');
-      final response = await bookRepository.getBooks(
-        searchQuery: event.query,
-        offset: event.currentOffset,
-      );
+      final response = await bookRepository.getBooks(event.searchQuery);
       if (response is http.Response) {
         if (response.statusCode == 200) {
           final rawBooks = jsonDecode(response.body)['data'] as List;
@@ -46,7 +43,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
       }
     } else if (event is DownloadBookEvent) {
       yield DownloadInProgress(message: 'Downloading book');
-      final response = await bookRepository.getDownloadLink(md5: event.md5);
+      final response = await bookRepository.getDownloadLink(event.md5);
       if (response is http.Response) {
         if (response.statusCode == 200) {
           final String downloadLink =
