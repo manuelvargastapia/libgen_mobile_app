@@ -1,13 +1,12 @@
-import 'package:flutter/widgets.dart';
+import 'package:libgen/src/feature_display_book/models/search_query_model.dart';
 
 abstract class BookEvent {
   const BookEvent();
 }
 
 class BookFetchEvent extends BookEvent {
-  final int currentOffset;
-  final String query;
-  const BookFetchEvent({@required this.currentOffset, @required this.query});
+  final SearchQueryModel searchQuery;
+  const BookFetchEvent(this.searchQuery);
 }
 
 class DownloadBookEvent extends BookEvent {
