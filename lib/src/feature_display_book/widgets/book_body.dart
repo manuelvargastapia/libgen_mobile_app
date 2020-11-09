@@ -72,6 +72,8 @@ class BookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    _books.clear();
+
     if (query.length < 4) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
