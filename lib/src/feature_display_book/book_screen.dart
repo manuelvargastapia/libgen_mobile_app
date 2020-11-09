@@ -5,7 +5,7 @@ class DisplayBookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BookBody(),
+      body: BookList(),
     );
   }
 }
