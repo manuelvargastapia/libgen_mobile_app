@@ -37,8 +37,9 @@ class BookListItem extends StatelessWidget {
             }
           },
           builder: (context, downloadState) {
+            final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);
             if (downloadState is DownloadSuccessful) {
-              context.bloc<BookBloc>().isDownloading = false;
+              _bookBloc.isDownloading = false;
               Scaffold.of(context).hideCurrentSnackBar();
             }
             return Container(
@@ -48,7 +49,7 @@ class BookListItem extends StatelessWidget {
                     : IconButton(
                         icon: Icon(Icons.download_rounded),
                         onPressed: () {
-                          context.bloc<BookBloc>()
+                          _bookBloc
                             ..isDownloading = true
                             ..add(DownloadBookEvent(book.md5));
                         },

@@ -12,6 +12,8 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(book.title),
@@ -35,6 +37,7 @@ class BookDetailsScreen extends StatelessWidget {
               SnackBar(content: Text(downloadState.message)),
             );
           } else if (downloadState is DownloadSuccessful) {
+            _bookBloc.isDownloading = false;
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text(downloadState.message)),
             );
@@ -45,28 +48,25 @@ class BookDetailsScreen extends StatelessWidget {
           }
         },
         builder: (context, downloadState) {
-          if (downloadState is DownloadSuccessful) {
-            context.bloc<BookBloc>().isDownloading = false;
-            Scaffold.of(context).hideCurrentSnackBar();
-          }
           return Container(
-              margin: EdgeInsets.only(top: 8),
-              child: downloadState is DownloadInProgress
-                  ? CircularProgressIndicator()
-                  : FloatingActionButton(
-                      child: Icon(
-                        Icons.download_rounded,
-                        size: 38,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: () {
-                        BlocProvider.of<BookBloc>(context)
-                          ..isDownloading = true
-                          ..add(DownloadBookEvent(book.md5));
-                      },
-                      backgroundColor:
-                          Theme.of(context).textTheme.headline5.color,
-                    ));
+            margin: EdgeInsets.only(top: 8),
+            child: downloadState is DownloadInProgress
+                ? CircularProgressIndicator()
+                : FloatingActionButton(
+                    child: Icon(
+                      Icons.download_rounded,
+                      size: 38,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: () {
+                      _bookBloc
+                        ..isDownloading = true
+                        ..add(DownloadBookEvent(book.md5));
+                    },
+                    backgroundColor:
+                        Theme.of(context).textTheme.headline5.color,
+                  ),
+          );
         },
       ),
     );
