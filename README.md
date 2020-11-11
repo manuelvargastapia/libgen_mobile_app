@@ -40,5 +40,6 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Request download permissions beforehand to prevent internal UI state management errors
 - [ ] Consider improving API calls error handling. [Check this post](https://medium.com/solidmvp-africa/making-your-api-calls-in-flutter-the-right-way-f0a03e35b4b1)
 - [ ] Improve `import` statements
+- [ ] Organize and handle Styles and Themes
 - [ ] Be consisten in nomenclature choices ([check this guide](https://dart.dev/guides/language/effective-dart))
   - [ ] `show_filter_dialog.dart` should start with a noun phrase
