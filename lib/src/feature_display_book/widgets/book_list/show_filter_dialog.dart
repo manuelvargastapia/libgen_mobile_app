@@ -5,7 +5,7 @@ Future<void> showFilterDialog(
   void Function(String newSearchIn, String newSortBy) updateStateCallback,
 ) {
   Map<String, String> _sortByValues = {
-    'def': 'Default',
+    'def': 'Relevance',
     'title': 'Title',
     'publisher': 'Publisher',
     'year': 'Year',
@@ -16,7 +16,7 @@ Future<void> showFilterDialog(
   };
 
   Map<String, String> _searchInValues = {
-    'def': 'Default',
+    'def': 'All',
     'title': 'Title',
     'author': 'Author',
     'series': 'Series',
