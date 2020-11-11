@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/src/feature_display_book/book_screen.dart';
+import 'package:libgen/src/feature_display_book/display_book_screen.dart';
 
 class LibGenApp extends StatelessWidget {
   @override

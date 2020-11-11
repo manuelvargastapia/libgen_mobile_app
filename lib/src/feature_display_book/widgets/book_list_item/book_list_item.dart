@@ -16,20 +16,23 @@ class BookListItem extends StatelessWidget {
     return ExpansionTile(
       title: Text(book.title),
       subtitle: Text('${book.author}, ${book.year}'),
-      childrenPadding: const EdgeInsets.all(16),
+      childrenPadding: EdgeInsets.all(16),
       leading: BlocProvider(
         create: (context) => BookBloc(bookRepository: BookRepository()),
         child: BlocConsumer<BookBloc, BookState>(
           listener: (context, downloadState) {
             if (downloadState is DownloadInProgress) {
-              Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text(downloadState.message)));
+              Scaffold.of(context).showSnackBar(
+                SnackBar(content: Text(downloadState.message)),
+              );
             } else if (downloadState is DownloadSuccessful) {
-              Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text(downloadState.message)));
+              Scaffold.of(context).showSnackBar(
+                SnackBar(content: Text(downloadState.message)),
+              );
             } else if (downloadState is BookErrorState) {
-              Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text(downloadState.error)));
+              Scaffold.of(context).showSnackBar(
+                SnackBar(content: Text(downloadState.error)),
+              );
             }
           },
           builder: (context, downloadState) {
@@ -38,12 +41,17 @@ class BookListItem extends StatelessWidget {
               Scaffold.of(context).hideCurrentSnackBar();
             }
             return Container(
-              margin: EdgeInsets.only(top: 8),
-              child: DownloadIcon(
-                downloadState: downloadState,
-                md5: book.md5,
-              ),
-            );
+                margin: EdgeInsets.only(top: 8),
+                child: downloadState is DownloadInProgress
+                    ? CircularProgressIndicator()
+                    : IconButton(
+                        icon: Icon(Icons.download_rounded),
+                        onPressed: () {
+                          context.bloc<BookBloc>()
+                            ..isDownloading = true
+                            ..add(DownloadBookEvent(book.md5));
+                        },
+                      ));
           },
         ),
       ),
@@ -60,29 +68,6 @@ class BookListItem extends StatelessWidget {
                 height: 300,
               )
       ],
-    );
-  }
-}
-
-class DownloadIcon extends StatelessWidget {
-  final BookState downloadState;
-  final String md5;
-
-  DownloadIcon({@required this.downloadState, @required this.md5});
-
-  @override
-  Widget build(BuildContext context) {
-    if (downloadState is DownloadInProgress) {
-      return CircularProgressIndicator();
-    }
-
-    return IconButton(
-      icon: Icon(Icons.download_rounded),
-      onPressed: () {
-        context.bloc<BookBloc>()
-          ..isDownloading = true
-          ..add(DownloadBookEvent(md5));
-      },
     );
   }
 }
