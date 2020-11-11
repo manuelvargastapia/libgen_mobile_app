@@ -5,6 +5,7 @@ import 'package:libgen/src/feature_display_book/bloc/book_event.dart';
 import 'package:libgen/src/feature_display_book/bloc/book_state.dart';
 import 'package:libgen/src/feature_display_book/models/book_model.dart';
 import 'package:libgen/src/feature_display_book/repository/book_repository.dart';
+import 'package:libgen/src/feature_show_book_details/book_details_screen.dart';
 
 class BookListItem extends StatelessWidget {
   final BookModel book;
@@ -66,7 +67,17 @@ class BookListItem extends StatelessWidget {
                       : CircularProgressIndicator();
                 },
                 height: 300,
-              )
+              ),
+        RaisedButton(
+            child: Text('Details'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookDetailsScreen(book: book),
+                ),
+              );
+            })
       ],
     );
   }
