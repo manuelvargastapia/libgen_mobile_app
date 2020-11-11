@@ -7,8 +7,7 @@ class LibGenApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lib Gen App',
       theme: ThemeData.dark(),
-      initialRoute: '/',
-      routes: {'/': (context) => DisplayBookScreen()},
+      home: DisplayBookScreen(),
     );
   }
 }
