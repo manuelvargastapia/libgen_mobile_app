@@ -8,7 +8,7 @@ class DetailsModel {
   int id;
   String title;
   String author;
-  String year;
+  int year;
   String md5;
   String coverUrl;
   String volumeInfo;
@@ -16,11 +16,11 @@ class DetailsModel {
   String edition;
   String publisher;
   String city;
-  String pages;
+  int pages;
   String language;
   String isbn;
   String doi;
-  String fileSize;
+  int fileSize;
   String fileExtension;
   String description;
   String contents;
