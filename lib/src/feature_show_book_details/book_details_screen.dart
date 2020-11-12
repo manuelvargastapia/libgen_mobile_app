@@ -4,6 +4,7 @@ import 'package:libgen/src/feature_display_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_display_book/bloc/book_event.dart';
 import 'package:libgen/src/feature_display_book/bloc/book_state.dart';
 import 'package:libgen/src/feature_display_book/models/book_model.dart';
+import 'package:libgen/src/feature_show_book_details/widgets/book_details_container.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final BookModel book;
@@ -25,11 +26,7 @@ class BookDetailsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Container(
-        child: Center(
-          child: Text('Book Details'),
-        ),
-      ),
+      body: BookDetailsContainer(bookId: book.id),
       floatingActionButton: BlocConsumer<BookBloc, BookState>(
         listener: (context, downloadState) {
           if (downloadState is DownloadInProgress) {

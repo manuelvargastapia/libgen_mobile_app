@@ -16,7 +16,7 @@ class BookListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Text(book.title),
-      subtitle: Text('${book.author}, ${book.year}'),
+      subtitle: Text('${book.author}, ${book.fileExtension}'),
       childrenPadding: EdgeInsets.all(16),
       leading: BlocProvider(
         create: (context) => BookBloc(bookRepository: BookRepository()),
