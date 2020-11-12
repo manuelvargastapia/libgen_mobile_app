@@ -43,7 +43,6 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Improve `import` statements
 - [ ] Organize and handle Styles and Themes
 - [ ] Refactor download icon button's BlocConsumer
-- [ ] Show description and contents in BookDetailsScreen with data fetched from GoogleBooks using ISBN or another unique identifier
 - [ ] Configure Dart analyzer to prevent positive falses ([check this issue](https://github.com/felangel/bloc/issues/587))
   - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
 - [ ] Be consisten in nomenclature choices ([check this guide](https://dart.dev/guides/language/effective-dart))
