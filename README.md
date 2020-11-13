@@ -42,6 +42,7 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Consider improving API calls error handling. [Check this post](https://medium.com/solidmvp-africa/making-your-api-calls-in-flutter-the-right-way-f0a03e35b4b1)
 - [ ] Improve `import` statements
 - [ ] Organize and handle Styles and Themes
+- [ ] Consider usgin the built-in `close()` method of `showSearch()` to display book details
 - [ ] Refactor download icon button's BlocConsumer
 - [ ] Configure Dart analyzer to prevent positive falses ([check this issue](https://github.com/felangel/bloc/issues/587))
   - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
