@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/feature_display_book/bloc/book_bloc.dart';
-import 'package:libgen/src/feature_display_book/bloc/book_event.dart';
-import 'package:libgen/src/feature_display_book/bloc/book_state.dart';
-import 'package:libgen/src/feature_display_book/models/book_model.dart';
-import 'package:libgen/src/feature_display_book/repository/book_repository.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_state.dart';
+import 'package:libgen/src/feature_search_book/models/book_model.dart';
+import 'package:libgen/src/feature_search_book/repository/book_repository.dart';
 import 'package:libgen/src/feature_show_book_details/book_details_screen.dart';
 
 class BookListItem extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/src/feature_display_book/widgets/book_list/results_builder.dart';
+import 'package:libgen/src/feature_search_book/widgets/book_list/results_builder.dart';
 
 class BookSearchDelegate extends SearchDelegate {
   String searchIn;
