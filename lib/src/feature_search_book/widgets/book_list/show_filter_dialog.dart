@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
+import 'package:libgen/src/feature_search_book/models/filters_mode.dart';
+import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 
-Future<void> showFilterDialog(
-  BuildContext context,
-  void Function(String newSearchIn, String newSortBy) updateStateCallback,
-) {
+Future<FiltersModel> showFilterDialog({
+  @required BuildContext context,
+  @required String currentQuery,
+  @required FiltersModel currentFilters,
+  @required BookBloc bookBloc,
+}) {
   Map<String, String> _sortByValues = {
     'def': 'Relevance',
     'title': 'Title',
@@ -27,16 +33,58 @@ Future<void> showFilterDialog(
     'extension': 'File extension'
   };
 
-  String _sortBy = _sortByValues['def'];
-  String _searchIn = _searchInValues['def'];
+  String _sortBy = _sortByValues[currentFilters.sortBy];
+  String _searchIn = _searchInValues[currentFilters.searchIn];
 
-  return showDialog<void>(
+  return showDialog<FiltersModel>(
     context: context,
+    barrierDismissible: false,
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
-            title: Center(child: Text("Filter")),
+            title: Text("Filter"),
+            actions: [
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(FiltersModel(
+                    sortBy: currentFilters.sortBy,
+                    searchIn: currentFilters.searchIn,
+                  ));
+                },
+              ),
+              FlatButton(
+                child: Text('Apply'),
+                onPressed: () {
+                  String sortByKey = _sortByValues.keys.firstWhere(
+                    (key) => _sortByValues[key] == _sortBy,
+                    orElse: () => null,
+                  );
+                  String searchInKey = _searchInValues.keys.firstWhere(
+                    (key) => _searchInValues[key] == _searchIn,
+                    orElse: () => null,
+                  );
+                  Navigator.of(context).pop(
+                    FiltersModel(
+                      sortBy: sortByKey,
+                      searchIn: searchInKey,
+                    ),
+                  );
+                  if (currentQuery != '') {
+                    bookBloc.add(
+                      BookFetchEvent(
+                        SearchQueryModel(
+                          searchTerm: currentQuery,
+                          searchIn: searchInKey,
+                          sortBy: sortByKey,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
             content: SingleChildScrollView(
               child: Column(
                 children: [
@@ -106,21 +154,6 @@ Future<void> showFilterDialog(
                       ],
                     ),
                   ),
-                  Center(
-                    child: RaisedButton(
-                        child: Text('Apply'),
-                        onPressed: () {
-                          String sortByKey = _sortByValues.keys.firstWhere(
-                            (key) => _sortByValues[key] == _sortBy,
-                            orElse: () => null,
-                          );
-                          String searchInKey = _searchInValues.keys.firstWhere(
-                            (key) => _searchInValues[key] == _searchIn,
-                            orElse: () => null,
-                          );
-                          updateStateCallback(searchInKey, sortByKey);
-                        }),
-                  )
                 ],
               ),
             ),

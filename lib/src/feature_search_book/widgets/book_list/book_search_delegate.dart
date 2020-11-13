@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
+import 'package:libgen/src/feature_search_book/models/filters_mode.dart';
 import 'package:libgen/src/feature_search_book/widgets/book_list/results_builder.dart';
 
-class BookSearchDelegate extends SearchDelegate {
-  String searchIn;
-  String sortBy;
+import 'show_filter_dialog.dart';
 
-  BookSearchDelegate({@required this.searchIn, @required this.sortBy});
+class BookSearchDelegate extends SearchDelegate {
+  @override
+  final String searchFieldLabel = "Title, author or ISBN";
+
+  FiltersModel filters = FiltersModel(sortBy: 'def', searchIn: 'def');
+
+  BookBloc bookBloc;
+
+  BookSearchDelegate({@required this.bookBloc});
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -21,6 +29,17 @@ class BookSearchDelegate extends SearchDelegate {
           query = '';
         },
       ),
+      IconButton(
+        icon: Icon(Icons.filter_list),
+        onPressed: () async {
+          filters = await showFilterDialog(
+            context: context,
+            currentQuery: query,
+            currentFilters: filters,
+            bookBloc: bookBloc,
+          );
+        },
+      )
     ];
   }
 
@@ -41,23 +60,15 @@ class BookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query.length < 4) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: Text(
-              "Search term must be longer than four letters.",
-            ),
-          )
-        ],
-      );
+    if (query.trim().length < 4) {
+      return Container();
     }
 
     return ResultsBuilder(
       query: query,
-      searchIn: searchIn,
-      sortBy: sortBy,
+      searchIn: filters.searchIn,
+      sortBy: filters.sortBy,
+      bookBloc: bookBloc,
     );
   }
 }

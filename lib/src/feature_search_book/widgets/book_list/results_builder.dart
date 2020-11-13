@@ -9,6 +9,7 @@ import 'package:libgen/src/feature_search_book/widgets/book_list_item/book_list_
 
 class ResultsBuilder extends StatelessWidget {
   final String query, searchIn, sortBy;
+  final BookBloc bookBloc;
   final List<BookModel> _books = [];
   final ScrollController _scrollController = ScrollController();
 
@@ -16,20 +17,18 @@ class ResultsBuilder extends StatelessWidget {
     @required this.query,
     @required this.searchIn,
     @required this.sortBy,
+    @required this.bookBloc,
   });
 
   @override
   Widget build(BuildContext context) {
-    _books.clear();
-
-    final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context)
-      ..add(BookFetchEvent(
-        SearchQueryModel(
-          searchTerm: query,
-          searchIn: this.searchIn,
-          sortBy: this.sortBy,
-        ),
-      ));
+    bookBloc.add(BookFetchEvent(
+      SearchQueryModel(
+        searchTerm: query,
+        searchIn: this.searchIn,
+        sortBy: this.sortBy,
+      ),
+    ));
 
     return Center(
       child: BlocConsumer<BookBloc, BookState>(
@@ -38,25 +37,28 @@ class ResultsBuilder extends StatelessWidget {
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text(bookState.message)),
             );
+            if (bookState.requiresCleaning) {
+              _books.clear();
+            }
           } else if (bookState is BookSuccessState && bookState.books.isEmpty) {
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text('No more books')),
             );
+          } else if (bookState is BookSuccessState) {
+            _books.addAll(bookState.books);
+            bookBloc.isFetching = false;
+            Scaffold.of(context).hideCurrentSnackBar();
           } else if (bookState is BookErrorState) {
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text(bookState.error)),
             );
-            _bookBloc.isFetching = false;
+            bookBloc.isFetching = false;
           }
         },
         builder: (context, bookState) {
           if (bookState is BookInitialState ||
               bookState is BookLoadingState && _books.isEmpty) {
             return CircularProgressIndicator();
-          } else if (bookState is BookSuccessState) {
-            _books.addAll(bookState.books);
-            _bookBloc.isFetching = false;
-            Scaffold.of(context).hideCurrentSnackBar();
           } else if (bookState is BookErrorState && _books.isEmpty) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +66,7 @@ class ResultsBuilder extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    _bookBloc
+                    bookBloc
                       ..isFetching = true
                       ..add(
                         BookFetchEvent(
@@ -79,7 +81,7 @@ class ResultsBuilder extends StatelessWidget {
                   },
                   icon: Icon(Icons.refresh),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
                 Text(bookState.error, textAlign: TextAlign.center),
               ],
             );
@@ -89,8 +91,8 @@ class ResultsBuilder extends StatelessWidget {
               ..addListener(() {
                 if (_scrollController.offset ==
                         _scrollController.position.maxScrollExtent &&
-                    !_bookBloc.isFetching) {
-                  _bookBloc
+                    !bookBloc.isFetching) {
+                  bookBloc
                     ..isFetching = true
                     ..add(
                       BookFetchEvent(
