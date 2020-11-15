@@ -4,7 +4,7 @@ import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_state.dart';
 import 'package:libgen/src/feature_search_book/models/book_model.dart';
-import 'package:libgen/src/feature_search_book/models/filters_mode.dart';
+import 'package:libgen/src/feature_search_book/models/filters_model.dart';
 import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 import 'package:libgen/src/feature_search_book/widgets/book_list_item/book_list_item.dart';
 

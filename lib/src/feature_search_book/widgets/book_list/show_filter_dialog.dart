@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
-import 'package:libgen/src/feature_search_book/models/filters_mode.dart';
+import 'package:libgen/src/feature_search_book/models/filters_model.dart';
 import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 
 Future<FiltersModel> showFilterDialog({
@@ -129,13 +129,12 @@ Future<FiltersModel> showFilterDialog({
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 16.0),
-                          child: Text('Search in'),
+                          child: Text('Type'),
                         ),
                         Expanded(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
-                              hint: Text("Search in"),
                               items: _searchInValues.values
                                   .map(
                                     (String value) => DropdownMenuItem(

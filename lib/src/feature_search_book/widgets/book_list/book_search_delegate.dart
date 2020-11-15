@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
-import 'package:libgen/src/feature_search_book/models/filters_mode.dart';
+import 'package:libgen/src/feature_search_book/models/filters_model.dart';
 import 'package:libgen/src/feature_search_book/widgets/book_list/results_builder.dart';
 
 import 'show_filter_dialog.dart';
