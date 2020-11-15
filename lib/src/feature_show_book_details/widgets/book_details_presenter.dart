@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:libgen/src/feature_show_book_details/models/details_model.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:libgen/src/feature_show_book_details/widgets/image_with_placeholder.dart';
 
 class BookDetailsPresenter extends StatelessWidget {
   final DetailsModel bookDetails;
@@ -12,37 +12,38 @@ class BookDetailsPresenter extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          if (bookDetails.coverUrl != null)
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 2,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.2),
-                        BlendMode.dstATop,
+          Container(
+            height: MediaQuery.of(context).size.height / 2,
+            child: ImageWidgetPlaceholder(
+              image: NetworkImage(bookDetails.coverUrl),
+              placeholder: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                width: MediaQuery.of(context).size.width,
+                color: Colors.white.withOpacity(0.2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      bookDetails.title ?? "(no title)",
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    if (bookDetails.author != null)
+                      Text(
+                        bookDetails.author,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 14),
                       ),
-                      image: NetworkImage(bookDetails.coverUrl, scale: 10),
-                    ),
-                  ),
+                  ],
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: bookDetails.coverUrl,
-                    fit: BoxFit.contain,
-                    imageErrorBuilder: (context, object, stackStrace) => Icon(
-                      Icons.broken_image,
-                      size: 50,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
+          ),
           SizedBox(height: 30),
           renderIfExists(value: bookDetails.title),
           renderIfExists(value: bookDetails.author),
