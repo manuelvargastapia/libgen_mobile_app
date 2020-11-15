@@ -45,6 +45,12 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Consider usgin the built-in `close()` method of `showSearch()` to display book details
 - [ ] Refactor download icon button's BlocConsumer
 - [ ] Configure Dart analyzer to prevent positive falses ([check this issue](https://github.com/felangel/bloc/issues/587))
+- [ ] Improve internal logic of filters in *lib/src/feature_search_book/widgets/book_list/show_filter_dialog.dart*
+- [ ] Be consistent in transition animations
+  - [ ] Home to SearchDelegate vs SearchDelegate to Details
+- [ ] Incluir otros filtros
+  - [ ] Orden (asc o desc)
+- [ ] Consider making only one API request instead of two (general search plus details), because potential cost-by-time constraint at the moment of release
   - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
 - [ ] Be consisten in nomenclature choices ([check this guide](https://dart.dev/guides/language/effective-dart))
   - [ ] `show_filter_dialog.dart` should start with a noun phrase
