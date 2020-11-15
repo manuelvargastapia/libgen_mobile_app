@@ -13,12 +13,9 @@ Future<FiltersModel> showFilterDialog({
   Map<String, String> _sortByValues = {
     'def': 'Relevance',
     'title': 'Title',
-    'publisher': 'Publisher',
     'year': 'Year',
     'pages': 'Pages',
-    'language': 'Language',
     'filesize': 'File size',
-    'extension': 'File extension',
   };
 
   Map<String, String> _searchInValues = {
@@ -27,10 +24,8 @@ Future<FiltersModel> showFilterDialog({
     'author': 'Author',
     'series': 'Series',
     'publisher': 'Publisher',
-    'year': 'Year',
     'identifier': 'ISBN',
     'md5': 'MD5',
-    'extension': 'File extension'
   };
 
   String _sortBy = _sortByValues[currentFilters.sortBy];
