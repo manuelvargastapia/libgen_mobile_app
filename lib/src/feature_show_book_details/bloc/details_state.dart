@@ -10,9 +10,7 @@ class DetailsInitialState extends DetailsState {
 }
 
 class DetailsLoadingState extends DetailsState {
-  final String message;
-
-  const DetailsLoadingState({@required this.message});
+  const DetailsLoadingState();
 }
 
 class DetailsSuccessState extends DetailsState {

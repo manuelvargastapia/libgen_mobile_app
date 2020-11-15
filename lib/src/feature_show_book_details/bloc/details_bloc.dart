@@ -18,7 +18,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   @override
   Stream<DetailsState> mapEventToState(DetailsEvent event) async* {
     if (event is DetailsFetchEvent) {
-      yield DetailsLoadingState(message: 'Loading details');
+      yield DetailsLoadingState();
       final response = await repository.getBookDetails(event.bookId);
       if (response is http.Response) {
         if (response.statusCode == 200) {
