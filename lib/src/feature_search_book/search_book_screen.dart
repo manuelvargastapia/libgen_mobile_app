@@ -8,14 +8,45 @@ class SearchBookScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(onPressed: () {
-          showSearch(
-            context: context,
-            delegate: BookSearchDelegate(
-              bookBloc: BlocProvider.of<BookBloc>(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('LibGen Mobile', style: TextStyle(fontSize: 48)),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                      margin:
+                          EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Search by title, author or ISBN'),
+                          Icon(Icons.search),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onTap: () {
+                      showSearch(
+                        context: context,
+                        delegate: BookSearchDelegate(
+                          bookBloc: BlocProvider.of<BookBloc>(context),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
             ),
-          );
-        }),
+          ],
+        ),
       ),
     );
   }
