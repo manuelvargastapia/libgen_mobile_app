@@ -26,7 +26,6 @@ class BookBloc extends Bloc<BookEvent, BookState> {
   Stream<BookState> mapEventToState(BookEvent event) async* {
     if (event is BookFetchEvent) {
       yield BookLoadingState(
-        message: 'Loading books',
         requiresCleaning: event.searchQuery.offset == 0,
       );
       final response = await bookRepository.getBooks(event.searchQuery);

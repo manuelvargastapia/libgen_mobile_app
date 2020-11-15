@@ -10,13 +10,9 @@ class BookInitialState extends BookState {
 }
 
 class BookLoadingState extends BookState {
-  final String message;
   final bool requiresCleaning;
 
-  const BookLoadingState({
-    @required this.message,
-    this.requiresCleaning = false,
-  });
+  const BookLoadingState({this.requiresCleaning = false});
 }
 
 class BookSuccessState extends BookState {
