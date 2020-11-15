@@ -28,7 +28,10 @@ class ImageWidgetPlaceholder extends StatelessWidget {
                   ),
                 ),
               ),
-              child
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: child,
+              )
             ],
           );
         } else {
@@ -50,7 +53,10 @@ class ImageWidgetPlaceholder extends StatelessWidget {
                           ),
                         ),
                       ),
-                      child
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: child,
+                      )
                     ],
                   )
                 : placeholder,
