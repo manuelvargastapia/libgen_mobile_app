@@ -102,7 +102,11 @@ class ResultsBuilder extends StatelessWidget {
                 }
               }),
             itemBuilder: (context, index) => BookListItem(_books[index]),
-            separatorBuilder: (context, index) => SizedBox(height: 20),
+            separatorBuilder: (context, index) => Divider(
+              height: 30,
+              indent: 20,
+              endIndent: 20,
+            ),
             itemCount: _books.length,
           );
         },
