@@ -4,30 +4,27 @@ import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_state.dart';
 import 'package:libgen/src/feature_search_book/models/book_model.dart';
+import 'package:libgen/src/feature_search_book/models/filters_mode.dart';
 import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 import 'package:libgen/src/feature_search_book/widgets/book_list_item/book_list_item.dart';
 
 class ResultsBuilder extends StatelessWidget {
-  final String query, searchIn, sortBy;
+  final String query;
+  final FiltersModel filters;
   final BookBloc bookBloc;
   final List<BookModel> _books = [];
   final ScrollController _scrollController = ScrollController();
 
   ResultsBuilder({
     @required this.query,
-    @required this.searchIn,
-    @required this.sortBy,
+    @required this.filters,
     @required this.bookBloc,
   });
 
   @override
   Widget build(BuildContext context) {
     bookBloc.add(BookFetchEvent(
-      SearchQueryModel(
-        searchTerm: query,
-        searchIn: this.searchIn,
-        sortBy: this.sortBy,
-      ),
+      SearchQueryModel(searchTerm: query, filters: this.filters),
     ));
 
     return Center(
@@ -73,8 +70,7 @@ class ResultsBuilder extends StatelessWidget {
                           SearchQueryModel(
                             searchTerm: query,
                             offset: _books.length,
-                            searchIn: this.searchIn,
-                            sortBy: this.sortBy,
+                            filters: this.filters,
                           ),
                         ),
                       );
@@ -99,8 +95,7 @@ class ResultsBuilder extends StatelessWidget {
                         SearchQueryModel(
                           searchTerm: query,
                           offset: _books.length,
-                          searchIn: this.searchIn,
-                          sortBy: this.sortBy,
+                          filters: this.filters,
                         ),
                       ),
                     );

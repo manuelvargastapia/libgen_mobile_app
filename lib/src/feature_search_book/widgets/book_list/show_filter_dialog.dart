@@ -76,8 +76,10 @@ Future<FiltersModel> showFilterDialog({
                       BookFetchEvent(
                         SearchQueryModel(
                           searchTerm: currentQuery,
-                          searchIn: searchInKey,
-                          sortBy: sortByKey,
+                          filters: FiltersModel(
+                            searchIn: searchInKey,
+                            sortBy: sortByKey,
+                          ),
                         ),
                       ),
                     );

@@ -9,7 +9,7 @@ class BookSearchDelegate extends SearchDelegate {
   @override
   final String searchFieldLabel = "Title, author or ISBN";
 
-  FiltersModel filters = FiltersModel(sortBy: 'def', searchIn: 'def');
+  FiltersModel filters = FiltersModel();
 
   BookBloc bookBloc;
 
@@ -66,8 +66,7 @@ class BookSearchDelegate extends SearchDelegate {
 
     return ResultsBuilder(
       query: query,
-      searchIn: filters.searchIn,
-      sortBy: filters.sortBy,
+      filters: filters,
       bookBloc: bookBloc,
     );
   }
