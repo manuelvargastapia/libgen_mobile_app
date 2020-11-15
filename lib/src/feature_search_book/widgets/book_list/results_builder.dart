@@ -36,7 +36,9 @@ class ResultsBuilder extends StatelessWidget {
             if (bookState.requiresCleaning) {
               _books.clear();
             }
-          } else if (bookState is BookSuccessState && bookState.books.isEmpty) {
+          } else if (bookState is BookSuccessState &&
+              bookState.books.isEmpty &&
+              _books.isNotEmpty) {
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text('No more results')),
             );
@@ -80,6 +82,10 @@ class ResultsBuilder extends StatelessWidget {
                 Text(bookState.error, textAlign: TextAlign.center),
               ],
             );
+          } else if (bookState is BookSuccessState && _books.length == 0) {
+            return Text(
+              "No results for \"$query\"",
+            );
           }
           return CustomScrollView(
             semanticChildCount: _books.length,
@@ -116,7 +122,7 @@ class ResultsBuilder extends StatelessWidget {
                   childCount: math.max(0, _books.length * 2 - 1),
                 ),
               ),
-              if (bookState is BookLoadingState && _books.length != 0)
+              if (bookState is BookLoadingState && _books.isNotEmpty)
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 20),
