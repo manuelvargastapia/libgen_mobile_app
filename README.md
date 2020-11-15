@@ -21,6 +21,8 @@ samples, guidance on mobile development, and a full API reference.
 ## TODO
 
 - [ ] Cover URL error handling (ex: when HTTP request fails)
+- [ ] replace any debuggin error message
+  - [ ] Network errors
 - [ ] Improve lazy loading of fetching books:
   - [ ] Currently only show a SnackBar without proper feedback about what's going on with the loading, leading to bad experience.
   - [x] Clean current book list displayed before execute another query
@@ -31,7 +33,9 @@ samples, guidance on mobile development, and a full API reference.
   - [ ] Flutter Downloader initialization (set debug to `false`)
 - [x] Improve Bloc States to avoid using the optional parameter `String md5` in abstract class BookState
 - [ ] Implement translations
+- [ ] Cache search results to avoid refetching after coming back from details
 - [ ] Unit testing
+- [ ] Work with [cached images](https://flutter.dev/docs/cookbook/images/cached-images)
 - [ ] Considera using [replay_bloc](https://pub.dev/packages/replay_bloc) or [hydrated_bloc](https://pub.dev/packages/hydrated_bloc) to handle state conservation between navigation from search page to details
 - [ ] Automated testing for Blocs ([check this package](https://pub.dev/packages/bloc_test))
 - [ ] Find a better solution for permissions issues in Android 10: currently, a temporary solution has been implemented in `AndroidManifext.xml` (`android:requestLegacyExternalStorage="true"`). [Check this post](https://medium.com/@sriramaripirala/android-10-open-failed-eacces-permission-denied-da8b630a89df)
