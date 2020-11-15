@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:libgen/src/feature_show_book_details/models/details_model.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class BookDetailsPresenter extends StatelessWidget {
   final DetailsModel bookDetails;
@@ -11,20 +12,38 @@ class BookDetailsPresenter extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          bookDetails.coverUrl == null
-              ? Container(
-                  child: Text("No image"),
+          if (bookDetails.coverUrl != null)
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
                   height: MediaQuery.of(context).size.height / 2,
-                )
-              : Image.network(
-                  bookDetails.coverUrl,
-                  loadingBuilder: (context, widget, imageChunkEvent) {
-                    return imageChunkEvent == null
-                        ? widget
-                        : CircularProgressIndicator();
-                  },
-                  height: MediaQuery.of(context).size.height / 2,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.2),
+                        BlendMode.dstATop,
+                      ),
+                      image: NetworkImage(bookDetails.coverUrl, scale: 10),
+                    ),
+                  ),
                 ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: bookDetails.coverUrl,
+                    fit: BoxFit.contain,
+                    imageErrorBuilder: (context, object, stackStrace) => Icon(
+                      Icons.broken_image,
+                      size: 50,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          SizedBox(height: 30),
           renderIfExists(value: bookDetails.title),
           renderIfExists(value: bookDetails.author),
           renderIfExists(value: bookDetails.year),
