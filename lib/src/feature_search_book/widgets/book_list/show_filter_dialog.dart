@@ -35,6 +35,7 @@ Future<FiltersModel> showFilterDialog({
 
   String _sortBy = _sortByValues[currentFilters.sortBy];
   String _searchIn = _searchInValues[currentFilters.searchIn];
+  bool _reverseOrder = currentFilters.reverseOrder;
 
   return showDialog<FiltersModel>(
     context: context,
@@ -51,6 +52,7 @@ Future<FiltersModel> showFilterDialog({
                   Navigator.of(context).pop(FiltersModel(
                     sortBy: currentFilters.sortBy,
                     searchIn: currentFilters.searchIn,
+                    reverseOrder: currentFilters.reverseOrder,
                   ));
                 },
               ),
@@ -69,6 +71,7 @@ Future<FiltersModel> showFilterDialog({
                     FiltersModel(
                       sortBy: sortByKey,
                       searchIn: searchInKey,
+                      reverseOrder: _reverseOrder,
                     ),
                   );
                   if (currentQuery != '') {
@@ -79,6 +82,7 @@ Future<FiltersModel> showFilterDialog({
                           filters: FiltersModel(
                             searchIn: searchInKey,
                             sortBy: sortByKey,
+                            reverseOrder: _reverseOrder,
                           ),
                         ),
                       ),
@@ -95,7 +99,7 @@ Future<FiltersModel> showFilterDialog({
                     child: Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
+                          padding: EdgeInsets.only(right: 16.0),
                           child: Text("Sort by"),
                         ),
                         Expanded(
@@ -128,7 +132,7 @@ Future<FiltersModel> showFilterDialog({
                     child: Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
+                          padding: EdgeInsets.only(right: 16.0),
                           child: Text('Type'),
                         ),
                         Expanded(
@@ -152,6 +156,25 @@ Future<FiltersModel> showFilterDialog({
                             ),
                           ),
                         )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 8, right: 10),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Text('Reverse order'),
+                        ),
+                        Checkbox(
+                          value: _reverseOrder,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _reverseOrder = value;
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),

@@ -19,7 +19,7 @@ class BookRepository {
   Future<dynamic> getBooks(SearchQueryModel searchQuery) async {
     try {
       return await http.get(
-        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn}&sortBy=${searchQuery.filters.sortBy}',
+        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn}&sortBy=${searchQuery.filters.sortBy}&reverse=${searchQuery.filters.reverseOrder}',
       );
     } catch (e) {
       return e.toString();
