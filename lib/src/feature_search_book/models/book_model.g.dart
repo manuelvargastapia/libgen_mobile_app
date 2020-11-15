@@ -12,7 +12,6 @@ BookModel _$BookModelFromJson(Map<String, dynamic> json) {
     title: json['title'] as String,
     author: json['author'] as String,
     md5: json['md5'] as String,
-    coverUrl: json['coverUrl'] as String,
     fileExtension: json['fileExtension'] as String,
   );
 }
@@ -22,6 +21,5 @@ Map<String, dynamic> _$BookModelToJson(BookModel instance) => <String, dynamic>{
       'title': instance.title,
       'author': instance.author,
       'md5': instance.md5,
-      'coverUrl': instance.coverUrl,
       'fileExtension': instance.fileExtension,
     };

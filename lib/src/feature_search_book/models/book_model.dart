@@ -9,7 +9,6 @@ class BookModel {
   String title;
   String author;
   String md5;
-  String coverUrl;
   String fileExtension;
 
   BookModel({
@@ -17,7 +16,6 @@ class BookModel {
     @required this.title,
     @required this.author,
     @required this.md5,
-    @required this.coverUrl,
     @required this.fileExtension,
   });
 
