@@ -5,17 +5,19 @@ import 'package:libgen/src/feature_show_book_details/book_details_screen.dart';
 class BookListItem extends StatelessWidget {
   final BookModel book;
 
-  const BookListItem(this.book);
+  BookListItem(this.book);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        book.title,
+        book.title ?? "(no title)",
         overflow: TextOverflow.ellipsis,
       ),
-      subtitle: Text('by ${book.author}'),
-      trailing: Text(book.fileExtension.toUpperCase()),
+      subtitle: book.author != null ? Text('by ${book.author}') : null,
+      trailing: book.fileExtension != null
+          ? Text(book.fileExtension.toUpperCase())
+          : null,
       contentPadding: EdgeInsets.symmetric(horizontal: 30),
       onTap: () {
         Navigator.push(
