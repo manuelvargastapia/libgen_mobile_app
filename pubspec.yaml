@@ -40,6 +40,7 @@ dependencies:
   downloads_path_provider: ^0.1.0
   permission_handler: ^5.0.1+1
   transparent_image: ^1.0.0
+  flutter_html: ^1.0.2
 
 
 dev_dependencies:
