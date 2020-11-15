@@ -8,6 +8,8 @@ import 'package:libgen/src/feature_search_book/models/filters_model.dart';
 import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 import 'package:libgen/src/feature_search_book/widgets/book_list_item/book_list_item.dart';
 
+import 'dart:math' as math;
+
 class ResultsBuilder extends StatelessWidget {
   final String query;
   final FiltersModel filters;
@@ -31,15 +33,12 @@ class ResultsBuilder extends StatelessWidget {
       child: BlocConsumer<BookBloc, BookState>(
         listener: (context, bookState) {
           if (bookState is BookLoadingState) {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text(bookState.message)),
-            );
             if (bookState.requiresCleaning) {
               _books.clear();
             }
           } else if (bookState is BookSuccessState && bookState.books.isEmpty) {
             Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text('No more books')),
+              SnackBar(content: Text('No more results')),
             );
           } else if (bookState is BookSuccessState) {
             _books.addAll(bookState.books);
@@ -82,7 +81,8 @@ class ResultsBuilder extends StatelessWidget {
               ],
             );
           }
-          return ListView.separated(
+          return CustomScrollView(
+            semanticChildCount: _books.length,
             controller: _scrollController
               ..addListener(() {
                 if (_scrollController.offset ==
@@ -101,13 +101,29 @@ class ResultsBuilder extends StatelessWidget {
                     );
                 }
               }),
-            itemBuilder: (context, index) => BookListItem(_books[index]),
-            separatorBuilder: (context, index) => Divider(
-              height: 30,
-              indent: 20,
-              endIndent: 20,
-            ),
-            itemCount: _books.length,
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => index.isEven
+                      ? BookListItem(_books[index ~/ 2])
+                      : Divider(
+                          height: 30,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                  semanticIndexCallback: (widget, localIndex) =>
+                      localIndex.isEven ? localIndex ~/ 2 : null,
+                  childCount: math.max(0, _books.length * 2 - 1),
+                ),
+              ),
+              if (bookState is BookLoadingState && _books.length != 0)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 20),
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                )
+            ],
           );
         },
       ),
