@@ -17,7 +17,7 @@ class BookDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(book.title),
+        title: Text(book.title ?? "(no title)"),
         actions: [],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
