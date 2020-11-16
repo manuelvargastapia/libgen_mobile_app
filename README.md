@@ -42,6 +42,7 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Find a better solution for lint options issues associated to Gradle plugin ([see GitHub issue](https://github.com/flutter/flutter/issues/30598)). Currently, a temporary solution is being applied in `android/app/build.gradle` (`checkReleaseBuilds false)
 - [ ] Update flutter_bloc package. See [migration guide](https://bloclibrary.dev/#/migration)
 - [ ] Sometimes download fails unexpectedly
+- [ ] Improve BLoC accesses by following clean practices. Check [videos](https://www.youtube.com/watch?v=w6XWjpBK4W8&list=PLptHs0ZDJKt_T-oNj_6Q98v-tBnVf-S_o)
 - [ ] Request download permissions beforehand to prevent internal UI state management errors and better user experience
 - [ ] Consider improving API calls error handling. [Check this post](https://medium.com/solidmvp-africa/making-your-api-calls-in-flutter-the-right-way-f0a03e35b4b1)
 - [ ] Improve `import` statements
@@ -50,6 +51,13 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Refactor download icon button's BlocConsumer
 - [ ] Configure Dart analyzer to prevent positive falses ([check this issue](https://github.com/felangel/bloc/issues/587))
 - [ ] Improve internal logic of filters in *lib/src/feature_search_book/widgets/book_list/show_filter_dialog.dart*
+- [ ] Validar posibilidad de obtener más resultado usando conteo total de resultados
+  - [ ] Retornar conteo total desde API
+  - [ ] Usar conteo total para validar posibilidad de obtener más resultados
+  - [ ] Mostrar conteo total en UI
+- [ ] In details, replace AppBar title by search bar
+- [ ] Show table of contents correctly
+- [ ] Implement analytics or logging for better error tracking
 - [ ] Be consistent in transition animations
   - [ ] Home to SearchDelegate vs SearchDelegate to Details
 - [ ] Incluir otros filtros
