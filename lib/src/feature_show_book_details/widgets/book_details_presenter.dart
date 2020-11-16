@@ -92,12 +92,11 @@ class BookDetailsPresenter extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 20),
-                        Text(
-                          bookDetails.description,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
+                        Html(
+                          data: "<div>${bookDetails.description}</div>",
+                          style: {
+                            "div": Style(color: Colors.black),
+                          },
                         ),
                       ],
                     ),
@@ -140,7 +139,7 @@ class BookDetailsPresenter extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "More Info",
+                      "Info",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -151,89 +150,131 @@ class BookDetailsPresenter extends StatelessWidget {
                         1: FlexColumnWidth(),
                       },
                       defaultVerticalAlignment:
-                          TableCellVerticalAlignment.middle,
+                          TableCellVerticalAlignment.baseline,
                       children: [
                         TableRow(
                           children: [
-                            Text("Title"),
+                            Text(
+                              "Title:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.title),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Author(s)"),
+                            Text(
+                              "Author(s):",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.author),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Year"),
+                            Text(
+                              "Year:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.year),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Volume"),
+                            Text(
+                              "Volume:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.volumeInfo),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Series"),
+                            Text(
+                              "Series:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.series),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Edition"),
+                            Text(
+                              "Edition:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.edition),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Publisher"),
+                            Text(
+                              "Publisher:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.publisher),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("City"),
+                            Text(
+                              "City:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.city),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Pages"),
+                            Text(
+                              "Pages:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.pages),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("Language"),
+                            Text(
+                              "Language:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.language),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("ISBN"),
+                            Text(
+                              "ISBN:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.isbn),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("DOI"),
+                            Text(
+                              "DOI:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.doi),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("File Size"),
+                            Text(
+                              "File Size:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.fileSize),
                           ],
                         ),
                         TableRow(
                           children: [
-                            Text("File Extension"),
+                            Text(
+                              "File Extension:",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             renderIfExists(bookDetails.fileExtension),
                           ],
                         ),
