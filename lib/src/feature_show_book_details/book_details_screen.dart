@@ -30,10 +30,6 @@ class BookDetailsScreen extends StatelessWidget {
       floatingActionButton: BlocConsumer<BookBloc, BookState>(
         listener: (context, downloadState) {
           if (downloadState is DownloadInProgress) {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text(downloadState.message)),
-            );
-          } else if (downloadState is DownloadSuccessful) {
             _bookBloc.isDownloading = false;
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text(downloadState.message)),
@@ -47,7 +43,7 @@ class BookDetailsScreen extends StatelessWidget {
         builder: (context, downloadState) {
           return Container(
             margin: EdgeInsets.only(top: 8),
-            child: downloadState is DownloadInProgress
+            child: downloadState is DownloadStarting
                 ? CircularProgressIndicator()
                 : FloatingActionButton(
                     child: Icon(

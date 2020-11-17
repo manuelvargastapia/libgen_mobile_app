@@ -62,19 +62,19 @@ class BookBloc extends Bloc<BookEvent, BookState> {
         }
       }
     } else if (event is DownloadBookEvent) {
-      yield DownloadInProgress(message: 'Downloading book');
+      yield DownloadStarting();
       final response = await bookRepository.getDownloadLink(event.md5);
       if (response is http.Response) {
         if (response.statusCode == 200) {
           final String downloadLink =
               DownloadLinkModel.fromJson(jsonDecode(response.body)['data'])
                   .downloadLink;
-          yield DownloadSuccessful(message: downloadLink);
           await Permission.storage.request();
           Directory downloadsDirectory =
               await DownloadsPathProvider.downloadsDirectory;
           WidgetsFlutterBinding.ensureInitialized();
           if (await Permission.storage.isGranted) {
+            yield DownloadInProgress(message: "Download in progress");
             await FlutterDownloader.enqueue(
               url: downloadLink,
               savedDir: downloadsDirectory.path,
@@ -83,10 +83,10 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             );
           }
         } else {
-          yield DownloadError(error: response.body);
+          yield DownloadError(error: "Download error. Try again later, please");
         }
       } else if (response is String) {
-        yield DownloadError(error: response);
+        yield DownloadError(error: "Download error. Try again later, please");
       }
     }
   }
