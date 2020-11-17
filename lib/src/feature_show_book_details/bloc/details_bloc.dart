@@ -26,10 +26,14 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           final DetailsModel bookDetails = DetailsModel.fromJson(jsonDetails);
           yield DetailsSuccessState(bookDetails: bookDetails);
         } else {
-          yield DetailsErrorState(error: response.body);
+          yield DetailsErrorState(
+            error: "Ups! We messed up. Try again later, please",
+          );
         }
       } else if (response is String) {
-        yield DetailsErrorState(error: response);
+        yield DetailsErrorState(
+          error: "Ups! We messed up. Try again later, please",
+        );
       }
     }
   }

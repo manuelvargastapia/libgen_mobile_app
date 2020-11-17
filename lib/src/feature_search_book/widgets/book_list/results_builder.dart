@@ -39,7 +39,7 @@ class ResultsBuilder extends StatelessWidget {
             }
           } else if (bookState is BookNoMoreResults) {
             Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text('No more results')),
+              SnackBar(content: Text(bookState.message)),
             );
           } else if (bookState is BookSuccessState) {
             _books.addAll(bookState.books);

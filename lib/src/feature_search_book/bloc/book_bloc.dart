@@ -51,10 +51,14 @@ class BookBloc extends Bloc<BookEvent, BookState> {
               );
             }
           } else {
-            yield BookErrorState(error: response.body);
+            yield BookErrorState(
+              error: "Ups! We messed up. Try again later, please",
+            );
           }
         } else if (response is String) {
-          yield BookErrorState(error: response);
+          yield BookErrorState(
+            error: "Ups! We messed up. Try again later, please",
+          );
         }
       }
     } else if (event is DownloadBookEvent) {
