@@ -19,6 +19,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
   final BookRepository bookRepository;
   bool isFetching = false;
   bool isDownloading = false;
+  int _totalCount = 0;
 
   BookBloc({@required this.bookRepository}) : super(BookInitialState());
 
@@ -28,20 +29,33 @@ class BookBloc extends Bloc<BookEvent, BookState> {
       yield BookLoadingState(
         requiresCleaning: event.searchQuery.offset == 0,
       );
-      final response = await bookRepository.getBooks(event.searchQuery);
-      if (response is http.Response) {
-        if (response.statusCode == 200) {
-          final rawBooks = jsonDecode(response.body)['data'] as List;
-          final List<BookModel> books = [];
-          rawBooks.forEach((book) {
-            books.add(BookModel.fromJson(book));
-          });
-          yield BookSuccessState(books: books);
-        } else {
-          yield BookErrorState(error: response.body);
+      if (event.searchQuery.offset > 0 &&
+          event.searchQuery.offset >= _totalCount) {
+        yield BookNoMoreResults(message: "No more results!");
+      } else {
+        final response = await bookRepository.getBooks(event.searchQuery);
+        if (response is http.Response) {
+          if (response.statusCode == 200) {
+            final rawResponse = jsonDecode(response.body);
+            final rawBooks = rawResponse['data'] as List;
+            _totalCount = rawResponse['totalCount'] as int;
+            if (rawBooks.isNotEmpty) {
+              final List<BookModel> books = [];
+              rawBooks.forEach((book) {
+                books.add(BookModel.fromJson(book));
+              });
+              yield BookSuccessState(books: books, totalCount: _totalCount);
+            } else {
+              yield BookNoResultsState(
+                message: 'No results for "${event.searchQuery.searchTerm}"',
+              );
+            }
+          } else {
+            yield BookErrorState(error: response.body);
+          }
+        } else if (response is String) {
+          yield BookErrorState(error: response);
         }
-      } else if (response is String) {
-        yield BookErrorState(error: response);
       }
     } else if (event is DownloadBookEvent) {
       yield DownloadInProgress(message: 'Downloading book');

@@ -17,8 +17,21 @@ class BookLoadingState extends BookState {
 
 class BookSuccessState extends BookState {
   final List<BookModel> books;
+  final int totalCount;
 
-  const BookSuccessState({@required this.books});
+  const BookSuccessState({@required this.books, @required this.totalCount});
+}
+
+class BookNoResultsState extends BookState {
+  final String message;
+
+  const BookNoResultsState({@required this.message});
+}
+
+class BookNoMoreResults extends BookState {
+  final String message;
+
+  const BookNoMoreResults({@required this.message});
 }
 
 class BookErrorState extends BookState {

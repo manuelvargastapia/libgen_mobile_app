@@ -15,6 +15,7 @@ class ResultsBuilder extends StatelessWidget {
   final FiltersModel filters;
   final BookBloc bookBloc;
   final List<BookModel> _books = [];
+  int _totalCount = 0;
   final ScrollController _scrollController = ScrollController();
 
   ResultsBuilder({
@@ -36,14 +37,13 @@ class ResultsBuilder extends StatelessWidget {
             if (bookState.requiresCleaning) {
               _books.clear();
             }
-          } else if (bookState is BookSuccessState &&
-              bookState.books.isEmpty &&
-              _books.isNotEmpty) {
+          } else if (bookState is BookNoMoreResults) {
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text('No more results')),
             );
           } else if (bookState is BookSuccessState) {
             _books.addAll(bookState.books);
+            _totalCount = bookState.totalCount;
             bookBloc.isFetching = false;
             Scaffold.of(context).hideCurrentSnackBar();
           } else if (bookState is BookErrorState) {
@@ -82,10 +82,8 @@ class ResultsBuilder extends StatelessWidget {
                 Text(bookState.error, textAlign: TextAlign.center),
               ],
             );
-          } else if (bookState is BookSuccessState && _books.length == 0) {
-            return Text(
-              "No results for \"$query\"",
-            );
+          } else if (bookState is BookNoResultsState) {
+            return Text(bookState.message);
           }
           return CustomScrollView(
             semanticChildCount: _books.length,
@@ -108,6 +106,23 @@ class ResultsBuilder extends StatelessWidget {
                 }
               }),
             slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 30, top: 20, bottom: 14),
+                  child: RichText(
+                    text: TextSpan(
+                      text: "$_totalCount",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      children: [
+                        TextSpan(
+                          text: " results",
+                          style: DefaultTextStyle.of(context).style,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) => index.isEven
