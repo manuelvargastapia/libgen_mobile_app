@@ -48,13 +48,7 @@ class BookDetailsPresenter extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey[500],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
-              ),
-            ),
+            color: Colors.blueGrey[500],
             child: Column(
               children: [
                 Text(
