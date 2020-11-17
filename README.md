@@ -20,13 +20,13 @@ samples, guidance on mobile development, and a full API reference.
 
 ## TODO
 
-- [ ] Cover URL error handling (ex: when HTTP request fails)
-- [ ] replace any debuggin error message
+- [x] Cover URL error handling (ex: when HTTP request fails)
+- [ ] Replace any debuggin error message
   - [ ] Network errors
-- [ ] Improve lazy loading of fetching books:
-  - [ ] Currently only show a SnackBar without proper feedback about what's going on with the loading, leading to bad experience.
+- [x] Improve lazy loading of fetching books:
+  - [x] Currently only show a SnackBar without proper feedback about what's going on with the loading, leading to bad experience.
   - [x] Clean current book list displayed before execute another query
-  - [ ] Handle properly the case when there are no more books to fetch, to avoid fetching duplicates when the bottom of the screen is falsely reached by the list because of expanding the list tiles
+  - [x] Handle properly the case when there are no more books to fetch, to avoid fetching duplicates when the bottom of the screen is falsely reached by the list because of expanding the list tiles
 - [ ] Find a good solution for constant and impredictable IP changes in Library Genesis (see _/home/manuel/development/libgen_mobile_app/flutter_app/libgen/android/app/src/main/res/xml/network_security_config.xml_ and the [API repo](https://github.com/manuelvargastapia/libgen_api/tree/master) for better understanding)
 - [ ] Implement env files management ([check this package](https://pub.dev/packages/envify))
   - [ ] API URLs
@@ -51,17 +51,18 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Refactor download icon button's BlocConsumer
 - [ ] Configure Dart analyzer to prevent positive falses ([check this issue](https://github.com/felangel/bloc/issues/587))
 - [ ] Improve internal logic of filters in *lib/src/feature_search_book/widgets/book_list/show_filter_dialog.dart*
-- [ ] Validar posibilidad de obtener más resultado usando conteo total de resultados
-  - [ ] Retornar conteo total desde API
-  - [ ] Usar conteo total para validar posibilidad de obtener más resultados
-  - [ ] Mostrar conteo total en UI
+- [x] Validar posibilidad de obtener más resultado usando conteo total de resultados
+  - [x] Retornar conteo total desde API
+  - [x] Usar conteo total para validar posibilidad de obtener más resultados
+  - [x] Mostrar conteo total en UI
 - [ ] In details, replace AppBar title by search bar
 - [ ] Show table of contents correctly
 - [ ] Implement analytics or logging for better error tracking
 - [ ] Be consistent in transition animations
   - [ ] Home to SearchDelegate vs SearchDelegate to Details
-- [ ] Incluir otros filtros
-  - [ ] Orden (asc o desc)
+- [ ] Consider make the filtering more user friendly
+- [x] Include more filters
+  - [x] Order (asc or desc)
 - [ ] Consider making only one API request instead of two (general search plus details), because potential cost-by-time constraint at the moment of release
   - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
 - [ ] Be consisten in nomenclature choices ([check this guide](https://dart.dev/guides/language/effective-dart))
