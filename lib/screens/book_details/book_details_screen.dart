@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/blocs/book_bloc.dart';
-import 'package:libgen/src/blocs/events/book_events.dart';
-import 'package:libgen/src/blocs/states/book_states.dart';
-import 'package:libgen/src/domain/book_model.dart';
-import 'package:libgen/src/screens/book_details/widgets/book_details_consumer.dart';
+
+import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/blocs/events/book_events.dart';
+import 'package:libgen/blocs/states/book_states.dart';
+import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/screens/book_details/widgets/book_details_consumer.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final BookModel book;

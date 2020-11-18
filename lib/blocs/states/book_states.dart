@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:libgen/src/domain/book_model.dart';
+
+import 'package:libgen/domain/book_model.dart';
 
 abstract class BookState {
   const BookState();

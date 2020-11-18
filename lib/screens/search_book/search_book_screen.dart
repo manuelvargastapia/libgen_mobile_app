@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/blocs/book_bloc.dart';
 
+import 'package:libgen/blocs/book_bloc.dart';
 import 'widgets/book_list/book_search_delegate.dart';
 
 class SearchBookScreen extends StatelessWidget {

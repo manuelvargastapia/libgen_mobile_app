@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/src/blocs/book_bloc.dart';
-import 'package:libgen/src/blocs/events/book_events.dart';
-import 'package:libgen/src/domain/filters_model.dart';
-import 'package:libgen/src/domain/search_query_model.dart';
+
+import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/blocs/events/book_events.dart';
+import 'package:libgen/domain/filters_model.dart';
+import 'package:libgen/domain/search_query_model.dart';
 
 Future<FiltersModel> showFilterDialog({
   @required BuildContext context,

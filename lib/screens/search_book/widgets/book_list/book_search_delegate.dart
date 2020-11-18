@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:libgen/src/blocs/book_bloc.dart';
-import 'package:libgen/src/domain/filters_model.dart';
-import 'package:libgen/src/domain/suggestion.dart';
 
+import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/domain/filters_model.dart';
+import 'package:libgen/domain/suggestion.dart';
 import 'results_builder.dart';
 import 'show_filter_dialog.dart';
 

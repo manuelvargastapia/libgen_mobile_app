@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/src/domain/book_model.dart';
-import 'package:libgen/src/screens/book_details/book_details_screen.dart';
+
+import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/screens/book_details/book_details_screen.dart';
 
 class BookListItem extends StatelessWidget {
   final BookModel book;

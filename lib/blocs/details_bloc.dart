@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/blocs/events/details_event.dart';
-import 'package:libgen/src/blocs/states/details_state.dart';
-import 'package:libgen/src/domain/details_model.dart';
-import 'package:libgen/src/data/details_repository.dart';
-
 import 'package:http/http.dart' as http;
+
+import 'package:libgen/blocs/events/details_event.dart';
+import 'package:libgen/blocs/states/details_state.dart';
+import 'package:libgen/domain/details_model.dart';
+import 'package:libgen/data/details_repository.dart';
 
 class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   final BookDetailsRepository repository;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/style.dart';
-import 'package:libgen/src/domain/details_model.dart';
-import 'package:libgen/src/screens/book_details/widgets/image_with_placeholder.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+import 'package:libgen/domain/details_model.dart';
+import 'package:libgen/screens/book_details/widgets/image_with_placeholder.dart';
 
 class BookDetailsPresenter extends StatelessWidget {
   final DetailsModel bookDetails;
