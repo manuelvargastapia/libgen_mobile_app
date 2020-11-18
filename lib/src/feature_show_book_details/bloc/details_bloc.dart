@@ -18,7 +18,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   @override
   Stream<DetailsState> mapEventToState(DetailsEvent event) async* {
     if (event is DetailsFetchEvent) {
-      yield DetailsLoadingState(message: 'Loading details');
+      yield DetailsLoadingState();
       final response = await repository.getBookDetails(event.bookId);
       if (response is http.Response) {
         if (response.statusCode == 200) {
@@ -26,10 +26,14 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           final DetailsModel bookDetails = DetailsModel.fromJson(jsonDetails);
           yield DetailsSuccessState(bookDetails: bookDetails);
         } else {
-          yield DetailsErrorState(error: response.body);
+          yield DetailsErrorState(
+            error: "Ups! We messed up. Try again later, please",
+          );
         }
       } else if (response is String) {
-        yield DetailsErrorState(error: response);
+        yield DetailsErrorState(
+          error: "Ups! We messed up. Try again later, please",
+        );
       }
     }
   }

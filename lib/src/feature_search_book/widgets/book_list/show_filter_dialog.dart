@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
+import 'package:libgen/src/feature_search_book/models/filters_model.dart';
+import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 
-Future<void> showFilterDialog(
-  BuildContext context,
-  void Function(String newSearchIn, String newSortBy) updateStateCallback,
-) {
+Future<FiltersModel> showFilterDialog({
+  @required BuildContext context,
+  @required String currentQuery,
+  @required FiltersModel currentFilters,
+  @required BookBloc bookBloc,
+}) {
   Map<String, String> _sortByValues = {
     'def': 'Relevance',
     'title': 'Title',
-    'publisher': 'Publisher',
     'year': 'Year',
     'pages': 'Pages',
-    'language': 'Language',
     'filesize': 'File size',
-    'extension': 'File extension',
   };
 
   Map<String, String> _searchInValues = {
@@ -21,22 +24,68 @@ Future<void> showFilterDialog(
     'author': 'Author',
     'series': 'Series',
     'publisher': 'Publisher',
-    'year': 'Year',
     'identifier': 'ISBN',
     'md5': 'MD5',
-    'extension': 'File extension'
   };
 
-  String _sortBy = _sortByValues['def'];
-  String _searchIn = _searchInValues['def'];
+  String _sortBy = _sortByValues[currentFilters.sortBy];
+  String _searchIn = _searchInValues[currentFilters.searchIn];
+  bool _reverseOrder = currentFilters.reverseOrder;
 
-  return showDialog<void>(
+  return showDialog<FiltersModel>(
     context: context,
+    barrierDismissible: false,
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
-            title: Center(child: Text("Filter")),
+            title: Text("Filter"),
+            actions: [
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop(FiltersModel(
+                    sortBy: currentFilters.sortBy,
+                    searchIn: currentFilters.searchIn,
+                    reverseOrder: currentFilters.reverseOrder,
+                  ));
+                },
+              ),
+              FlatButton(
+                child: Text('Apply'),
+                onPressed: () {
+                  String sortByKey = _sortByValues.keys.firstWhere(
+                    (key) => _sortByValues[key] == _sortBy,
+                    orElse: () => null,
+                  );
+                  String searchInKey = _searchInValues.keys.firstWhere(
+                    (key) => _searchInValues[key] == _searchIn,
+                    orElse: () => null,
+                  );
+                  Navigator.of(context).pop(
+                    FiltersModel(
+                      sortBy: sortByKey,
+                      searchIn: searchInKey,
+                      reverseOrder: _reverseOrder,
+                    ),
+                  );
+                  if (currentQuery != '') {
+                    bookBloc.add(
+                      BookFetchEvent(
+                        SearchQueryModel(
+                          searchTerm: currentQuery,
+                          filters: FiltersModel(
+                            searchIn: searchInKey,
+                            sortBy: sortByKey,
+                            reverseOrder: _reverseOrder,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
             content: SingleChildScrollView(
               child: Column(
                 children: [
@@ -45,7 +94,7 @@ Future<void> showFilterDialog(
                     child: Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
+                          padding: EdgeInsets.only(right: 16.0),
                           child: Text("Sort by"),
                         ),
                         Expanded(
@@ -78,14 +127,13 @@ Future<void> showFilterDialog(
                     child: Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Text('Search in'),
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Text('Type'),
                         ),
                         Expanded(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
-                              hint: Text("Search in"),
                               items: _searchInValues.values
                                   .map(
                                     (String value) => DropdownMenuItem(
@@ -106,21 +154,25 @@ Future<void> showFilterDialog(
                       ],
                     ),
                   ),
-                  Center(
-                    child: RaisedButton(
-                        child: Text('Apply'),
-                        onPressed: () {
-                          String sortByKey = _sortByValues.keys.firstWhere(
-                            (key) => _sortByValues[key] == _sortBy,
-                            orElse: () => null,
-                          );
-                          String searchInKey = _searchInValues.keys.firstWhere(
-                            (key) => _searchInValues[key] == _searchIn,
-                            orElse: () => null,
-                          );
-                          updateStateCallback(searchInKey, sortByKey);
-                        }),
-                  )
+                  Container(
+                    padding: EdgeInsets.only(top: 8, right: 10),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Text('Reverse order'),
+                        ),
+                        Checkbox(
+                          value: _reverseOrder,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _reverseOrder = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

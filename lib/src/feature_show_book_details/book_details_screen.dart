@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/feature_display_book/bloc/book_bloc.dart';
-import 'package:libgen/src/feature_display_book/bloc/book_event.dart';
-import 'package:libgen/src/feature_display_book/bloc/book_state.dart';
-import 'package:libgen/src/feature_display_book/models/book_model.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
+import 'package:libgen/src/feature_search_book/bloc/book_state.dart';
+import 'package:libgen/src/feature_search_book/models/book_model.dart';
 import 'package:libgen/src/feature_show_book_details/widgets/book_details_consumer.dart';
 
 class BookDetailsScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class BookDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(book.title),
+        title: Text(book.title ?? "(no title)"),
         actions: [],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -30,10 +30,6 @@ class BookDetailsScreen extends StatelessWidget {
       floatingActionButton: BlocConsumer<BookBloc, BookState>(
         listener: (context, downloadState) {
           if (downloadState is DownloadInProgress) {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text(downloadState.message)),
-            );
-          } else if (downloadState is DownloadSuccessful) {
             _bookBloc.isDownloading = false;
             Scaffold.of(context).showSnackBar(
               SnackBar(content: Text(downloadState.message)),
@@ -47,7 +43,7 @@ class BookDetailsScreen extends StatelessWidget {
         builder: (context, downloadState) {
           return Container(
             margin: EdgeInsets.only(top: 8),
-            child: downloadState is DownloadInProgress
+            child: downloadState is DownloadStarting
                 ? CircularProgressIndicator()
                 : FloatingActionButton(
                     child: Icon(

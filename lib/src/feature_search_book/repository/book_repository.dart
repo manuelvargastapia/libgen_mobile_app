@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
-import 'package:libgen/src/feature_display_book/models/search_query_model.dart';
+import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
 
 const String prodURL = 'https://polar-temple-33235.herokuapp.com';
 const String devURL = 'http://10.0.2.2:8000';
@@ -17,11 +17,9 @@ class BookRepository {
   }
 
   Future<dynamic> getBooks(SearchQueryModel searchQuery) async {
-    print(
-        '${searchQuery.offset}, ${searchQuery.searchIn}, ${searchQuery.searchTerm}, ${searchQuery.sortBy}');
     try {
       return await http.get(
-        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.searchIn}&sortBy=${searchQuery.sortBy}',
+        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn}&sortBy=${searchQuery.filters.sortBy}&reverse=${searchQuery.filters.reverseOrder}',
       );
     } catch (e) {
       return e.toString();
