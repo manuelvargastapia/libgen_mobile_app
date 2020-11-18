@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_search_book/models/filters_model.dart';
+import 'package:libgen/src/feature_search_book/models/suggestion.dart';
 import 'package:libgen/src/feature_search_book/widgets/book_list/results_builder.dart';
 
 import 'show_filter_dialog.dart';
@@ -55,13 +58,47 @@ class BookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Column();
+    final suggestionsBox = Hive.box('suggestions');
+    return ValueListenableBuilder(
+        valueListenable: suggestionsBox.listenable(),
+        builder: (context, suggestionsBox, child) {
+          return ListView.builder(
+            itemCount: suggestionsBox.length,
+            itemBuilder: (context, index) {
+              final suggestion = suggestionsBox.getAt(index) as Suggestion;
+              return ListTile(
+                leading: Icon(Icons.history_edu_rounded),
+                title: Text(suggestion.query),
+                onTap: () {
+                  query = suggestion.query;
+                  showResults(context);
+                },
+                trailing: IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    size: 18,
+                  ),
+                  onPressed: () {
+                    suggestionsBox.deleteAt(index);
+                  },
+                ),
+              );
+            },
+          );
+        });
   }
 
   @override
   Widget buildResults(BuildContext context) {
     if (query.trim().length < 4) {
       return Container();
+    }
+
+    final suggestionsBox = Hive.box('suggestions');
+    final suggestion = Suggestion(query.trim());
+
+    if (!suggestionsBox.values.contains(suggestion)) {
+      suggestionsBox.add(Suggestion(query.trim()));
     }
 
     return ResultsBuilder(

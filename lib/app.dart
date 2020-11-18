@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
 import 'package:libgen/src/feature_search_book/search_book_screen.dart';
 import 'package:libgen/src/feature_search_book/repository/book_repository.dart';
@@ -12,7 +13,19 @@ class LibGenApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Lib Gen App',
         theme: ThemeData.dark(),
-        home: SearchBookScreen(),
+        home: FutureBuilder(
+            future: Hive.openBox("suggestions"),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                } else {
+                  return SearchBookScreen();
+                }
+              } else {
+                return Scaffold();
+              }
+            }),
       ),
     );
   }

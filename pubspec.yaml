@@ -41,6 +41,8 @@ dependencies:
   permission_handler: ^5.0.1+1
   transparent_image: ^1.0.0
   flutter_html: ^1.0.2
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
 
 
 dev_dependencies:
@@ -50,6 +52,8 @@ dev_dependencies:
   # Project-specific dependencies
   build_runner: ^1.10.3
   json_serializable: ^3.5.0
+  hive_generator: ^0.8.2
+  equatable: ^1.2.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
