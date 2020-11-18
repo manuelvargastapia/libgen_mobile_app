@@ -21,8 +21,10 @@ samples, guidance on mobile development, and a full API reference.
 ## TODO
 
 - [x] Cover URL error handling (ex: when HTTP request fails)
-- [ ] Replace any debuggin error message
-  - [ ] Network errors
+- [x] Implement suggestions
+- [x] Replace any debuggin error message
+  - [x] Network errors
+  - [x] Downloading events
 - [x] Improve lazy loading of fetching books:
   - [x] Currently only show a SnackBar without proper feedback about what's going on with the loading, leading to bad experience.
   - [x] Clean current book list displayed before execute another query
@@ -59,6 +61,7 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Show table of contents correctly
 - [ ] Implement analytics or logging for better error tracking
 - [ ] Be consistent in transition animations
+- [ ] Improve handling of < 4 characters
   - [ ] Home to SearchDelegate vs SearchDelegate to Details
 - [ ] Consider make the filtering more user friendly
 - [x] Include more filters
