@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
-import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
-import 'package:libgen/src/feature_search_book/bloc/book_state.dart';
-import 'package:libgen/src/feature_search_book/models/book_model.dart';
-import 'package:libgen/src/feature_search_book/models/filters_model.dart';
-import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
-import 'package:libgen/src/feature_search_book/widgets/book_list_item/book_list_item.dart';
+import 'package:libgen/src/blocs/book_bloc.dart';
+import 'package:libgen/src/blocs/events/book_events.dart';
+import 'package:libgen/src/blocs/states/book_states.dart';
+import 'package:libgen/src/domain/book_model.dart';
+import 'package:libgen/src/domain/filters_model.dart';
+import 'package:libgen/src/domain/search_query_model.dart';
 
 import 'dart:math' as math;
+
+import 'package:libgen/src/screens/search_book/widgets/book_list_item/book_list_item.dart';
 
 class ResultsBuilder extends StatelessWidget {
   final String query;

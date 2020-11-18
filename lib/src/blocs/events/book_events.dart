@@ -1,4 +1,4 @@
-import 'package:libgen/src/feature_search_book/models/search_query_model.dart';
+import 'package:libgen/src/domain/search_query_model.dart';
 
 abstract class BookEvent {
   const BookEvent();

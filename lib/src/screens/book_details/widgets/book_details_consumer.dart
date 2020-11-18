@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:libgen/src/feature_show_book_details/bloc/details_bloc.dart';
-import 'package:libgen/src/feature_show_book_details/bloc/details_event.dart';
-import 'package:libgen/src/feature_show_book_details/bloc/details_state.dart';
-import 'package:libgen/src/feature_show_book_details/repository/details_repository.dart';
-import 'package:libgen/src/feature_show_book_details/widgets/book_details_presenter.dart';
+import 'package:libgen/src/blocs/details_bloc.dart';
+import 'package:libgen/src/blocs/events/details_event.dart';
+import 'package:libgen/src/blocs/states/details_state.dart';
+import 'package:libgen/src/data/details_repository.dart';
+import 'package:libgen/src/screens/book_details/widgets/book_details_presenter.dart';
 
 class BookDetailsConsumer extends StatelessWidget {
   final int bookId;

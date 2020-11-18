@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:libgen/src/feature_show_book_details/models/details_model.dart';
+import 'package:libgen/src/domain/details_model.dart';
 
 abstract class DetailsState {
   const DetailsState();

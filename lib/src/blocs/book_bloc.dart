@@ -5,15 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:libgen/src/feature_search_book/bloc/book_event.dart';
-import 'package:libgen/src/feature_search_book/bloc/book_state.dart';
-import 'package:libgen/src/feature_search_book/models/book_model.dart';
-import 'package:libgen/src/feature_search_book/models/download_link_model.dart';
-import 'package:libgen/src/feature_search_book/repository/book_repository.dart';
+import 'package:libgen/src/domain/book_model.dart';
+import 'package:libgen/src/domain/download_link_model.dart';
+import 'package:libgen/src/data/book_repository.dart';
 
 import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'events/book_events.dart';
+import 'states/book_states.dart';
 
 class BookBloc extends Bloc<BookEvent, BookState> {
   final BookRepository bookRepository;

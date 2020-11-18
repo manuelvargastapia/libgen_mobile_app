@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:libgen/src/feature_search_book/bloc/book_bloc.dart';
-import 'package:libgen/src/feature_search_book/search_book_screen.dart';
-import 'package:libgen/src/feature_search_book/repository/book_repository.dart';
+import 'package:libgen/src/blocs/book_bloc.dart';
+import 'package:libgen/src/data/book_repository.dart';
+
+import 'src/screens/search_book/search_book_screen.dart';
 
 class LibGenApp extends StatelessWidget {
   @override

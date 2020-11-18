@@ -3,7 +3,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:libgen/app.dart';
-import 'package:libgen/src/feature_search_book/models/suggestion.dart';
+
+import 'src/domain/suggestion.dart';
 
 void main() async {
   await FlutterDownloader.initialize(debug: true);
