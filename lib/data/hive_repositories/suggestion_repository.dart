@@ -7,7 +7,14 @@ class SuggestionRepository implements HiveRepository<Suggestion> {
   @override
   Box<Suggestion> box;
 
-  SuggestionRepository(this.box);
+  static final SuggestionRepository _repository = SuggestionRepository._();
+
+  SuggestionRepository._();
+
+  factory SuggestionRepository(Box<Suggestion> box) {
+    _repository.box = box;
+    return _repository;
+  }
 
   @override
   Future<Either<String, int>> add(Suggestion object) async {
