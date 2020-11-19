@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:libgen/domain/book_model.dart';
 
-import 'package:libgen/domain/details_model.dart';
 import 'package:libgen/screens/book_details/widgets/image_with_placeholder.dart';
 
 class BookDetailsPresenter extends StatelessWidget {
-  final DetailsModel bookDetails;
+  final BookModel book;
 
-  BookDetailsPresenter({@required this.bookDetails});
+  BookDetailsPresenter({@required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class BookDetailsPresenter extends StatelessWidget {
           Container(
             height: MediaQuery.of(context).size.height / 2,
             child: ImageWidgetPlaceholder(
-              image: NetworkImage(bookDetails.coverUrl),
+              image: NetworkImage(book.coverUrl),
               placeholder: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
@@ -27,7 +27,7 @@ class BookDetailsPresenter extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      bookDetails.title ?? "(no title)",
+                      book.title ?? "(no title)",
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 20),
@@ -35,9 +35,9 @@ class BookDetailsPresenter extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    if (bookDetails.author != null)
+                    if (book.author != null)
                       Text(
-                        bookDetails.author,
+                        book.author,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 14),
@@ -53,23 +53,23 @@ class BookDetailsPresenter extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  bookDetails.title ?? "(no title)",
+                  book.title ?? "(no title)",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 14),
-                if (bookDetails.author != null)
+                if (book.author != null)
                   Text(
-                    "by ${bookDetails.author}",
+                    "by ${book.author}",
                     style: TextStyle(fontSize: 12),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     textAlign: TextAlign.center,
                   ),
                 SizedBox(height: 24),
-                if (bookDetails.description != null)
+                if (book.description != null)
                   Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -88,7 +88,7 @@ class BookDetailsPresenter extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         Html(
-                          data: "<div>${bookDetails.description}</div>",
+                          data: "<div>${book.description}</div>",
                           style: {
                             "div": Style(color: Colors.black),
                           },
@@ -97,7 +97,7 @@ class BookDetailsPresenter extends StatelessWidget {
                     ),
                   ),
                 SizedBox(height: 24),
-                if (bookDetails.contents != null)
+                if (book.contents != null)
                   Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -116,7 +116,7 @@ class BookDetailsPresenter extends StatelessWidget {
                         ),
                         SizedBox(height: 20),
                         Html(
-                          data: "<div>${bookDetails.contents}</div>",
+                          data: "<div>${book.contents}</div>",
                           style: {
                             "div": Style(color: Colors.black),
                           },
@@ -153,7 +153,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Title:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.title),
+                            renderIfExists(book.title),
                           ],
                         ),
                         TableRow(
@@ -162,7 +162,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Author(s):",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.author),
+                            renderIfExists(book.author),
                           ],
                         ),
                         TableRow(
@@ -171,7 +171,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Year:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.year),
+                            renderIfExists(book.year),
                           ],
                         ),
                         TableRow(
@@ -180,7 +180,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Volume:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.volumeInfo),
+                            renderIfExists(book.volumeInfo),
                           ],
                         ),
                         TableRow(
@@ -189,7 +189,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Series:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.series),
+                            renderIfExists(book.series),
                           ],
                         ),
                         TableRow(
@@ -198,7 +198,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Edition:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.edition),
+                            renderIfExists(book.edition),
                           ],
                         ),
                         TableRow(
@@ -207,7 +207,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Publisher:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.publisher),
+                            renderIfExists(book.publisher),
                           ],
                         ),
                         TableRow(
@@ -216,7 +216,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "City:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.city),
+                            renderIfExists(book.city),
                           ],
                         ),
                         TableRow(
@@ -225,7 +225,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Pages:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.pages),
+                            renderIfExists(book.pages),
                           ],
                         ),
                         TableRow(
@@ -234,7 +234,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "Language:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.language),
+                            renderIfExists(book.language),
                           ],
                         ),
                         TableRow(
@@ -243,7 +243,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "ISBN:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.isbn),
+                            renderIfExists(book.isbn),
                           ],
                         ),
                         TableRow(
@@ -252,7 +252,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "DOI:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.doi),
+                            renderIfExists(book.doi),
                           ],
                         ),
                         TableRow(
@@ -261,7 +261,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "File Size:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.fileSize),
+                            renderIfExists(book.fileSize),
                           ],
                         ),
                         TableRow(
@@ -270,7 +270,7 @@ class BookDetailsPresenter extends StatelessWidget {
                               "File Extension:",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            renderIfExists(bookDetails.fileExtension),
+                            renderIfExists(book.fileExtension),
                           ],
                         ),
                       ],

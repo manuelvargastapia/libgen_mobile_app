@@ -22,7 +22,7 @@ class BookDetailsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: BookDetailsConsumer(bookId: book.id),
+      body: BookDetailsConsumer(book: book),
       floatingActionButton: DownloadButton(book.md5),
     );
   }

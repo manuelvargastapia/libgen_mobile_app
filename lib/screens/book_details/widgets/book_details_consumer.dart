@@ -1,63 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:libgen/blocs/details_bloc.dart';
-import 'package:libgen/blocs/events/details_event.dart';
-import 'package:libgen/blocs/states/details_state.dart';
-import 'package:libgen/data/details_repository.dart';
+import 'package:libgen/domain/book_model.dart';
 import 'package:libgen/screens/book_details/widgets/book_details_presenter.dart';
 
 class BookDetailsConsumer extends StatelessWidget {
-  final int bookId;
+  final BookModel book;
 
-  BookDetailsConsumer({@required this.bookId});
+  BookDetailsConsumer({@required this.book});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: BlocProvider(
-        create: (BuildContext context) =>
-            DetailsBloc(repository: BookDetailsRepository())
-              ..add(DetailsFetchEvent(bookId)),
-        child: BlocConsumer<DetailsBloc, DetailsState>(
-          listener: (context, detailsState) {
-            if (detailsState is DetailsErrorState) {
-              BlocProvider.of<DetailsBloc>(context).isFetching = false;
-            }
-          },
-          builder: (context, detailsState) {
-            final DetailsBloc _bloc = BlocProvider.of<DetailsBloc>(context);
-            if (detailsState is DetailsInitialState ||
-                detailsState is DetailsLoadingState) {
-              return CircularProgressIndicator();
-            } else if (detailsState is DetailsErrorState) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      _bloc
-                        ..isFetching = true
-                        ..add(
-                          DetailsFetchEvent(bookId),
-                        );
-                    },
-                    icon: Icon(Icons.refresh),
-                  ),
-                  SizedBox(height: 15),
-                  Text(detailsState.error, textAlign: TextAlign.center),
-                ],
-              );
-            }
-            BlocProvider.of<DetailsBloc>(context).isFetching = false;
-            Scaffold.of(context).hideCurrentSnackBar();
-            return BookDetailsPresenter(
-              bookDetails: (detailsState as DetailsSuccessState).bookDetails,
-            );
-          },
-        ),
-      ),
-    );
+    return BookDetailsPresenter(book: book);
   }
 }
