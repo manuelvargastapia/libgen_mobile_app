@@ -7,6 +7,7 @@ import 'app.dart';
 import 'domain/suggestion.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
   await Hive.initFlutter();
   Hive.registerAdapter(SuggestionAdapter());

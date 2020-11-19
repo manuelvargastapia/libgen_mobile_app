@@ -72,7 +72,6 @@ class BookBloc extends Bloc<BookEvent, BookState> {
           await Permission.storage.request();
           Directory downloadsDirectory =
               await DownloadsPathProvider.downloadsDirectory;
-          WidgetsFlutterBinding.ensureInitialized();
           if (await Permission.storage.isGranted) {
             yield DownloadInProgress(message: "Download in progress");
             await FlutterDownloader.enqueue(
