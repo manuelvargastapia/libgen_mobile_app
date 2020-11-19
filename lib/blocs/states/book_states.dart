@@ -40,18 +40,3 @@ class BookErrorState extends BookState {
 
   const BookErrorState({@required this.error});
 }
-
-class DownloadStarting extends BookState {
-  const DownloadStarting();
-}
-
-class DownloadInProgress extends BookState {
-  final String message;
-  const DownloadInProgress({@required this.message});
-}
-
-class DownloadError extends BookState {
-  final String error;
-
-  const DownloadError({@required this.error});
-}

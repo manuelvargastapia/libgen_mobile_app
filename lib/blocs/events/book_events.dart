@@ -8,8 +8,3 @@ class BookFetchEvent extends BookEvent {
   final SearchQueryModel searchQuery;
   const BookFetchEvent(this.searchQuery);
 }
-
-class DownloadBookEvent extends BookEvent {
-  final String md5;
-  const DownloadBookEvent(this.md5);
-}

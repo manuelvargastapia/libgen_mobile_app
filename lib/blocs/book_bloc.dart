@@ -1,16 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:downloads_path_provider/downloads_path_provider.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'package:libgen/domain/book_model.dart';
-import 'package:libgen/domain/download_link_model.dart';
 import 'package:libgen/data/book_repository.dart';
 import 'events/book_events.dart';
 import 'states/book_states.dart';
@@ -18,7 +13,6 @@ import 'states/book_states.dart';
 class BookBloc extends Bloc<BookEvent, BookState> {
   final BookRepository bookRepository;
   bool isFetching = false;
-  bool isDownloading = false;
   int _totalCount = 0;
 
   BookBloc({@required this.bookRepository}) : super(BookInitialState());
@@ -60,32 +54,6 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             error: "Ups! We messed up. Try again later, please",
           );
         }
-      }
-    } else if (event is DownloadBookEvent) {
-      yield DownloadStarting();
-      final response = await bookRepository.getDownloadLink(event.md5);
-      if (response is http.Response) {
-        if (response.statusCode == 200) {
-          final String downloadLink =
-              DownloadLinkModel.fromJson(jsonDecode(response.body)['data'])
-                  .downloadLink;
-          await Permission.storage.request();
-          Directory downloadsDirectory =
-              await DownloadsPathProvider.downloadsDirectory;
-          if (await Permission.storage.isGranted) {
-            yield DownloadInProgress(message: "Download in progress");
-            await FlutterDownloader.enqueue(
-              url: downloadLink,
-              savedDir: downloadsDirectory.path,
-              showNotification: true,
-              openFileFromNotification: true,
-            );
-          }
-        } else {
-          yield DownloadError(error: "Download error. Try again later, please");
-        }
-      } else if (response is String) {
-        yield DownloadError(error: "Download error. Try again later, please");
       }
     }
   }
