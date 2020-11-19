@@ -70,3 +70,6 @@ samples, guidance on mobile development, and a full API reference.
   - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
 - [ ] Be consisten in nomenclature choices ([check this guide](https://dart.dev/guides/language/effective-dart))
   - [ ] `show_filter_dialog.dart` should start with a noun phrase
+- [ ] Implement lazy boxes in Hive for large data sets
+  - [ ] Portentially large data set of suggestions
+  - [ ] API data cached

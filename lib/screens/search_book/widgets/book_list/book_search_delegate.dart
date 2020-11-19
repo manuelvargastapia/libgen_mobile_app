@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/suggestion.dart';
+import 'package:libgen/screens/search_book/widgets/book_list/suggestions_builder.dart';
 import 'results_builder.dart';
 import 'show_filter_dialog.dart';
 
@@ -15,8 +15,9 @@ class BookSearchDelegate extends SearchDelegate {
   FiltersModel filters = FiltersModel();
 
   BookBloc bookBloc;
+  HiveBloc<Suggestion> hiveBloc;
 
-  BookSearchDelegate({@required this.bookBloc});
+  BookSearchDelegate({@required this.bookBloc, @required this.hiveBloc});
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -58,34 +59,17 @@ class BookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionsBox = Hive.box('suggestions');
-    return ValueListenableBuilder(
-        valueListenable: suggestionsBox.listenable(),
-        builder: (context, suggestionsBox, child) {
-          return ListView.builder(
-            itemCount: suggestionsBox.length,
-            itemBuilder: (context, index) {
-              final suggestion = suggestionsBox.getAt(index) as Suggestion;
-              return ListTile(
-                leading: Icon(Icons.history_edu_rounded),
-                title: Text(suggestion.query),
-                onTap: () {
-                  query = suggestion.query;
-                  showResults(context);
-                },
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    size: 18,
-                  ),
-                  onPressed: () {
-                    suggestionsBox.deleteAt(index);
-                  },
-                ),
-              );
-            },
-          );
-        });
+    final List<Suggestion> _suggestions = [];
+    _suggestions.addAll(hiveBloc.repository.box.values);
+
+    return SuggestionsBuilder(
+      hiveBloc: hiveBloc,
+      onSelected: (Suggestion suggestion) {
+        query = suggestion.query;
+        showResults(context);
+      },
+      suggestions: _suggestions,
+    );
   }
 
   @override
@@ -94,17 +78,11 @@ class BookSearchDelegate extends SearchDelegate {
       return Container();
     }
 
-    final suggestionsBox = Hive.box('suggestions');
-    final suggestion = Suggestion(query.trim());
-
-    if (!suggestionsBox.values.contains(suggestion)) {
-      suggestionsBox.add(Suggestion(query.trim()));
-    }
-
     return ResultsBuilder(
       query: query,
       filters: filters,
       bookBloc: bookBloc,
+      hiveBloc: hiveBloc,
     );
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/blocs/hive_bloc.dart';
+import 'package:libgen/domain/suggestion.dart';
 import 'widgets/book_list/book_search_delegate.dart';
 
 class SearchBookScreen extends StatelessWidget {
@@ -39,6 +41,9 @@ class SearchBookScreen extends StatelessWidget {
                         context: context,
                         delegate: BookSearchDelegate(
                           bookBloc: BlocProvider.of<BookBloc>(context),
+                          hiveBloc: BlocProvider.of<HiveBloc<Suggestion>>(
+                            context,
+                          ),
                         ),
                       );
                     },
