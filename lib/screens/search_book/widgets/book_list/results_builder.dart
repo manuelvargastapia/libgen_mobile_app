@@ -70,98 +70,114 @@ class ResultsBuilder extends StatelessWidget {
                   bookState is BookLoadingState && _books.isEmpty) {
                 return CircularProgressIndicator();
               } else if (bookState is BookErrorState && _books.isEmpty) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        bookBloc
-                          ..isFetching = true
-                          ..add(
-                            BookFetchEvent(
-                              SearchQueryModel(
-                                searchTerm: query,
-                                offset: _books.length,
-                                filters: this.filters,
-                              ),
-                            ),
-                          );
-                      },
-                      icon: Icon(Icons.refresh),
-                    ),
-                    SizedBox(height: 15),
-                    Text(bookState.error, textAlign: TextAlign.center),
-                  ],
-                );
+                return _buildErrorMessage(bookState.error);
               } else if (bookState is BookNoResultsState) {
                 return Text(bookState.message);
               }
-              return CustomScrollView(
-                semanticChildCount: _books.length,
-                controller: _scrollController
-                  ..addListener(() {
-                    if (_scrollController.offset ==
-                            _scrollController.position.maxScrollExtent &&
-                        !bookBloc.isFetching) {
-                      bookBloc
-                        ..isFetching = true
-                        ..add(
-                          BookFetchEvent(
-                            SearchQueryModel(
-                              searchTerm: query,
-                              offset: _books.length,
-                              filters: this.filters,
-                            ),
-                          ),
-                        );
-                    }
-                  }),
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 30, top: 20, bottom: 14),
-                      child: RichText(
-                        text: TextSpan(
-                          text: "$_totalCount",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          children: [
-                            TextSpan(
-                              text: " results",
-                              style: DefaultTextStyle.of(context).style,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => index.isEven
-                          ? BookListItem(_books[index ~/ 2])
-                          : Divider(
-                              height: 30,
-                              indent: 20,
-                              endIndent: 20,
-                            ),
-                      semanticIndexCallback: (widget, localIndex) =>
-                          localIndex.isEven ? localIndex ~/ 2 : null,
-                      childCount: math.max(0, _books.length * 2 - 1),
-                    ),
-                  ),
-                  if (bookState is BookLoadingState && _books.isNotEmpty)
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 20),
-                        child: Center(child: CircularProgressIndicator()),
-                      ),
-                    )
-                ],
+              return _buildResultsList(
+                context: context,
+                totalCount: _totalCount,
+                bookState: bookState,
               );
             },
           ),
         );
       },
+    );
+  }
+
+  Widget _buildErrorMessage(String errorMessage) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {
+            bookBloc
+              ..isFetching = true
+              ..add(
+                BookFetchEvent(
+                  SearchQueryModel(
+                    searchTerm: query,
+                    offset: _books.length,
+                    filters: this.filters,
+                  ),
+                ),
+              );
+          },
+          icon: Icon(Icons.refresh),
+        ),
+        SizedBox(height: 15),
+        Text(errorMessage, textAlign: TextAlign.center),
+      ],
+    );
+  }
+
+  Widget _buildResultsList({
+    BuildContext context,
+    int totalCount,
+    BookState bookState,
+  }) {
+    return CustomScrollView(
+      semanticChildCount: _books.length,
+      controller: _scrollController
+        ..addListener(() {
+          if (_scrollController.offset ==
+                  _scrollController.position.maxScrollExtent &&
+              !bookBloc.isFetching) {
+            bookBloc
+              ..isFetching = true
+              ..add(
+                BookFetchEvent(
+                  SearchQueryModel(
+                    searchTerm: query,
+                    offset: _books.length,
+                    filters: this.filters,
+                  ),
+                ),
+              );
+          }
+        }),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.only(left: 30, top: 20, bottom: 14),
+            child: RichText(
+              text: TextSpan(
+                text: "$totalCount",
+                style: TextStyle(fontWeight: FontWeight.bold),
+                children: [
+                  TextSpan(
+                    text: " results",
+                    style: DefaultTextStyle.of(context).style,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => index.isEven
+                ? BookListItem(_books[index ~/ 2])
+                : Divider(
+                    height: 30,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
+            semanticIndexCallback: (widget, localIndex) =>
+                localIndex.isEven ? localIndex ~/ 2 : null,
+            childCount: math.max(0, _books.length * 2 - 1),
+          ),
+        ),
+        if (bookState is BookLoadingState && _books.isNotEmpty)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 20),
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          )
+      ],
     );
   }
 }
