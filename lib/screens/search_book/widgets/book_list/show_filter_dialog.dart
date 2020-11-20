@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
+import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 
@@ -11,27 +12,7 @@ Future<FiltersModel> showFilterDialog({
   @required FiltersModel currentFilters,
   @required BookBloc bookBloc,
 }) {
-  Map<String, String> _sortByValues = {
-    'def': 'Relevance',
-    'title': 'Title',
-    'year': 'Year',
-    'pages': 'Pages',
-    'filesize': 'File size',
-  };
-
-  Map<String, String> _searchInValues = {
-    'def': 'All',
-    'title': 'Title',
-    'author': 'Author',
-    'series': 'Series',
-    'publisher': 'Publisher',
-    'identifier': 'ISBN',
-    'md5': 'MD5',
-  };
-
-  String _sortBy = _sortByValues[currentFilters.sortBy];
-  String _searchIn = _searchInValues[currentFilters.searchIn];
-  bool _reverseOrder = currentFilters.reverseOrder;
+  FiltersModel _filters = currentFilters;
 
   return showDialog<FiltersModel>(
     context: context,
@@ -45,41 +26,19 @@ Future<FiltersModel> showFilterDialog({
               FlatButton(
                 child: Text('Cancel'),
                 onPressed: () {
-                  Navigator.of(context).pop(FiltersModel(
-                    sortBy: currentFilters.sortBy,
-                    searchIn: currentFilters.searchIn,
-                    reverseOrder: currentFilters.reverseOrder,
-                  ));
+                  Navigator.of(context).pop(_filters);
                 },
               ),
               FlatButton(
                 child: Text('Apply'),
                 onPressed: () {
-                  String sortByKey = _sortByValues.keys.firstWhere(
-                    (key) => _sortByValues[key] == _sortBy,
-                    orElse: () => null,
-                  );
-                  String searchInKey = _searchInValues.keys.firstWhere(
-                    (key) => _searchInValues[key] == _searchIn,
-                    orElse: () => null,
-                  );
-                  Navigator.of(context).pop(
-                    FiltersModel(
-                      sortBy: sortByKey,
-                      searchIn: searchInKey,
-                      reverseOrder: _reverseOrder,
-                    ),
-                  );
+                  Navigator.of(context).pop(_filters);
                   if (currentQuery != '') {
                     bookBloc.add(
                       BookFetchEvent(
                         SearchQueryModel(
                           searchTerm: currentQuery,
-                          filters: FiltersModel(
-                            searchIn: searchInKey,
-                            sortBy: sortByKey,
-                            reverseOrder: _reverseOrder,
-                          ),
+                          filters: _filters,
                         ),
                       ),
                     );
@@ -103,18 +62,18 @@ Future<FiltersModel> showFilterDialog({
                             child: DropdownButton(
                               isExpanded: true,
                               hint: Text("Sort by"),
-                              items: _sortByValues.values
-                                  .map(
-                                    (String value) => DropdownMenuItem(
-                                      value: value,
-                                      child: Text(value),
-                                    ),
-                                  )
+                              items: SortBy.values
+                                  .asMap()
+                                  .entries
+                                  .map((entry) => DropdownMenuItem(
+                                        value: entry.value,
+                                        child: Text(entry.value.displayUILabel),
+                                      ))
                                   .toList(),
-                              value: _sortBy,
-                              onChanged: (String newValue) {
+                              value: _filters.sortBy,
+                              onChanged: (newValue) {
                                 setState(() {
-                                  _sortBy = newValue;
+                                  _filters.sortBy = newValue;
                                 });
                               },
                             ),
@@ -135,18 +94,18 @@ Future<FiltersModel> showFilterDialog({
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
                               isExpanded: true,
-                              items: _searchInValues.values
-                                  .map(
-                                    (String value) => DropdownMenuItem(
-                                      value: value,
-                                      child: Text(value),
-                                    ),
-                                  )
+                              items: SearchIn.values
+                                  .asMap()
+                                  .entries
+                                  .map((entry) => DropdownMenuItem(
+                                        value: entry.value,
+                                        child: Text(entry.value.displayUILabel),
+                                      ))
                                   .toList(),
-                              value: _searchIn,
-                              onChanged: (String newValue) {
+                              value: _filters.searchIn,
+                              onChanged: (newValue) {
                                 setState(() {
-                                  _searchIn = newValue;
+                                  _filters.searchIn = newValue;
                                 });
                               },
                             ),
@@ -164,10 +123,10 @@ Future<FiltersModel> showFilterDialog({
                           child: Text('Reverse order'),
                         ),
                         Checkbox(
-                          value: _reverseOrder,
+                          value: _filters.reverseOrder,
                           onChanged: (bool value) {
                             setState(() {
-                              _reverseOrder = value;
+                              _filters.reverseOrder = value;
                             });
                           },
                         ),

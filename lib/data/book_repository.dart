@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:libgen/domain/filters_extensions.dart';
 
 import 'package:libgen/domain/search_query_model.dart';
 
@@ -20,7 +21,7 @@ class BookRepository {
   Future<dynamic> getBooks(SearchQueryModel searchQuery) async {
     try {
       return await http.get(
-        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn}&sortBy=${searchQuery.filters.sortBy}&reverse=${searchQuery.filters.reverseOrder}',
+        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
       );
     } catch (e) {
       return e.toString();

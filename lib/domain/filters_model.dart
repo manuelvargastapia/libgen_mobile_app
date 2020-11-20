@@ -1,11 +1,13 @@
+import 'package:libgen/domain/filters_extensions.dart';
+
 class FiltersModel {
-  String sortBy;
-  String searchIn;
+  SortBy sortBy;
+  SearchIn searchIn;
   bool reverseOrder;
 
   FiltersModel({
-    this.sortBy = 'def',
-    this.searchIn = 'def',
+    this.sortBy = SortBy.def,
+    this.searchIn = SearchIn.def,
     this.reverseOrder = false,
   });
 }
