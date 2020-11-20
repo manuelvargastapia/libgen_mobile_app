@@ -20,10 +20,14 @@ class SearchBookScreen extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      margin:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 20,
+                      ),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 20,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
