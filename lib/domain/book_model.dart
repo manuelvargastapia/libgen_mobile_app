@@ -11,7 +11,7 @@ class BookModel {
   int year;
   String md5;
   String coverUrl;
-  String volumeInfo;
+  int volumeInfo;
   String series;
   String edition;
   String publisher;

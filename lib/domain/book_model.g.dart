@@ -14,7 +14,7 @@ BookModel _$BookModelFromJson(Map<String, dynamic> json) {
     year: json['year'] as int,
     md5: json['md5'] as String,
     coverUrl: json['coverUrl'] as String,
-    volumeInfo: json['volumeInfo'] as String,
+    volumeInfo: json['volumeInfo'] as int,
     series: json['series'] as String,
     edition: json['edition'] as String,
     publisher: json['publisher'] as String,
