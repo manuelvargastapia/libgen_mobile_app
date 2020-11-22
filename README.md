@@ -4,6 +4,8 @@ Non-official Library Genesis mobile app.
 
 Built with Flutter and BLoC state managment pattern.
 
+Open Source.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
@@ -29,11 +31,17 @@ samples, guidance on mobile development, and a full API reference.
   - [x] Currently only show a SnackBar without proper feedback about what's going on with the loading, leading to bad experience.
   - [x] Clean current book list displayed before execute another query
   - [x] Handle properly the case when there are no more books to fetch, to avoid fetching duplicates when the bottom of the screen is falsely reached by the list because of expanding the list tiles
+- [x] Improve Bloc States to avoid using the optional parameter `String md5` in abstract class BookState
+- [x] Improve internal logic of filters in *lib/src/feature_search_book/widgets/book_list/show_filter_dialog.dart*
+- [x] Validar posibilidad de obtener más resultado usando conteo total de resultados
+  - [x] Retornar conteo total desde API
+  - [x] Usar conteo total para validar posibilidad de obtener más resultados
+  - [x] Mostrar conteo total en UI
+- [x] Consider making only one API request instead of two (general search plus details), because potential cost-by-time constraint at the moment of release
 - [ ] Find a good solution for constant and impredictable IP changes in Library Genesis (see _/home/manuel/development/libgen_mobile_app/flutter_app/libgen/android/app/src/main/res/xml/network_security_config.xml_ and the [API repo](https://github.com/manuelvargastapia/libgen_api/tree/master) for better understanding)
 - [ ] Implement env files management ([check this package](https://pub.dev/packages/envify))
   - [ ] API URLs
   - [ ] Flutter Downloader initialization (set debug to `false`)
-- [x] Improve Bloc States to avoid using the optional parameter `String md5` in abstract class BookState
 - [ ] Implement translations
 - [ ] Cache search results to avoid refetching after coming back from details
 - [ ] Unit testing
@@ -43,33 +51,23 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Find a better solution for permissions issues in Android 10: currently, a temporary solution has been implemented in `AndroidManifext.xml` (`android:requestLegacyExternalStorage="true"`). [Check this post](https://medium.com/@sriramaripirala/android-10-open-failed-eacces-permission-denied-da8b630a89df)
 - [ ] Find a better solution for lint options issues associated to Gradle plugin ([see GitHub issue](https://github.com/flutter/flutter/issues/30598)). Currently, a temporary solution is being applied in `android/app/build.gradle` (`checkReleaseBuilds false)
 - [ ] Update flutter_bloc package. See [migration guide](https://bloclibrary.dev/#/migration)
-- [ ] Sometimes download fails unexpectedly
 - [ ] Improve BLoC accesses by following clean practices. Check [videos](https://www.youtube.com/watch?v=w6XWjpBK4W8&list=PLptHs0ZDJKt_T-oNj_6Q98v-tBnVf-S_o)
-- [ ] Request download permissions beforehand to prevent internal UI state management errors and better user experience
 - [ ] Consider improving API calls error handling. [Check this post](https://medium.com/solidmvp-africa/making-your-api-calls-in-flutter-the-right-way-f0a03e35b4b1)
-- [ ] Improve `import` statements
 - [ ] Organize and handle Styles and Themes
-- [ ] Consider usgin the built-in `close()` method of `showSearch()` to display book details
-- [ ] Refactor download icon button's BlocConsumer
 - [ ] Configure Dart analyzer to prevent positive falses ([check this issue](https://github.com/felangel/bloc/issues/587))
-- [ ] Improve internal logic of filters in *lib/src/feature_search_book/widgets/book_list/show_filter_dialog.dart*
-- [x] Validar posibilidad de obtener más resultado usando conteo total de resultados
-  - [x] Retornar conteo total desde API
-  - [x] Usar conteo total para validar posibilidad de obtener más resultados
-  - [x] Mostrar conteo total en UI
+  - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
 - [ ] In details, replace AppBar title by search bar
-- [ ] Show table of contents correctly
+- [ ] Show table of contents correctly (HTML issue)
 - [ ] Implement analytics or logging for better error tracking
 - [ ] Be consistent in transition animations
-- [ ] Improve handling of < 4 characters
   - [ ] Home to SearchDelegate vs SearchDelegate to Details
 - [ ] Consider make the filtering more user friendly
-- [x] Include more filters
-  - [x] Order (asc or desc)
-- [ ] Consider making only one API request instead of two (general search plus details), because potential cost-by-time constraint at the moment of release
-  - [ ] `final BookBloc _bookBloc = BlocProvider.of<BookBloc>(context);`
 - [ ] Be consisten in nomenclature choices ([check this guide](https://dart.dev/guides/language/effective-dart))
   - [ ] `show_filter_dialog.dart` should start with a noun phrase
 - [ ] Implement lazy boxes in Hive for large data sets
   - [ ] Portentially large data set of suggestions
   - [ ] API data cached
+- [ ] Implement Either pattern to all repositories
+- [ ] Control appropiately the error case when opening Hive box
+- [ ] Handle potential issues (run after `flutter clean`): `Note: Some input files use or override a deprecated API.`
+- [ ] Consider including a new screen to manage downloads
