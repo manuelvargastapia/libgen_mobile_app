@@ -13,56 +13,40 @@ class ImageWidgetPlaceholder extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => placeholder,
       frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
         if (wasSynchronouslyLoaded) {
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.2),
-                      BlendMode.dstATop,
-                    ),
-                    image: image,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: child,
-              )
-            ],
-          );
+          return _displayImageWithBackground(child);
         } else {
           return AnimatedSwitcher(
             duration: Duration(milliseconds: 500),
             child: frame != null
-                ? Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.2),
-                              BlendMode.dstATop,
-                            ),
-                            image: image,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: child,
-                      )
-                    ],
-                  )
+                ? _displayImageWithBackground(child)
                 : placeholder,
           );
         }
       },
+    );
+  }
+
+  Widget _displayImageWithBackground(Widget child) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.2),
+                BlendMode.dstATop,
+              ),
+              image: image,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: child,
+        )
+      ],
     );
   }
 }

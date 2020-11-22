@@ -7,14 +7,14 @@ import 'package:libgen/blocs/states/hive_state.dart';
 import 'package:libgen/domain/suggestion.dart';
 
 class SuggestionsBuilder extends StatelessWidget {
-  List<Suggestion> suggestions = [];
-  void Function(Suggestion suggestion) onSelected;
-  HiveBloc hiveBloc;
+  final List<Suggestion> suggestions;
+  final void Function(Suggestion suggestion) onSelected;
+  final HiveBloc hiveBloc;
 
   SuggestionsBuilder({
     @required this.onSelected,
     @required this.hiveBloc,
-    @required this.suggestions,
+    this.suggestions = const [],
   });
 
   @override
@@ -34,7 +34,7 @@ class SuggestionsBuilder extends StatelessWidget {
           itemCount: suggestions.length,
           itemBuilder: (context, index) {
             return ListTile(
-              leading: Icon(Icons.history_edu_rounded),
+              leading: Icon(Icons.history_rounded),
               title: Text(suggestions[index].query),
               onTap: () {
                 onSelected(suggestions[index]);

@@ -22,116 +22,45 @@ Future<FiltersModel> showFilterDialog({
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
             title: Text("Filter"),
-            actions: [
-              FlatButton(
-                child: Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop(_filters);
-                },
-              ),
-              FlatButton(
-                child: Text('Apply'),
-                onPressed: () {
-                  Navigator.of(context).pop(_filters);
-                  if (currentQuery != '') {
-                    bookBloc.add(
-                      BookFetchEvent(
-                        SearchQueryModel(
-                          searchTerm: currentQuery,
-                          filters: _filters,
-                        ),
-                      ),
-                    );
-                  }
-                },
-              ),
-            ],
+            actions: _buildAlertDialogActions(
+              context: context,
+              filters: _filters,
+              bookBloc: bookBloc,
+              currentQuery: currentQuery,
+            ),
             content: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 12, right: 10),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Text("Sort by"),
-                        ),
-                        Expanded(
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              isExpanded: true,
-                              hint: Text("Sort by"),
-                              items: SortBy.values
-                                  .asMap()
-                                  .entries
-                                  .map((entry) => DropdownMenuItem(
-                                        value: entry.value,
-                                        child: Text(entry.value.displayUILabel),
-                                      ))
-                                  .toList(),
-                              value: _filters.sortBy,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _filters.sortBy = newValue;
-                                });
-                              },
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                  _buildDropdownFilter<SortBy>(
+                    title: 'Sort by',
+                    selectedValue: _filters.sortBy,
+                    values: SortBy.values,
+                    labelGenerator: (value) => Text(value.displayUILabel),
+                    callback: (value) {
+                      setState(() {
+                        _filters.sortBy = value;
+                      });
+                    },
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 8, right: 10),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Text('Type'),
-                        ),
-                        Expanded(
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              isExpanded: true,
-                              items: SearchIn.values
-                                  .asMap()
-                                  .entries
-                                  .map((entry) => DropdownMenuItem(
-                                        value: entry.value,
-                                        child: Text(entry.value.displayUILabel),
-                                      ))
-                                  .toList(),
-                              value: _filters.searchIn,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _filters.searchIn = newValue;
-                                });
-                              },
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                  _buildDropdownFilter<SearchIn>(
+                    title: "Type",
+                    selectedValue: _filters.searchIn,
+                    values: SearchIn.values,
+                    labelGenerator: (value) => Text(value.displayUILabel),
+                    callback: (value) {
+                      setState(() {
+                        _filters.searchIn = value;
+                      });
+                    },
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(top: 8, right: 10),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Text('Reverse order'),
-                        ),
-                        Checkbox(
-                          value: _filters.reverseOrder,
-                          onChanged: (bool value) {
-                            setState(() {
-                              _filters.reverseOrder = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                  _buildCheckboxFilter(
+                    title: 'Reverse order',
+                    value: _filters.reverseOrder,
+                    callback: (bool value) {
+                      setState(() {
+                        _filters.reverseOrder = value;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -140,5 +69,96 @@ Future<FiltersModel> showFilterDialog({
         },
       );
     },
+  );
+}
+
+List<Widget> _buildAlertDialogActions({
+  @required BuildContext context,
+  @required FiltersModel filters,
+  @required BookBloc bookBloc,
+  @required String currentQuery,
+}) {
+  return [
+    FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.of(context).pop(filters);
+      },
+    ),
+    FlatButton(
+      child: Text('Apply'),
+      onPressed: () {
+        Navigator.of(context).pop(filters);
+        if (currentQuery != '') {
+          bookBloc.add(
+            BookFetchEvent(
+              SearchQueryModel(
+                searchTerm: currentQuery,
+                filters: filters,
+              ),
+            ),
+          );
+        }
+      },
+    ),
+  ];
+}
+
+Widget _buildDropdownFilter<T>({
+  @required String title,
+  @required T selectedValue,
+  @required List<T> values,
+  @required void Function(T value) callback,
+  @required Text Function(T value) labelGenerator,
+}) {
+  return Container(
+    padding: const EdgeInsets.only(top: 8, right: 10),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text(title),
+        ),
+        Expanded(
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<T>(
+              isExpanded: true,
+              items: values
+                  .asMap()
+                  .entries
+                  .map((entry) => DropdownMenuItem<T>(
+                        value: entry.value,
+                        child: labelGenerator(entry.value),
+                      ))
+                  .toList(),
+              value: selectedValue,
+              onChanged: callback,
+            ),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _buildCheckboxFilter({
+  @required String title,
+  @required bool value,
+  @required void Function(bool value) callback,
+}) {
+  return Container(
+    padding: const EdgeInsets.only(top: 8, right: 10),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text(title),
+        ),
+        Checkbox(
+          value: value,
+          onChanged: callback,
+        ),
+      ],
+    ),
   );
 }
