@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:libgen/domain/book_model.dart';
-import 'package:libgen/screens/book_details/widgets/book_details_consumer.dart';
+import 'package:libgen/screens/book_details/widgets/book_details_presenter.dart';
 import 'package:libgen/screens/book_details/widgets/download_button.dart';
 
 class BookDetailsScreen extends StatelessWidget {
@@ -22,7 +22,7 @@ class BookDetailsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: BookDetailsConsumer(book: book),
+      body: BookDetailsPresenter(book: book),
       floatingActionButton: DownloadButton(book.md5),
     );
   }
