@@ -46,64 +46,10 @@ class DownloadRepository {
     return FlutterDownloader.open(taskId: task.taskId);
   }
 
-  // void delete(TaskInfo task) async {
-  //   await FlutterDownloader.remove(
-  //     taskId: task.taskId,
-  //     shouldDeleteContent: true,
-  //   );
-  //   await _prepare();
-  //   setState(() {});
-  // }
-
-  // Future<Null> _prepare() async {
-  //   final tasks = await FlutterDownloader.loadTasks();
-
-  //   int count = 0;
-  //   _tasks = [];
-  //   _items = [];
-
-  //   _tasks.addAll(_documents.map((document) =>
-  //       TaskInfo(name: document['name'], link: document['link'])));
-
-  //   _items.add(_ItemHolder(name: 'Documents'));
-  //   for (int i = count; i < _tasks.length; i++) {
-  //     _items.add(_ItemHolder(name: _tasks[i].name, task: _tasks[i]));
-  //     count++;
-  //   }
-
-  //   _tasks.addAll(_images
-  //       .map((image) => TaskInfo(name: image['name'], link: image['link'])));
-
-  //   _items.add(_ItemHolder(name: 'Images'));
-  //   for (int i = count; i < _tasks.length; i++) {
-  //     _items.add(_ItemHolder(name: _tasks[i].name, task: _tasks[i]));
-  //     count++;
-  //   }
-
-  //   _tasks.addAll(_videos
-  //       .map((video) => TaskInfo(name: video['name'], link: video['link'])));
-
-  //   _items.add(_ItemHolder(name: 'Videos'));
-  //   for (int i = count; i < _tasks.length; i++) {
-  //     _items.add(_ItemHolder(name: _tasks[i].name, task: _tasks[i]));
-  //     count++;
-  //   }
-
-  //   tasks?.forEach((task) {
-  //     for (TaskInfo info in _tasks) {
-  //       if (info.link == task.url) {
-  //         info.taskId = task.taskId;
-  //         info.status = task.status;
-  //         info.progress = task.progress;
-  //       }
-  //     }
-  //   });
-
-  //   final savedDir = Directory(downloadPath);
-  //   bool hasExisted = await savedDir.exists();
-  //   if (!hasExisted) {
-  //     savedDir.create();
-  //   }
-  // }
-
+  Future<void> delete(TaskInfo task) async {
+    await FlutterDownloader.remove(
+      taskId: task.taskId,
+      shouldDeleteContent: true,
+    );
+  }
 }

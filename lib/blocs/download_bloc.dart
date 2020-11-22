@@ -21,7 +21,6 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
   BookRepository bookRepository;
   DownloadRepository downloadRepository;
   bool isDownloading = false;
-  final List<TaskInfo> _tasks = [];
   ReceivePort _port = ReceivePort();
 
   DownloadBloc({
@@ -62,20 +61,11 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
       _bindBackgroundIsolate();
       return;
     }
-    _port.listen((dynamic data) {
+    _port.listen((data) {
       String id = data[0];
       DownloadTaskStatus status = data[1];
       int progress = data[2];
-
-      if (_tasks != null && _tasks.isNotEmpty) {
-        final task = _tasks.firstWhere((task) => task.taskId == id);
-        if (task != null) {
-          // setState(() {
-          //   task.status = status;
-          //   task.progress = progress;
-          // });
-        }
-      }
+      print("BACKGROUND ISOLATE INFO: $id - $status - $progress");
     });
   }
 
@@ -83,44 +73,44 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
   }
 
-  Future<bool> _checkPermission() async {
-    final status = await Permission.storage.status;
-    if (status != PermissionStatus.granted) {
-      final result = await Permission.storage.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
-    } else {
-      return true;
-    }
-    return false;
-  }
-
   @override
   Stream<DownloadState> mapEventToState(DownloadEvent event) async* {
-    if (event is DownloadBookEvent) {
-      if (await _checkPermission()) {
-        yield DownloadStarting();
-        final _response = await bookRepository.getDownloadLink(event.md5);
-        if (_response is http.Response) {
-          if (_response.statusCode == 200) {
-            final String _downloadLink = DownloadLinkModel.fromJson(
-              jsonDecode(_response.body)['data'],
-            ).downloadLink;
-            Directory downloadsDirectory =
-                await DownloadsPathProvider.downloadsDirectory;
-            downloadRepository.requestDownload(
-              task: TaskInfo(name: event.md5, link: _downloadLink),
-              downloadPath: downloadsDirectory.path,
-            );
-            yield DownloadInProgress(message: "Download in progress");
-          } else {
-            yield DownloadError(
-                error: "Download error. Try again later, please");
-          }
-        } else if (_response is String) {
+    bool _permissionGranted = false;
+    final _status = await Permission.storage.status;
+
+    switch (_status) {
+      case PermissionStatus.granted:
+        _permissionGranted = true;
+        break;
+      case PermissionStatus.permanentlyDenied:
+        yield DownloadPermissionsPermanentlyDenied();
+        break;
+      default:
+        final status = await Permission.storage.request();
+        _permissionGranted = status == PermissionStatus.granted;
+        break;
+    }
+
+    if (event is DownloadBookEvent && _permissionGranted) {
+      yield DownloadStarting();
+      final _response = await bookRepository.getDownloadLink(event.md5);
+      if (_response is http.Response) {
+        if (_response.statusCode == 200) {
+          final String _downloadLink = DownloadLinkModel.fromJson(
+            jsonDecode(_response.body)['data'],
+          ).downloadLink;
+          Directory downloadsDirectory =
+              await DownloadsPathProvider.downloadsDirectory;
+          downloadRepository.requestDownload(
+            task: TaskInfo(name: event.md5, link: _downloadLink),
+            downloadPath: downloadsDirectory.path,
+          );
+          yield DownloadInProgress(message: "Download in progress");
+        } else {
           yield DownloadError(error: "Download error. Try again later, please");
         }
+      } else if (_response is String) {
+        yield DownloadError(error: "Download error. Try again later, please");
       }
     }
   }

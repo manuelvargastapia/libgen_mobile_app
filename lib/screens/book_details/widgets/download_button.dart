@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DownloadButton extends StatelessWidget {
   final String md5;
@@ -24,6 +25,17 @@ class DownloadButton extends StatelessWidget {
         } else if (downloadState is DownloadError) {
           Scaffold.of(context).showSnackBar(
             SnackBar(content: Text(downloadState.error)),
+          );
+        } else if (downloadState is DownloadPermissionsPermanentlyDenied) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            child: AlertDialog(
+              actions: _buildAlertDialogActions(context),
+              content: Text(
+                "Please, provide permissions app from app settings",
+              ),
+            ),
           );
         }
       },
@@ -48,5 +60,23 @@ class DownloadButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<Widget> _buildAlertDialogActions(BuildContext context) {
+    return [
+      FlatButton(
+        child: Text('Cancel'),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      FlatButton(
+        child: Text('Open Settings'),
+        onPressed: () {
+          openAppSettings();
+          Navigator.of(context).pop();
+        },
+      ),
+    ];
   }
 }
