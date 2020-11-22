@@ -141,7 +141,7 @@ class ResultsBuilder extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.only(left: 30, top: 20, bottom: 14),
+            padding: const EdgeInsets.only(left: 30, top: 20, bottom: 14),
             child: RichText(
               text: TextSpan(
                 text: "$totalCount",
@@ -173,7 +173,7 @@ class ResultsBuilder extends StatelessWidget {
         if (bookState is BookLoadingState && _books.isNotEmpty)
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 20),
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
               child: Center(child: CircularProgressIndicator()),
             ),
           )

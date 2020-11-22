@@ -50,11 +50,11 @@ Future<FiltersModel> showFilterDialog({
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 12, right: 10),
+                    padding: const EdgeInsets.only(top: 12, right: 10),
                     child: Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 16.0),
+                          padding: const EdgeInsets.only(right: 16.0),
                           child: Text("Sort by"),
                         ),
                         Expanded(
@@ -83,11 +83,11 @@ Future<FiltersModel> showFilterDialog({
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 8, right: 10),
+                    padding: const EdgeInsets.only(top: 8, right: 10),
                     child: Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 16.0),
+                          padding: const EdgeInsets.only(right: 16.0),
                           child: Text('Type'),
                         ),
                         Expanded(
@@ -115,11 +115,11 @@ Future<FiltersModel> showFilterDialog({
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 8, right: 10),
+                    padding: const EdgeInsets.only(top: 8, right: 10),
                     child: Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 16.0),
+                          padding: const EdgeInsets.only(right: 16.0),
                           child: Text('Reverse order'),
                         ),
                         Checkbox(

@@ -20,7 +20,7 @@ class BookDetailsPresenter extends StatelessWidget {
             child: ImageWidgetPlaceholder(
               image: NetworkImage(book.coverUrl),
               placeholder: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
                 color: Colors.white.withOpacity(0.2),
                 child: Column(
@@ -48,7 +48,7 @@ class BookDetailsPresenter extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             color: Colors.blueGrey[500],
             child: Column(
               children: [
@@ -71,7 +71,7 @@ class BookDetailsPresenter extends StatelessWidget {
                 SizedBox(height: 24),
                 if (book.description != null)
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Colors.white,
@@ -99,7 +99,7 @@ class BookDetailsPresenter extends StatelessWidget {
                 SizedBox(height: 24),
                 if (book.contents != null)
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: Colors.white,
@@ -290,9 +290,9 @@ Widget renderIfExists(dynamic value) {
   return value != null
       ? Container(
           child: SelectableText(value.toString()),
-          padding: EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8),
         )
       : Container(
-          padding: EdgeInsets.symmetric(vertical: 18),
+          padding: const EdgeInsets.symmetric(vertical: 18),
         );
 }

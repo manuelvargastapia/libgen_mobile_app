@@ -19,7 +19,7 @@ class BookListItem extends StatelessWidget {
       trailing: book.fileExtension != null
           ? Text(book.fileExtension.toUpperCase())
           : null,
-      contentPadding: EdgeInsets.symmetric(horizontal: 30),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 30),
       onTap: () {
         Navigator.push(
           context,

@@ -29,7 +29,7 @@ class DownloadButton extends StatelessWidget {
       },
       builder: (context, downloadState) {
         return Container(
-          margin: EdgeInsets.only(top: 8),
+          margin: const EdgeInsets.only(top: 8),
           child: downloadState is DownloadStarting
               ? CircularProgressIndicator()
               : FloatingActionButton(

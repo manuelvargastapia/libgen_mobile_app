@@ -29,7 +29,7 @@ class ImageWidgetPlaceholder extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: child,
               )
             ],
@@ -54,7 +54,7 @@ class ImageWidgetPlaceholder extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 15),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
                         child: child,
                       )
                     ],
