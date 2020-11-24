@@ -188,7 +188,10 @@ class BookDetailsPresenter extends StatelessWidget {
             _buildTableRow("Language:", book.language),
             _buildTableRow("ISBN:", book.isbn),
             _buildTableRow("DOI:", book.doi),
-            _buildTableRow("File Size:", book.fileSize),
+            _buildTableRow(
+              "File Size:",
+              _buildFileSizeMessage(book.fileSize),
+            ),
             _buildTableRow("File Extension:", book.fileExtension),
           ],
         ),
@@ -213,5 +216,11 @@ class BookDetailsPresenter extends StatelessWidget {
                   )),
       ],
     );
+  }
+
+  String _buildFileSizeMessage(int fileSizeInBytes) {
+    int kilobytes = fileSizeInBytes ~/ 1000;
+    int megabytes = fileSizeInBytes ~/ 1000000;
+    return "$megabytes MB ($kilobytes KB)";
   }
 }
