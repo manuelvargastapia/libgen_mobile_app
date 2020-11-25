@@ -20,11 +20,12 @@ class SuggestionsBuilder extends StatelessWidget {
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index) {
+        final reversedIndex = suggestions.length - index - 1;
         return ListTile(
           leading: Icon(Icons.history_rounded),
-          title: Text(suggestions[index].query),
+          title: Text(suggestions[reversedIndex].query),
           onTap: () {
-            onSelected(suggestions[index]);
+            onSelected(suggestions[reversedIndex]);
           },
           trailing: IconButton(
             icon: Icon(
@@ -32,7 +33,7 @@ class SuggestionsBuilder extends StatelessWidget {
               size: 18,
             ),
             onPressed: () {
-              hiveBloc.add(DeleteItemEvent<Suggestion>(index));
+              hiveBloc.add(DeleteItemEvent<Suggestion>(reversedIndex));
             },
           ),
         );
