@@ -71,3 +71,13 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Control appropiately the error case when opening Hive box
 - [ ] Handle potential issues (run after `flutter clean`): `Note: Some input files use or override a deprecated API.`
 - [ ] Consider including a new screen to manage downloads
+- [ ] File can't be opened directly tapping notification after downloading
+- [ ] Reduce APK size before releasing:
+  - You are building a fat APK that includes binaries for android-arm, android-arm64, android-x64.
+If you are deploying the app to the Play Store, it's recommended to use app bundles or split the APK to reduce the APK size.
+    To generate an app bundle, run:
+        flutter build appbundle --target-platform android-arm,android-arm64,android-x64
+        Learn more on: https://developer.android.com/guide/app-bundle
+    To split the APKs per ABI, run:
+        flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+        Learn more on:  https://developer.android.com/studio/build/configure-apk-splits#configure-abi-split
