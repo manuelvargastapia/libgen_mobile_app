@@ -33,17 +33,16 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             final rawResponse = jsonDecode(response.body);
             final rawBooks = rawResponse['data'] as List;
             _totalCount = rawResponse['totalCount'] as int;
-            if (rawBooks.isNotEmpty) {
-              final List<BookModel> books = [];
-              rawBooks.forEach((book) {
-                books.add(BookModel.fromJson(book));
-              });
-              yield BookSuccessState(books: books, totalCount: _totalCount);
-            } else {
-              yield BookNoResultsState(
-                message: 'No results for "${event.searchQuery.searchTerm}"',
-              );
-            }
+            final List<BookModel> books = [];
+            rawBooks.forEach((book) {
+              books.add(BookModel.fromJson(book));
+            });
+            yield BookSuccessState(books: books, totalCount: _totalCount);
+          }
+          if (response.statusCode == 404) {
+            yield BookNoResultsState(
+              message: 'No results for "${event.searchQuery.searchTerm}"',
+            );
           } else {
             yield BookErrorState(
               error: "Ups! We messed up. Try again later, please",
