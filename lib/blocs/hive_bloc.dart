@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 
 import 'package:libgen/blocs/states/hive_state.dart';
 import 'package:libgen/data/hive_repositories/hive_repository.dart';
@@ -8,27 +9,32 @@ import 'package:libgen/data/hive_repositories/hive_repository.dart';
 import 'events/hive_event.dart';
 
 class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
+  final Box<T> box;
   final HiveRepository<T> repository;
 
-  HiveBloc({@required this.repository}) : super(HiveInitialState());
+  HiveBloc({@required this.repository, @required this.box})
+      : super(HiveInitialState());
 
   @override
   Stream<HiveState> mapEventToState(HiveEvent<T> event) async* {
     if (event is CacheDataEvent<T>) {
-      if (!repository.box.values.contains(event.data)) {
-        final Either<String, int> result = await repository.add(event.data);
+      if (!box.values.contains(event.data)) {
+        final Either<String, int> result =
+            await repository.add(box, event.data);
         yield result.fold<HiveState>(
           (l) => HiveErrorState(l),
           (r) => HiveSuccessState(),
         );
       }
     } else if (event is LoadAllEvent<T>) {
-      if (repository.box.isNotEmpty) {
-        yield HiveSuccessState(data: repository.box.values);
+      if (box.isNotEmpty) {
+        yield HiveSuccessState(data: box.values.toList());
+      } else {
+        yield HiveErrorState("Box is empty");
       }
     } else if (event is LoadItemEvent<T>) {
-      if (repository.box.isNotEmpty) {
-        final Either<String, T> result = repository.get(event.index);
+      if (box.isNotEmpty) {
+        final Either<String, T> result = repository.get(box, event.index);
         yield result.fold<HiveState>(
           (l) => HiveErrorState(l),
           (r) => HiveSuccessState(data: r),
@@ -37,18 +43,18 @@ class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
         yield HiveErrorState("Box is empty");
       }
     } else if (event is DeleteItemEvent<T>) {
-      if (repository.box.isNotEmpty) {
+      if (box.isNotEmpty) {
         final Either<String, void> result =
-            await repository.delete(event.index);
+            await repository.delete(box, event.index);
         yield result.fold<HiveState>(
           (l) => HiveErrorState(l),
-          (r) => HiveSuccessState(data: repository.box.values),
+          (r) => HiveSuccessState(data: box.values.toList()),
         );
       } else {
         yield HiveErrorState("Box is empty");
       }
     } else if (event is ClearCacheEvent<T>) {
-      final Either<String, int> result = await repository.clear();
+      final Either<String, int> result = await repository.clear(box);
       yield result.fold<HiveState>(
         (l) => HiveErrorState(l),
         (r) => HiveSuccessState(),

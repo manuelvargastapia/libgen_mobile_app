@@ -4,49 +4,48 @@ import 'package:libgen/data/hive_repositories/hive_repository.dart';
 import 'package:libgen/domain/suggestion.dart';
 
 class SuggestionRepository implements HiveRepository<Suggestion> {
-  @override
-  Box<Suggestion> box;
-
   static final SuggestionRepository _repository = SuggestionRepository._();
 
   SuggestionRepository._();
 
-  factory SuggestionRepository(Box<Suggestion> box) {
-    _repository.box = box;
+  factory SuggestionRepository() {
     return _repository;
   }
 
   @override
-  Future<Either<String, int>> add(Suggestion object) async {
+  Future<Either<String, int>> add(
+      Box<Suggestion> box, Suggestion object) async {
     try {
-      return right(await this.box.add(object));
+      return right(await box.add(object));
     } catch (e) {
       return left(e.toString());
     }
   }
 
   @override
-  Future<Either<String, int>> clear() async {
+  Future<Either<String, int>> clear(
+    Box<Suggestion> box,
+  ) async {
     try {
-      return right(await this.box.clear());
+      return right(await box.clear());
     } catch (e) {
       return left(e.toString());
     }
   }
 
   @override
-  Future<Either<String, void>> delete(int index) async {
+  Future<Either<String, void>> delete(Box<Suggestion> box, int index) async {
     try {
-      return right(await this.box.deleteAt(index));
+      return right(await box.deleteAt(index));
     } catch (e) {
       return left(e.toString());
     }
   }
 
   @override
-  Either<String, Suggestion> get(int index) {
+  Either<String, Suggestion> get(Box<Suggestion> box, int index) {
     try {
-      final Suggestion result = this.box.get(index);
+      final Suggestion result = box.get(index);
       if (result == null) {
         throw Exception("Item not found");
       }

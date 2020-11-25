@@ -26,9 +26,8 @@ class LibGenApp extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (context) => HiveBloc<Suggestion>(
-                    repository: SuggestionRepository(
-                      snapshot.data,
-                    ),
+                    box: snapshot.data,
+                    repository: SuggestionRepository(),
                   ),
                 ),
                 BlocProvider(

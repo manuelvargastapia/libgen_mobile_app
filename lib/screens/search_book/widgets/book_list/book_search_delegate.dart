@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/blocs/events/hive_event.dart';
 import 'package:libgen/blocs/hive_bloc.dart';
+import 'package:libgen/blocs/states/hive_state.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/screens/search_book/widgets/book_list/suggestions_builder.dart';
@@ -59,16 +62,22 @@ class BookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final List<Suggestion> _suggestions = [];
-    _suggestions.addAll(hiveBloc.repository.box.values);
+    hiveBloc.add(LoadAllEvent<Suggestion>());
 
-    return SuggestionsBuilder(
-      hiveBloc: hiveBloc,
-      onSelected: (Suggestion suggestion) {
-        query = suggestion.query;
-        showResults(context);
+    return BlocBuilder<HiveBloc<Suggestion>, HiveState>(
+      builder: (context, hiveState) {
+        if (hiveState is HiveSuccessState && hiveState.data != null) {
+          return SuggestionsBuilder(
+            hiveBloc: hiveBloc,
+            onSelected: (Suggestion suggestion) {
+              query = suggestion.query;
+              showResults(context);
+            },
+            suggestions: hiveState.data as List<Suggestion>,
+          );
+        }
+        return Column();
       },
-      suggestions: _suggestions,
     );
   }
 
