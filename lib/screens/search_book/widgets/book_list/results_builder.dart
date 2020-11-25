@@ -58,7 +58,7 @@ class ResultsBuilder extends StatelessWidget {
                 });
                 bookBloc.isFetching = false;
                 Scaffold.of(context).hideCurrentSnackBar();
-              } else if (bookState is BookErrorState) {
+              } else if (bookState is BookErrorState && _books.isNotEmpty) {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(content: Text(bookState.error)),
                 );
