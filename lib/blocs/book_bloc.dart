@@ -38,8 +38,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
               books.add(BookModel.fromJson(book));
             });
             yield BookSuccessState(books: books, totalCount: _totalCount);
-          }
-          if (response.statusCode == 404) {
+          } else if (response.statusCode == 404) {
             yield BookNoResultsState(
               message: 'No results for "${event.searchQuery.searchTerm}"',
             );
