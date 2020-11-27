@@ -5,7 +5,7 @@ import 'package:libgen/domain/filters_extensions.dart';
 
 import 'package:libgen/domain/search_query_model.dart';
 
-const String prodURL = 'https://polar-temple-33235.herokuapp.com';
+const String prodURL = 'https://libgen-mobile-api.herokuapp.com';
 const String devURL = 'http://10.0.2.2:8000';
 const int count = 10;
 
@@ -18,11 +18,23 @@ class BookRepository {
     return _bookRepository;
   }
 
+  dynamic _cachedResponse;
+  SearchQueryModel _cachedQuery;
+
   Future<dynamic> getBooks(SearchQueryModel searchQuery) async {
     try {
-      return await http.get(
+      if (_cachedQuery == searchQuery && _cachedResponse != null) {
+        return _cachedResponse;
+      }
+      final response = await http.get(
         '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
       );
+      if (_cachedQuery != searchQuery) {
+        _cachedQuery = searchQuery;
+        _cachedResponse = response;
+        return _cachedResponse;
+      }
+      return response;
     } catch (e) {
       return e.toString();
     }
