@@ -38,7 +38,11 @@ Future<FiltersModel> showFilterDialog({
                     labelGenerator: (value) => Text(value.displayUILabel),
                     callback: (value) {
                       setState(() {
-                        _filters.sortBy = value;
+                        _filters = FiltersModel(
+                          reverseOrder: _filters.reverseOrder,
+                          searchIn: _filters.searchIn,
+                          sortBy: value,
+                        );
                       });
                     },
                   ),
@@ -49,7 +53,11 @@ Future<FiltersModel> showFilterDialog({
                     labelGenerator: (value) => Text(value.displayUILabel),
                     callback: (value) {
                       setState(() {
-                        _filters.searchIn = value;
+                        _filters = FiltersModel(
+                          reverseOrder: _filters.reverseOrder,
+                          searchIn: value,
+                          sortBy: _filters.sortBy,
+                        );
                       });
                     },
                   ),
@@ -58,7 +66,11 @@ Future<FiltersModel> showFilterDialog({
                     value: _filters.reverseOrder,
                     callback: (bool value) {
                       setState(() {
-                        _filters.reverseOrder = value;
+                        _filters = FiltersModel(
+                          reverseOrder: value,
+                          searchIn: _filters.searchIn,
+                          sortBy: _filters.sortBy,
+                        );
                       });
                     },
                   ),
