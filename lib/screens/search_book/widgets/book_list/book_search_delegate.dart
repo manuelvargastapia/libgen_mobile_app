@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
+import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/blocs/events/hive_event.dart';
 import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/states/hive_state.dart';
 import 'package:libgen/domain/filters_model.dart';
+import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/screens/search_book/widgets/book_list/suggestions_builder.dart';
 import 'results_builder.dart';
@@ -86,6 +88,14 @@ class BookSearchDelegate extends SearchDelegate {
     if (query.trim().length < 4) {
       return Container();
     }
+
+    hiveBloc.add(CacheDataEvent<Suggestion>(Suggestion(query)));
+
+    bookBloc.add(
+      BookFetchEvent(
+        SearchQueryModel(searchTerm: query, filters: filters),
+      ),
+    );
 
     return ResultsBuilder(
       query: query,

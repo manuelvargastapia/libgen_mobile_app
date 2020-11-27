@@ -4,13 +4,11 @@ import 'dart:math' as math;
 
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
-import 'package:libgen/blocs/events/hive_event.dart';
 import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/states/book_states.dart';
 import 'package:libgen/domain/book_model.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
-import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/screens/search_book/widgets/book_list_item/book_list_item.dart';
 
 class ResultsBuilder extends StatelessWidget {
@@ -30,12 +28,6 @@ class ResultsBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    hiveBloc.add(CacheDataEvent<Suggestion>(Suggestion(query)));
-
-    bookBloc.add(BookFetchEvent(
-      SearchQueryModel(searchTerm: query, filters: this.filters),
-    ));
-
     int _totalCount = 0;
 
     return StatefulBuilder(
