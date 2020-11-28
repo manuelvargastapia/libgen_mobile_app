@@ -65,7 +65,6 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
       String id = data[0];
       DownloadTaskStatus status = data[1];
       int progress = data[2];
-      print("BACKGROUND ISOLATE INFO: $id - $status - $progress");
     });
   }
 
