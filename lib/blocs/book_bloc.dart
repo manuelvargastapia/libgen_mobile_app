@@ -47,7 +47,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
               error: "Ups! We messed up. Try again later, please",
             );
           }
-        } else if (response is String) {
+        } else {
           yield BookErrorState(
             error: "Ups! We messed up. Try again later, please",
           );
