@@ -6,7 +6,8 @@ import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/search_query_model.dart';
 
 const String prodURL = 'https://libgen-mobile-api.herokuapp.com';
-const String devURL = 'http://10.0.2.2:8000';
+const String devURLEmulator = 'http://10.0.2.2:8000';
+const String devURLPhysical = 'http://192.168.0.14:8000';
 const int count = 10;
 
 class BookRepository {
@@ -27,7 +28,7 @@ class BookRepository {
         return _cachedResponse;
       }
       final response = await http.get(
-        '$devURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
+        '$devURLPhysical/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
       );
       if (_cachedQuery != searchQuery) {
         _cachedQuery = searchQuery;
@@ -42,7 +43,7 @@ class BookRepository {
 
   Future<dynamic> getDownloadLink(String md5) async {
     try {
-      return await http.get('$devURL/download?md5=$md5');
+      return await http.get('$devURLPhysical/download?md5=$md5');
     } catch (e) {
       return e.toString();
     }
