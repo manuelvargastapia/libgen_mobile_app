@@ -77,13 +77,13 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildContentHeader({String title = "(no title)", String author}) {
+  Widget _buildContentHeader({String title, String author}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 34),
       child: Column(
         children: [
           Text(
-            title,
+            title ?? "(no title)",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
