@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
+import 'package:libgen/domain/book_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class DownloadButton extends StatelessWidget {
-  final String md5;
+  final BookModel book;
 
-  DownloadButton(this.md5);
+  DownloadButton(this.book);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,6 @@ class DownloadButton extends StatelessWidget {
       listener: (context, downloadState) {
         if (downloadState is DownloadInProgress) {
           _bloc.isDownloading = false;
-          Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text(downloadState.message)),
-          );
         } else if (downloadState is DownloadError) {
           Scaffold.of(context).showSnackBar(
             SnackBar(content: Text(downloadState.error)),
@@ -53,7 +51,7 @@ class DownloadButton extends StatelessWidget {
                   onPressed: () {
                     _bloc
                       ..isDownloading = true
-                      ..add(DownloadBookEvent(md5));
+                      ..add(DownloadBookEvent(book));
                   },
                   backgroundColor: Theme.of(context).textTheme.headline5.color,
                 ),

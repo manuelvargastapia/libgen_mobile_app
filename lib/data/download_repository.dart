@@ -21,6 +21,7 @@ class DownloadRepository {
       savedDir: downloadPath,
       showNotification: true,
       openFileFromNotification: true,
+      fileName: task.name,
     );
   }
 
