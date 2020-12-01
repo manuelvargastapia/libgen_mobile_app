@@ -4,7 +4,6 @@ import 'dart:math' as math;
 
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
-import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/states/book_states.dart';
 import 'package:libgen/domain/book_model.dart';
 import 'package:libgen/domain/filters_model.dart';
@@ -15,7 +14,6 @@ class ResultsBuilder extends StatelessWidget {
   final String query;
   final FiltersModel filters;
   final BookBloc bookBloc;
-  final HiveBloc hiveBloc;
   final List<BookModel> _books = [];
   final ScrollController _scrollController = ScrollController();
 
@@ -23,7 +21,6 @@ class ResultsBuilder extends StatelessWidget {
     @required this.query,
     @required this.filters,
     @required this.bookBloc,
-    @required this.hiveBloc,
   });
 
   @override

@@ -101,7 +101,6 @@ class BookSearchDelegate extends SearchDelegate {
       query: query,
       filters: filters,
       bookBloc: bookBloc,
-      hiveBloc: hiveBloc,
     );
   }
 }
