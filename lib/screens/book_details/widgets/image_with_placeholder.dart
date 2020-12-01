@@ -8,6 +8,7 @@ class ImageWidgetPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (image == null) return placeholder;
     return Image(
       image: image,
       errorBuilder: (context, error, stackTrace) => placeholder,

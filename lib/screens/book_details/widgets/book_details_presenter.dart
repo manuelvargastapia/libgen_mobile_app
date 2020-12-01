@@ -46,7 +46,7 @@ class BookDetailsPresenter extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height / 2,
       child: ImageWidgetPlaceholder(
-        image: NetworkImage(book.coverUrl),
+        image: book.coverUrl != null ? NetworkImage(book.coverUrl) : null,
         placeholder: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           width: MediaQuery.of(context).size.width,
