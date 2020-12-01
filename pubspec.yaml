@@ -35,7 +35,8 @@ dependencies:
   json_annotation: ^3.1.0
   flutter_downloader:
     git:
-      url: git://github.com/valerybodak/flutter_downloader.git # Patch solution to augment default timeout from 15s to 45s
+      url: git://github.com/manuelvargastapia/flutter_downloader.git # Patch solution to augment default timeout from 15s to 60s
+      ref: timeout
   downloads_path_provider: ^0.1.0
   permission_handler: ^5.0.1+1
   transparent_image: ^1.0.0

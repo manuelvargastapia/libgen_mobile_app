@@ -276,11 +276,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "1384421ef24c9c9bcd2d5c92a6b36334b14ce6dc"
-      url: "git://github.com/valerybodak/flutter_downloader.git"
+      ref: timeout
+      resolved-ref: "18a514863a0bcfa993581632c5afdc6444505705"
+      url: "git://github.com/manuelvargastapia/flutter_downloader.git"
     source: git
-    version: "1.4.4"
+    version: "1.5.2"
   flutter_html:
     dependency: "direct main"
     description:
