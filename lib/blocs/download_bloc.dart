@@ -21,7 +21,6 @@ import 'package:libgen/domain/download_link_model.dart';
 class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
   BookRepository bookRepository;
   DownloadRepository downloadRepository;
-  bool isDownloading = false;
   ReceivePort _port = ReceivePort();
 
   DownloadBloc({
