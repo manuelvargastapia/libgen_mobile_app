@@ -18,9 +18,7 @@ class DownloadButton extends StatelessWidget {
 
     return BlocConsumer<DownloadBloc, DownloadState>(
       listener: (context, downloadState) {
-        if (downloadState is DownloadInProgress) {
-          _bloc.isDownloading = false;
-        } else if (downloadState is DownloadError) {
+        if (downloadState is DownloadError) {
           Scaffold.of(context).showSnackBar(
             SnackBar(content: Text(downloadState.error)),
           );
@@ -49,9 +47,7 @@ class DownloadButton extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                   onPressed: () {
-                    _bloc
-                      ..isDownloading = true
-                      ..add(DownloadBookEvent(book));
+                    _bloc.add(DownloadBookEvent(book));
                   },
                   backgroundColor: Theme.of(context).textTheme.headline5.color,
                 ),
