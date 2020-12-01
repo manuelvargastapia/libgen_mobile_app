@@ -19,16 +19,16 @@ class BookRepository {
     return _bookRepository;
   }
 
-  dynamic _cachedResponse;
+  http.Response _cachedResponse;
   SearchQueryModel _cachedQuery;
 
   Future<dynamic> getBooks(SearchQueryModel searchQuery) async {
     try {
-      if (_cachedQuery == searchQuery && _cachedResponse != null) {
+      if (_cachedQuery == searchQuery && _cachedResponse.statusCode == 200) {
         return _cachedResponse;
       }
       final response = await http.get(
-        '$devURLPhysical/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
+        '$devURLEmulator/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
       );
       if (_cachedQuery != searchQuery) {
         _cachedQuery = searchQuery;
@@ -43,7 +43,7 @@ class BookRepository {
 
   Future<dynamic> getDownloadLink(String md5) async {
     try {
-      return await http.get('$devURLPhysical/download?md5=$md5');
+      return await http.get('$devURLEmulator/download?md5=$md5');
     } catch (e) {
       return e.toString();
     }
