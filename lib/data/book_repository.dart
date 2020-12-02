@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:http/http.dart' as http;
-import 'package:libgen/domain/filters_extensions.dart';
 
+import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/search_query_model.dart';
 
 const String prodURL = 'https://libgen-mobile-api.herokuapp.com';

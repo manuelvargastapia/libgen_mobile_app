@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:hive/hive.dart';
+
 import 'package:libgen/data/hive_repositories/hive_repository.dart';
 import 'package:libgen/domain/suggestion.dart';
 
