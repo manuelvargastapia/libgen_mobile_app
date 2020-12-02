@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:libgen/data/book_repository.dart';
+import 'package:libgen/data/download_repository.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
 import 'package:libgen/domain/book_model.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DownloadButton extends StatelessWidget {
   final BookModel book;
@@ -14,45 +16,62 @@ class DownloadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DownloadBloc _bloc = BlocProvider.of<DownloadBloc>(context);
-
-    return BlocConsumer<DownloadBloc, DownloadState>(
-      listener: (context, downloadState) {
-        if (downloadState is DownloadError) {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text(downloadState.error)),
-          );
-        } else if (downloadState is DownloadPermissionsPermanentlyDenied) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            child: AlertDialog(
-              actions: _buildAlertDialogActions(context),
-              content: Text(
-                "Please, provide permissions app from app settings",
+    return BlocProvider(
+      create: (context) => DownloadBloc(
+        bookRepository: BookRepository(),
+        downloadRepository: DownloadRepository(),
+      ),
+      child: BlocConsumer<DownloadBloc, DownloadState>(
+        listener: (context, downloadState) {
+          if (downloadState is DownloadStarting) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text(downloadState.message),
+                duration: Duration(seconds: 8),
               ),
+            );
+          } else if (downloadState is DownloadError) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(content: Text(downloadState.error)),
+            );
+          } else if (downloadState is DownloadPermissionsPermanentlyDenied) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              child: AlertDialog(
+                actions: _buildAlertDialogActions(context),
+                content: Text(
+                  "Please, provide permissions app from app settings",
+                ),
+              ),
+            );
+          }
+        },
+        builder: (context, downloadState) {
+          return Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: FloatingActionButton.extended(
+              label: Text(
+                book.fileExtension != null
+                    ? book.fileExtension.toUpperCase()
+                    : "TXT",
+              ),
+              icon: Icon(
+                Icons.download_sharp,
+                size: 38,
+              ),
+              onPressed: downloadState is DownloadStarting
+                  ? null
+                  : () {
+                      context.bloc<DownloadBloc>().add(DownloadBookEvent(book));
+                    },
+              backgroundColor: downloadState is DownloadStarting
+                  ? Colors.grey
+                  : Theme.of(context).accentColor,
             ),
           );
-        }
-      },
-      builder: (context, downloadState) {
-        return Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: downloadState is DownloadStarting
-              ? CircularProgressIndicator()
-              : FloatingActionButton(
-                  child: Icon(
-                    Icons.download_rounded,
-                    size: 38,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {
-                    _bloc.add(DownloadBookEvent(book));
-                  },
-                  backgroundColor: Theme.of(context).textTheme.headline5.color,
-                ),
-        );
-      },
+        },
+      ),
     );
   }
 
