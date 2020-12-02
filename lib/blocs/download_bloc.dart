@@ -10,7 +10,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:http/http.dart' as http;
 import 'package:libgen/data/download_repository.dart';
 import 'package:libgen/domain/book_model.dart';
-import 'package:libgen/domain/task_info_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:libgen/blocs/events/download_event.dart';
@@ -61,11 +60,6 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
       _bindBackgroundIsolate();
       return;
     }
-    _port.listen((data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-    });
   }
 
   void _unbindBackgroundIsolate() {
@@ -102,7 +96,7 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
       }
 
       if (_permissionGranted) {
-        yield DownloadStarting();
+        yield DownloadStarting(message: "Starting download");
         final _response = await bookRepository.getDownloadLink(event.book.md5);
         if (_response is http.Response) {
           if (_response.statusCode == 200) {
@@ -112,16 +106,22 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
             Directory downloadsDirectory =
                 await DownloadsPathProvider.downloadsDirectory;
             final String fileName = _generateFileName(event.book);
-            downloadRepository.requestDownload(
-              task: TaskInfo(name: fileName, link: _downloadLink),
+            final result = await downloadRepository.requestDownload(
+              fileName: fileName,
+              downloadLink: _downloadLink,
               downloadPath: downloadsDirectory.path,
             );
-            yield DownloadInProgress(message: "Download in progress");
+            yield result.fold(
+              (l) => DownloadError(
+                error: "Download error. Try again later, please",
+              ),
+              (r) => DownloadInProgress(message: "Download in progress"),
+            );
           } else {
             yield DownloadError(
                 error: "Download error. Try again later, please");
           }
-        } else if (_response is String) {
+        } else {
           yield DownloadError(error: "Download error. Try again later, please");
         }
       }

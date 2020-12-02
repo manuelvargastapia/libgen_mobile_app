@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-
-import 'package:libgen/domain/task_info_model.dart';
+import 'package:dartz/dartz.dart';
 
 class DownloadRepository {
   static final DownloadRepository _repository = DownloadRepository._();
@@ -12,45 +11,31 @@ class DownloadRepository {
     return _repository;
   }
 
-  Future<void> requestDownload({
-    @required TaskInfo task,
+  Future<Either<String, void>> requestDownload({
+    @required String fileName,
+    @required String downloadLink,
     @required String downloadPath,
   }) async {
-    task.taskId = await FlutterDownloader.enqueue(
-      url: task.link,
-      savedDir: downloadPath,
-      showNotification: true,
-      openFileFromNotification: true,
-      fileName: task.name,
-    );
+    try {
+      await FlutterDownloader.enqueue(
+        url: downloadLink,
+        savedDir: downloadPath,
+        showNotification: true,
+        openFileFromNotification: true,
+        fileName: fileName,
+      );
+      return right(null);
+    } catch (e) {
+      return left(e.toString());
+    }
   }
 
-  void cancelDownload(TaskInfo task) async {
-    await FlutterDownloader.cancel(taskId: task.taskId);
-  }
-
-  void pauseDownload(TaskInfo task) async {
-    await FlutterDownloader.pause(taskId: task.taskId);
-  }
-
-  void resumeDownload(TaskInfo task) async {
-    String newTaskId = await FlutterDownloader.resume(taskId: task.taskId);
-    task.taskId = newTaskId;
-  }
-
-  void retryDownload(TaskInfo task) async {
-    String newTaskId = await FlutterDownloader.retry(taskId: task.taskId);
-    task.taskId = newTaskId;
-  }
-
-  Future<bool> openDownloadedFile(TaskInfo task) {
-    return FlutterDownloader.open(taskId: task.taskId);
-  }
-
-  Future<void> delete(TaskInfo task) async {
-    await FlutterDownloader.remove(
-      taskId: task.taskId,
-      shouldDeleteContent: true,
-    );
+  Future<Either<String, void>> cancelAllDownloads() async {
+    try {
+      await FlutterDownloader.cancelAll();
+      return right(null);
+    } catch (e) {
+      return left(e.toString());
+    }
   }
 }
