@@ -9,7 +9,8 @@ class DownloadInitialState extends DownloadState {
 }
 
 class DownloadStarting extends DownloadState {
-  const DownloadStarting();
+  final String message;
+  const DownloadStarting({@required this.message});
 }
 
 class DownloadInProgress extends DownloadState {
