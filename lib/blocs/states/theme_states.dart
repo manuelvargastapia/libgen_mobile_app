@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:libgen/global/theme/themes.dart';
 
 class ThemeState {
-  final ThemeData themeData;
-  const ThemeState(this.themeData);
-}
-
-class ThemeInitialState extends ThemeState {
-  final ThemeData themeData;
-  const ThemeInitialState(this.themeData) : super(themeData);
+  final AppTheme appTheme;
+  const ThemeState(this.appTheme);
 }

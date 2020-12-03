@@ -31,6 +31,7 @@ dependencies:
   # Project-specific dependencies
   http: ^0.12.2
   flutter_bloc: ^6.0.6
+  hydrated_bloc: ^6.1.0
   json_annotation: ^3.1.0
   flutter_downloader:
     git:
