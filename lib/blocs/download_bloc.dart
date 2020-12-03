@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:libgen/data/download_repository.dart';
 import 'package:libgen/domain/book_model.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
@@ -71,9 +72,7 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     final author = book.author != null ? " - " + book.author : "";
     final publisher = book.publisher != null ? " - " + book.publisher : "";
     final year = book.year != null ? " - " + book.year.toString() : "";
-    final fileExtension =
-        book.fileExtension != null ? "." + book.fileExtension : "";
-    return "$title$author$publisher$year$fileExtension";
+    return "$title$author$publisher$year".replaceAll(RegExp(r'\/'), ' ');
   }
 
   @override
@@ -106,17 +105,22 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
             Directory downloadsDirectory =
                 await DownloadsPathProvider.downloadsDirectory;
             final String fileName = _generateFileName(event.book);
-            final result = await downloadRepository.requestDownload(
-              fileName: fileName,
-              downloadLink: _downloadLink,
-              downloadPath: downloadsDirectory.path,
-            );
-            yield result.fold(
-              (l) => DownloadError(
-                error: "Download error. Try again later, please",
-              ),
-              (r) => DownloadInProgress(message: "Download in progress"),
-            );
+            if ((event.book.fileSize ~/ 1000000) > 200 &&
+                await canLaunch(_downloadLink)) {
+              yield FileNeedsToBeDownloadedFromBrowser(url: _downloadLink);
+            } else {
+              final result = await downloadRepository.requestDownload(
+                fileName: fileName,
+                downloadLink: _downloadLink,
+                downloadPath: downloadsDirectory.path,
+              );
+              yield result.fold(
+                (l) => DownloadError(
+                  error: "Download error. Try again later, please",
+                ),
+                (r) => DownloadInProgress(message: "Download in progress"),
+              );
+            }
           } else {
             yield DownloadError(
                 error: "Download error. Try again later, please");

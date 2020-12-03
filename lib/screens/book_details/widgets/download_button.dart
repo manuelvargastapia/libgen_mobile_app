@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libgen/data/book_repository.dart';
 import 'package:libgen/data/download_repository.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/events/download_event.dart';
@@ -22,7 +23,7 @@ class DownloadButton extends StatelessWidget {
         downloadRepository: DownloadRepository(),
       ),
       child: BlocConsumer<DownloadBloc, DownloadState>(
-        listener: (context, downloadState) {
+        listener: (context, downloadState) async {
           if (downloadState is DownloadStarting) {
             Scaffold.of(context).showSnackBar(
               SnackBar(
@@ -45,6 +46,33 @@ class DownloadButton extends StatelessWidget {
                 ),
               ),
             );
+          } else if (downloadState is FileNeedsToBeDownloadedFromBrowser) {
+            final downloadFromBrowser = await showDialog<bool>(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => AlertDialog(
+                content: Text(
+                  "The file is massive! Please, use the browser to download",
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('Open Browser'),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                  ),
+                ],
+              ),
+            );
+            if (downloadFromBrowser) {
+              launch(downloadState.url);
+            }
           }
         },
         builder: (context, downloadState) {

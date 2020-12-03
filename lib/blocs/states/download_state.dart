@@ -18,6 +18,11 @@ class DownloadInProgress extends DownloadState {
   const DownloadInProgress({@required this.message});
 }
 
+class FileNeedsToBeDownloadedFromBrowser extends DownloadState {
+  final String url;
+  const FileNeedsToBeDownloadedFromBrowser({@required this.url});
+}
+
 class DownloadError extends DownloadState {
   final String error;
 
