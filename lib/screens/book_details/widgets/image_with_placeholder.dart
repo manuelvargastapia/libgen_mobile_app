@@ -14,12 +14,12 @@ class ImageWidgetPlaceholder extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => placeholder,
       frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
         if (wasSynchronouslyLoaded) {
-          return _displayImageWithBackground(child);
+          return _displayImageWithBackground(context, child);
         } else {
           return AnimatedSwitcher(
             duration: Duration(milliseconds: 500),
             child: frame != null
-                ? _displayImageWithBackground(child)
+                ? _displayImageWithBackground(context, child)
                 : placeholder,
           );
         }
@@ -27,7 +27,7 @@ class ImageWidgetPlaceholder extends StatelessWidget {
     );
   }
 
-  Widget _displayImageWithBackground(Widget child) {
+  Widget _displayImageWithBackground(BuildContext context, Widget child) {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -36,7 +36,7 @@ class ImageWidgetPlaceholder extends StatelessWidget {
             image: DecorationImage(
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.2),
+                Theme.of(context).backgroundColor.withOpacity(0.2),
                 BlendMode.dstATop,
               ),
               image: image,

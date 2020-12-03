@@ -25,21 +25,19 @@ class BookSearchDelegate extends SearchDelegate {
   BookSearchDelegate({@required this.bookBloc, @required this.hiveBloc});
 
   @override
-  ThemeData appBarTheme(BuildContext context) {
-    return Theme.of(context);
-  }
-
-  @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: Icon(
+          Icons.clear,
+          size: 20,
+        ),
         onPressed: () {
           query = '';
         },
       ),
       IconButton(
-        icon: Icon(Icons.filter_list),
+        icon: Icon(Icons.tune),
         onPressed: () async {
           filters = await showFilterDialog(
             context: context,
@@ -55,7 +53,10 @@ class BookSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: Icon(
+        Icons.arrow_back,
+        color: Theme.of(context).primaryColor,
+      ),
       onPressed: () {
         close(context, null);
       },

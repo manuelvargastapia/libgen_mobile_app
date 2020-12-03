@@ -34,11 +34,17 @@ class SearchBookScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Search by title, author or ISBN'),
-                          Icon(Icons.search),
+                          Icon(
+                            Icons.search,
+                            size: 30,
+                            color: Theme.of(context).primaryColor,
+                          ),
                         ],
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),

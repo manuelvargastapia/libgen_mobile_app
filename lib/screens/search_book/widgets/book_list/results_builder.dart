@@ -59,7 +59,7 @@ class ResultsBuilder extends StatelessWidget {
                   bookState is BookLoadingState && _books.isEmpty) {
                 return CircularProgressIndicator();
               } else if (bookState is BookErrorState && _books.isEmpty) {
-                return _buildErrorMessage(bookState.error);
+                return _buildErrorMessage(context, bookState.error);
               } else if (bookState is BookNoResultsState) {
                 return Text(bookState.message);
               }
@@ -75,10 +75,9 @@ class ResultsBuilder extends StatelessWidget {
     );
   }
 
-  Widget _buildErrorMessage(String errorMessage) {
+  Widget _buildErrorMessage(BuildContext context, String errorMessage) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
           onPressed: () {
@@ -94,9 +93,13 @@ class ResultsBuilder extends StatelessWidget {
                 ),
               );
           },
-          icon: Icon(Icons.refresh),
+          icon: Icon(
+            Icons.refresh,
+            color: Theme.of(context).primaryColor,
+            size: 46,
+          ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 30),
         Text(errorMessage, textAlign: TextAlign.center),
       ],
     );
@@ -134,7 +137,7 @@ class ResultsBuilder extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: "$totalCount",
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyText1,
                 children: [
                   TextSpan(
                     text: " results",

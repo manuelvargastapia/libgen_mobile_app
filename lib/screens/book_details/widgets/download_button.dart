@@ -83,10 +83,11 @@ class DownloadButton extends StatelessWidget {
                 book.fileExtension != null
                     ? book.fileExtension.toUpperCase()
                     : "TXT",
+                style: Theme.of(context).primaryTextTheme.bodyText1,
               ),
               icon: Icon(
                 Icons.download_sharp,
-                size: 38,
+                color: Theme.of(context).backgroundColor,
               ),
               onPressed: downloadState is DownloadStarting
                   ? null
@@ -94,8 +95,8 @@ class DownloadButton extends StatelessWidget {
                       context.bloc<DownloadBloc>().add(DownloadBookEvent(book));
                     },
               backgroundColor: downloadState is DownloadStarting
-                  ? Colors.grey
-                  : Theme.of(context).accentColor,
+                  ? Theme.of(context).disabledColor
+                  : Theme.of(context).primaryColor,
             ),
           );
         },

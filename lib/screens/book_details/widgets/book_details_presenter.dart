@@ -18,22 +18,26 @@ class BookDetailsPresenter extends StatelessWidget {
           _buildCover(context, book),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-            color: Colors.blueGrey[500],
+            color: Theme.of(context).primaryColor,
             child: Column(
               children: [
-                _buildContentHeader(title: book.title, author: book.author),
+                _buildContentHeader(
+                  context: context,
+                  title: book.title,
+                  author: book.author,
+                ),
                 if (book.description != null)
-                  _buildDescription(book.description),
+                  _buildDescription(context, book.description),
                 SizedBox(height: 24),
-                if (book.contents != null) _buildTableOfContents(book.contents),
+                if (book.contents != null)
+                  _buildTableOfContents(context, book.contents),
                 Divider(
                   indent: 8,
                   endIndent: 8,
                   height: 54,
                   thickness: 2,
-                  color: Colors.black26,
                 ),
-                _buildInfoTable(book),
+                _buildInfoTable(context, book),
               ],
             ),
           ),
@@ -50,7 +54,7 @@ class BookDetailsPresenter extends StatelessWidget {
         placeholder: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           width: MediaQuery.of(context).size.width,
-          color: Colors.white.withOpacity(0.2),
+          color: Theme.of(context).backgroundColor.withOpacity(0.2),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -58,7 +62,8 @@ class BookDetailsPresenter extends StatelessWidget {
                 book.title ?? "(no title)",
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 20),
+                style: Theme.of(context).textTheme.headline3,
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 20,
@@ -68,7 +73,7 @@ class BookDetailsPresenter extends StatelessWidget {
                   book.author,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 14),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
             ],
           ),
@@ -77,14 +82,18 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildContentHeader({String title, String author}) {
+  Widget _buildContentHeader({
+    BuildContext context,
+    String title,
+    String author,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 34),
       child: Column(
         children: [
           Text(
             title ?? "(no title)",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: Theme.of(context).primaryTextTheme.headline1,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             textAlign: TextAlign.center,
@@ -93,7 +102,7 @@ class BookDetailsPresenter extends StatelessWidget {
           if (author != null)
             Text(
               "by $author",
-              style: TextStyle(fontSize: 14),
+              style: Theme.of(context).primaryTextTheme.bodyText1,
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
               textAlign: TextAlign.center,
@@ -103,28 +112,30 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription(String description) {
+  Widget _buildDescription(BuildContext context, String description) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
       ),
       child: Column(
         children: [
           Text(
             "Decription",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.headline2,
           ),
           SizedBox(height: 20),
           Html(
             data: "<div>$description</div>",
             style: {
-              "div": Style(color: Colors.black),
+              "div": Style(
+                color: Theme.of(context).textTheme.bodyText2.color,
+                fontSize: FontSize(
+                  Theme.of(context).textTheme.bodyText2.fontSize,
+                ),
+                fontFamily: 'Roboto',
+              ),
             },
           ),
         ],
@@ -132,28 +143,30 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildTableOfContents(String contents) {
+  Widget _buildTableOfContents(BuildContext context, String contents) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
       ),
       child: Column(
         children: [
           Text(
             "Table of Contents",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.headline2,
           ),
           SizedBox(height: 20),
           Html(
             data: "<div>$contents</div>",
             style: {
-              "div": Style(color: Colors.black),
+              "div": Style(
+                color: Theme.of(context).textTheme.bodyText2.color,
+                fontSize: FontSize(
+                  Theme.of(context).textTheme.bodyText2.fontSize,
+                ),
+                fontFamily: 'Roboto',
+              ),
             },
           ),
         ],
@@ -161,12 +174,12 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoTable(BookModel book) {
+  Widget _buildInfoTable(BuildContext context, BookModel book) {
     return Column(
       children: [
         Text(
           "Info",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: Theme.of(context).primaryTextTheme.headline1,
         ),
         SizedBox(height: 20),
         Table(
@@ -176,39 +189,46 @@ class BookDetailsPresenter extends StatelessWidget {
           },
           defaultVerticalAlignment: TableCellVerticalAlignment.baseline,
           children: [
-            _buildTableRow("Title:", book.title),
-            _buildTableRow("Author(s):", book.author),
-            _buildTableRow("Year:", book.year),
-            _buildTableRow("Volume:", book.volumeInfo),
-            _buildTableRow("Series:", book.series),
-            _buildTableRow("Edition:", book.edition),
-            _buildTableRow("Publisher:", book.publisher),
-            _buildTableRow("City:", book.city),
-            _buildTableRow("Pages:", book.pages),
-            _buildTableRow("Language:", book.language),
-            _buildTableRow("ISBN:", book.isbn),
-            _buildTableRow("DOI:", book.doi),
+            _buildTableRow(context, "Title:", book.title),
+            _buildTableRow(context, "Author(s):", book.author),
+            _buildTableRow(context, "Year:", book.year),
+            _buildTableRow(context, "Volume:", book.volumeInfo),
+            _buildTableRow(context, "Series:", book.series),
+            _buildTableRow(context, "Edition:", book.edition),
+            _buildTableRow(context, "Publisher:", book.publisher),
+            _buildTableRow(context, "City:", book.city),
+            _buildTableRow(context, "Pages:", book.pages),
+            _buildTableRow(context, "Language:", book.language),
+            _buildTableRow(context, "ISBN:", book.isbn),
+            _buildTableRow(context, "DOI:", book.doi),
             _buildTableRow(
+              context,
               "File Size:",
               _buildFileSizeMessage(book.fileSize),
             ),
-            _buildTableRow("File Extension:", book.fileExtension),
+            _buildTableRow(context, "File Extension:", book.fileExtension),
           ],
         ),
       ],
     );
   }
 
-  TableRow _buildTableRow(String title, dynamic value) {
+  TableRow _buildTableRow(BuildContext context, String title, dynamic value) {
     return TableRow(
       children: [
         TableCell(
-          child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+          child: Text(
+            title,
+            style: Theme.of(context).primaryTextTheme.headline4,
+          ),
         ),
         TableCell(
             child: value != null
                 ? Container(
-                    child: SelectableText(value.toString()),
+                    child: SelectableText(
+                      value.toString(),
+                      style: Theme.of(context).primaryTextTheme.bodyText1,
+                    ),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   )
                 : Container(
