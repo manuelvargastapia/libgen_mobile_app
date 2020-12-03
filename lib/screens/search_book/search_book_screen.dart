@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
@@ -14,7 +15,9 @@ class SearchBookScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('LibGen Mobile', style: TextStyle(fontSize: 48)),
+            Image(
+              image: AssetImage('assets/images/logo.png'),
+            ),
             Row(
               children: [
                 Expanded(
