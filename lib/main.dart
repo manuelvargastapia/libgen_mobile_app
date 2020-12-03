@@ -14,7 +14,7 @@ void main() async {
   Hive.registerAdapter(SuggestionAdapter());
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.white,
+    statusBarColor: Color(0xFF548cd4),
   ));
 
   runApp(LibGenApp());
