@@ -57,7 +57,12 @@ class ResultsBuilder extends StatelessWidget {
             builder: (context, bookState) {
               if (bookState is BookInitialState ||
                   bookState is BookLoadingState && _books.isEmpty) {
-                return CircularProgressIndicator();
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    accentColor: Theme.of(context).primaryColor,
+                  ),
+                  child: CircularProgressIndicator(),
+                );
               } else if (bookState is BookErrorState && _books.isEmpty) {
                 return _buildErrorMessage(context, bookState.error);
               } else if (bookState is BookNoResultsState) {
@@ -95,8 +100,8 @@ class ResultsBuilder extends StatelessWidget {
           },
           icon: Icon(
             Icons.refresh,
-            color: Theme.of(context).primaryColor,
             size: 46,
+            color: Theme.of(context).primaryColor,
           ),
         ),
         SizedBox(height: 30),
@@ -141,7 +146,7 @@ class ResultsBuilder extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: " results",
-                    style: DefaultTextStyle.of(context).style,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
               ),
@@ -166,7 +171,14 @@ class ResultsBuilder extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 20),
-              child: Center(child: CircularProgressIndicator()),
+              child: Center(
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    accentColor: Theme.of(context).primaryColor,
+                  ),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
             ),
           )
       ],

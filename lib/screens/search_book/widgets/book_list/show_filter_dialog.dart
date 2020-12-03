@@ -21,7 +21,11 @@ Future<FiltersModel> showFilterDialog({
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
-            title: Text("Filter"),
+            title: Text(
+              "Filter",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline5,
+            ),
             actions: _buildAlertDialogActions(
               context: context,
               filters: _filters,

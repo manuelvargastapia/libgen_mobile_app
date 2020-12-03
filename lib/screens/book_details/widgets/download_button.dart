@@ -83,11 +83,14 @@ class DownloadButton extends StatelessWidget {
                 book.fileExtension != null
                     ? book.fileExtension.toUpperCase()
                     : "TXT",
-                style: Theme.of(context).primaryTextTheme.bodyText1,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(color: Colors.white),
               ),
               icon: Icon(
                 Icons.download_sharp,
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).buttonColor,
               ),
               onPressed: downloadState is DownloadStarting
                   ? null

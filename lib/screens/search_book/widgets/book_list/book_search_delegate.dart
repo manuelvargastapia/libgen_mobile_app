@@ -25,13 +25,18 @@ class BookSearchDelegate extends SearchDelegate {
   BookSearchDelegate({@required this.bookBloc, @required this.hiveBloc});
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Theme.of(context).copyWith(
+      primaryColor: isDarkMode ? Colors.transparent : Colors.white,
+    );
+  }
+
+  @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(
-          Icons.clear,
-          size: 20,
-        ),
+        icon: Icon(Icons.clear, size: 20),
         onPressed: () {
           query = '';
         },

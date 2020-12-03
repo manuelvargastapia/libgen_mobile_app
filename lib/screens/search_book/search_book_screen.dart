@@ -37,7 +37,14 @@ class SearchBookScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Search by title, author or ISBN'),
+                            Expanded(
+                              child: Text(
+                                'Search by title, author or ISBN',
+                                maxLines: 1,
+                                overflow: TextOverflow.fade,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ),
                             Icon(
                               Icons.search,
                               size: 30,
@@ -74,6 +81,7 @@ class SearchBookScreen extends StatelessWidget {
           child: Icon(
             Icons.brightness_4,
             size: 30,
+            color: Theme.of(context).buttonColor,
           ),
           onPressed: () {
             showModalBottomSheet(

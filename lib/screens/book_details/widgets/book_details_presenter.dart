@@ -18,7 +18,7 @@ class BookDetailsPresenter extends StatelessWidget {
           _buildCover(context, book),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             child: Column(
               children: [
                 _buildContentHeader(
@@ -73,7 +73,7 @@ class BookDetailsPresenter extends StatelessWidget {
                   book.author,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
             ],
           ),
@@ -93,7 +93,7 @@ class BookDetailsPresenter extends StatelessWidget {
         children: [
           Text(
             title ?? "(no title)",
-            style: Theme.of(context).primaryTextTheme.headline1,
+            style: Theme.of(context).textTheme.headline1,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             textAlign: TextAlign.center,
@@ -102,7 +102,7 @@ class BookDetailsPresenter extends StatelessWidget {
           if (author != null)
             Text(
               "by $author",
-              style: Theme.of(context).primaryTextTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyText1,
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
               textAlign: TextAlign.center,
@@ -179,7 +179,7 @@ class BookDetailsPresenter extends StatelessWidget {
       children: [
         Text(
           "Info",
-          style: Theme.of(context).primaryTextTheme.headline1,
+          style: Theme.of(context).textTheme.headline1,
         ),
         SizedBox(height: 20),
         Table(
@@ -219,7 +219,7 @@ class BookDetailsPresenter extends StatelessWidget {
         TableCell(
           child: Text(
             title,
-            style: Theme.of(context).primaryTextTheme.headline4,
+            style: Theme.of(context).textTheme.headline4,
           ),
         ),
         TableCell(
@@ -227,7 +227,7 @@ class BookDetailsPresenter extends StatelessWidget {
                 ? Container(
                     child: SelectableText(
                       value.toString(),
-                      style: Theme.of(context).primaryTextTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   )
