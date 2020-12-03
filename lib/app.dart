@@ -39,6 +39,7 @@ class LibGenApp extends StatelessWidget {
               ],
               child: MaterialApp(
                 title: 'LibGen',
+                debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   brightness: Brightness.light,
                   primaryColor: Color(0xFF548cd4),
