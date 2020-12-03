@@ -11,18 +11,25 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(book.title ?? "(no title)"),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
+        extendBodyBehindAppBar: true,
+        body: BookDetailsPresenter(book: book),
+        floatingActionButton: DownloadButton(book),
       ),
-      body: BookDetailsPresenter(book: book),
-      floatingActionButton: DownloadButton(book),
     );
   }
 }

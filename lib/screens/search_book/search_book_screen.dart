@@ -9,61 +9,63 @@ import 'widgets/book_list/book_search_delegate.dart';
 class SearchBookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image(
-              image: AssetImage('assets/images/logo.png'),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 20,
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 20,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Search by title, author or ISBN'),
-                          Icon(
-                            Icons.search,
-                            size: 30,
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage('assets/images/logo.png'),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 20,
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Search by title, author or ISBN'),
+                            Icon(
+                              Icons.search,
+                              size: 30,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
                             color: Theme.of(context).primaryColor,
                           ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        borderRadius: BorderRadius.circular(12),
                       ),
-                    ),
-                    onTap: () {
-                      showSearch(
-                        context: context,
-                        delegate: BookSearchDelegate(
-                          bookBloc: BlocProvider.of<BookBloc>(context),
-                          hiveBloc: BlocProvider.of<HiveBloc<Suggestion>>(
-                            context,
+                      onTap: () {
+                        showSearch(
+                          context: context,
+                          delegate: BookSearchDelegate(
+                            bookBloc: BlocProvider.of<BookBloc>(context),
+                            hiveBloc: BlocProvider.of<HiveBloc<Suggestion>>(
+                              context,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          ],
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
