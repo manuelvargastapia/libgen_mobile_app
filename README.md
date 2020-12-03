@@ -68,6 +68,7 @@ samples, guidance on mobile development, and a full API reference.
   - [ ] Portentially large data set of suggestions
   - [ ] API data cached
 - [ ] Implement Either pattern to all repositories
+- [ ] Solucionar problema de acceso a archivos descargados [ver documentación](https://developer.android.com/about/versions/11/privacy/storage)
 - [ ] Control appropiately the error case when opening Hive box
 - [ ] Handle potential issues (run after `flutter clean`): `Note: Some input files use or override a deprecated API.`
 - [ ] Consider including a new screen to manage downloads
