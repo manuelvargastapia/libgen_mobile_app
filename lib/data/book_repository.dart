@@ -5,8 +5,8 @@ import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/search_query_model.dart';
 
 const String prodURL = 'https://libgen-mobile-api.herokuapp.com';
-const String devURLEmulator = 'http://10.0.2.2:8000';
-const String devURLPhysical = 'http://192.168.0.14:8000';
+const String devURLEmulator = 'http://10.0.2.2:3000';
+const String devURLPhysical = 'http://192.168.0.14:3000';
 const int count = 10;
 
 class BookRepository {
