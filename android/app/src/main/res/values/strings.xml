@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">LibGen</string>
     <!--flutter_downloader resources-->
     <string name="flutter_downloader_notification_started">Download started</string>
     <string name="flutter_downloader_notification_in_progress">Download in progress</string>
