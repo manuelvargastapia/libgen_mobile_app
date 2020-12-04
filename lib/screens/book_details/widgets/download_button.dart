@@ -9,6 +9,7 @@ import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
 import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/global/widgets/custom_alert_dialog.dart';
 
 class DownloadButton extends StatelessWidget {
   final BookModel book;
@@ -39,10 +40,23 @@ class DownloadButton extends StatelessWidget {
             showDialog(
               context: context,
               barrierDismissible: false,
-              child: AlertDialog(
-                actions: _buildAlertDialogActions(context),
-                content: Text(
-                  "Please, provide permissions app from app settings",
+              child: CustomAlertDialog(
+                title: "Permissions denied",
+                textLeft: "Cancel",
+                textRight: "Open Settings",
+                callbacLeft: () {
+                  Navigator.of(context).pop();
+                },
+                callbackRight: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    "Please, provide permissions app from app settings",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                 ),
               ),
             );
@@ -50,24 +64,23 @@ class DownloadButton extends StatelessWidget {
             final downloadFromBrowser = await showDialog<bool>(
               context: context,
               barrierDismissible: true,
-              builder: (context) => AlertDialog(
-                content: Text(
-                  "The file is massive! Please, use the browser to download",
+              builder: (context) => CustomAlertDialog(
+                title: "Large file",
+                textLeft: "Cancel",
+                textRight: "Open Browser",
+                callbacLeft: () {
+                  Navigator.of(context).pop(false);
+                },
+                callbackRight: () {
+                  Navigator.of(context).pop(true);
+                },
+                content: Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    "The file is massive! Please, use the browser to download",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                 ),
-                actions: [
-                  FlatButton(
-                    child: Text('Cancel'),
-                    onPressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                  ),
-                  FlatButton(
-                    child: Text('Open Browser'),
-                    onPressed: () {
-                      Navigator.of(context).pop(true);
-                    },
-                  ),
-                ],
               ),
             );
             if (downloadFromBrowser) {
@@ -105,23 +118,5 @@ class DownloadButton extends StatelessWidget {
         },
       ),
     );
-  }
-
-  List<Widget> _buildAlertDialogActions(BuildContext context) {
-    return [
-      FlatButton(
-        child: Text('Cancel'),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      ),
-      FlatButton(
-        child: Text('Open Settings'),
-        onPressed: () {
-          openAppSettings();
-          Navigator.of(context).pop();
-        },
-      ),
-    ];
   }
 }

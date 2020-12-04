@@ -5,6 +5,7 @@ import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
+import 'package:libgen/global/widgets/custom_alert_dialog.dart';
 
 Future<FiltersModel> showFilterDialog({
   @required BuildContext context,
@@ -20,18 +21,26 @@ Future<FiltersModel> showFilterDialog({
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          return AlertDialog(
-            title: Text(
-              "Filter",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            actions: _buildAlertDialogActions(
-              context: context,
-              filters: _filters,
-              bookBloc: bookBloc,
-              currentQuery: currentQuery,
-            ),
+          return CustomAlertDialog(
+            title: "Filter",
+            textLeft: "Cancel",
+            textRight: "Apply",
+            callbacLeft: () {
+              Navigator.of(context).pop(_filters);
+            },
+            callbackRight: () {
+              Navigator.of(context).pop(_filters);
+              if (currentQuery != '') {
+                bookBloc.add(
+                  BookFetchEvent(
+                    SearchQueryModel(
+                      searchTerm: currentQuery,
+                      filters: _filters,
+                    ),
+                  ),
+                );
+              }
+            },
             content: SingleChildScrollView(
               child: Column(
                 children: [
@@ -90,38 +99,6 @@ Future<FiltersModel> showFilterDialog({
       );
     },
   );
-}
-
-List<Widget> _buildAlertDialogActions({
-  @required BuildContext context,
-  @required FiltersModel filters,
-  @required BookBloc bookBloc,
-  @required String currentQuery,
-}) {
-  return [
-    FlatButton(
-      child: Text('Cancel'),
-      onPressed: () {
-        Navigator.of(context).pop(filters);
-      },
-    ),
-    FlatButton(
-      child: Text('Apply'),
-      onPressed: () {
-        Navigator.of(context).pop(filters);
-        if (currentQuery != '') {
-          bookBloc.add(
-            BookFetchEvent(
-              SearchQueryModel(
-                searchTerm: currentQuery,
-                filters: filters,
-              ),
-            ),
-          );
-        }
-      },
-    ),
-  ];
 }
 
 Widget _buildDropdownFilter<T>({
