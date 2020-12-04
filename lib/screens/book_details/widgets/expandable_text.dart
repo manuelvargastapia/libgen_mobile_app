@@ -6,6 +6,20 @@ class ExpandableText extends StatelessWidget {
 
   ExpandableText(this.content);
 
+  bool _didExceedMaxLines(
+    BuildContext context,
+    InlineSpan text,
+    BoxConstraints constraints,
+  ) {
+    final painter = TextPainter(
+      text: text,
+      textDirection: TextDirection.ltr,
+      maxLines: 10,
+    );
+    painter.layout(maxWidth: constraints.maxWidth);
+    return painter.didExceedMaxLines;
+  }
+
   @override
   Widget build(BuildContext context) {
     return ExpandableTheme(
@@ -15,27 +29,32 @@ class ExpandableText extends StatelessWidget {
       ),
       child: ExpandableNotifier(
         child: Expandable(
-          collapsed: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              RichText(
-                text: content,
-                maxLines: 10,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.justify,
-                softWrap: true,
-              ),
-              SizedBox(height: 20),
-              ExpandableButton(
-                child: Text(
-                  "Show more",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(color: Theme.of(context).primaryColor),
-                ),
-              ),
-            ],
+          collapsed: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  RichText(
+                    text: content,
+                    maxLines: 10,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    softWrap: true,
+                  ),
+                  SizedBox(height: 20),
+                  if (_didExceedMaxLines(context, content, constraints))
+                    ExpandableButton(
+                      child: Text(
+                        "Show more",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
           expanded: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
