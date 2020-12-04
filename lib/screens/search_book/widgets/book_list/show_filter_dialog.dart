@@ -35,6 +35,21 @@ Future<FiltersModel> showFilterDialog({
             content: SingleChildScrollView(
               child: Column(
                 children: [
+                  _buildDropdownFilter<SearchIn>(
+                    title: "Search in",
+                    selectedValue: _filters.searchIn,
+                    values: SearchIn.values,
+                    labelGenerator: (value) => Text(value.displayUILabel),
+                    callback: (value) {
+                      setState(() {
+                        _filters = FiltersModel(
+                          reverseOrder: _filters.reverseOrder,
+                          searchIn: value,
+                          sortBy: _filters.sortBy,
+                        );
+                      });
+                    },
+                  ),
                   _buildDropdownFilter<SortBy>(
                     title: 'Sort by',
                     selectedValue: _filters.sortBy,
@@ -46,21 +61,6 @@ Future<FiltersModel> showFilterDialog({
                           reverseOrder: _filters.reverseOrder,
                           searchIn: _filters.searchIn,
                           sortBy: value,
-                        );
-                      });
-                    },
-                  ),
-                  _buildDropdownFilter<SearchIn>(
-                    title: "Type",
-                    selectedValue: _filters.searchIn,
-                    values: SearchIn.values,
-                    labelGenerator: (value) => Text(value.displayUILabel),
-                    callback: (value) {
-                      setState(() {
-                        _filters = FiltersModel(
-                          reverseOrder: _filters.reverseOrder,
-                          searchIn: value,
-                          sortBy: _filters.sortBy,
                         );
                       });
                     },
