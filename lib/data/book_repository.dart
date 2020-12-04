@@ -27,7 +27,7 @@ class BookRepository {
         return _cachedResponse;
       }
       final response = await http.get(
-        '$devURLEmulator/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder}',
+        '$devURLEmulator/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${searchQuery.filters.reverseOrder.value}',
       );
       if (_cachedQuery != searchQuery) {
         _cachedQuery = searchQuery;
