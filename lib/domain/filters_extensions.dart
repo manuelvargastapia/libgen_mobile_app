@@ -4,6 +4,8 @@ enum SortBy { def, title, year, pages, fileSize }
 
 enum SearchIn { def, title, author, series, publisher, isbn, md5 }
 
+enum ReverseOrder { no, yes }
+
 extension SortByExtension on SortBy {
   String get name => describeEnum(this);
 
@@ -48,6 +50,28 @@ extension SortByExtension on SortBy {
         break;
       default:
         return "def";
+    }
+  }
+
+  String displaySortingLabel(int index) {
+    switch (this) {
+      case SortBy.def:
+        return "No ordering";
+        break;
+      case SortBy.title:
+        return ["Ascending", "Descending"][index];
+        break;
+      case SortBy.year:
+        return ["Older first", "Newer first"][index];
+        break;
+      case SortBy.pages:
+        return ["Shorter first", "Larger first"][index];
+        break;
+      case SortBy.fileSize:
+        return ["Smaller first", "Bigger first"][index];
+        break;
+      default:
+        return "No ordering";
     }
   }
 }
@@ -109,5 +133,13 @@ extension SearchInExtension on SearchIn {
       default:
         return "def";
     }
+  }
+}
+
+extension ReverseOrderExtension on ReverseOrder {
+  String get name => describeEnum(this);
+
+  bool get value {
+    return this == ReverseOrder.yes;
   }
 }

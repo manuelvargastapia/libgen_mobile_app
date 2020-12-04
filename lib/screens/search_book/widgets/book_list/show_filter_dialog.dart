@@ -65,16 +65,20 @@ Future<FiltersModel> showFilterDialog({
                       });
                     },
                   ),
-                  _buildCheckboxFilter(
-                    title: 'Reverse order',
-                    value: _filters.reverseOrder,
-                    callback: (bool value) {
+                  SizedBox(height: 20),
+                  _buildChipChpiceFilter(
+                    context: context,
+                    selectedIndex: _filters.reverseOrder.index,
+                    currentSortBy: _filters.sortBy,
+                    callback: (bool value, int index) {
                       setState(() {
-                        _filters = FiltersModel(
-                          reverseOrder: value,
-                          searchIn: _filters.searchIn,
-                          sortBy: _filters.sortBy,
-                        );
+                        if (value) {
+                          _filters = FiltersModel(
+                            reverseOrder: ReverseOrder.values[index],
+                            searchIn: _filters.searchIn,
+                            sortBy: _filters.sortBy,
+                          );
+                        }
                       });
                     },
                   ),
@@ -157,24 +161,28 @@ Widget _buildDropdownFilter<T>({
   );
 }
 
-Widget _buildCheckboxFilter({
-  @required String title,
-  @required bool value,
-  @required void Function(bool value) callback,
+Widget _buildChipChpiceFilter({
+  @required BuildContext context,
+  @required int selectedIndex,
+  @required void Function(bool value, int index) callback,
+  @required SortBy currentSortBy,
 }) {
-  return Container(
-    padding: const EdgeInsets.only(top: 8, right: 10),
-    child: Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: Text(title),
+  if (currentSortBy == SortBy.def) return Container();
+  return Wrap(
+    spacing: 10,
+    children: List.generate(2, (index) {
+      return ChoiceChip(
+        label: Text(
+          currentSortBy.displaySortingLabel(index),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
-        Checkbox(
-          value: value,
-          onChanged: callback,
-        ),
-      ],
-    ),
+        selected: selectedIndex == index,
+        onSelected: (value) {
+          callback(value, index);
+        },
+        labelPadding: const EdgeInsets.all(5),
+        elevation: 3,
+      );
+    }).toList(),
   );
 }

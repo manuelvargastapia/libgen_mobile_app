@@ -5,12 +5,12 @@ import 'package:libgen/domain/filters_extensions.dart';
 class FiltersModel extends Equatable {
   final SortBy sortBy;
   final SearchIn searchIn;
-  final bool reverseOrder;
+  final ReverseOrder reverseOrder;
 
   FiltersModel({
     this.sortBy = SortBy.def,
     this.searchIn = SearchIn.def,
-    this.reverseOrder = false,
+    this.reverseOrder = ReverseOrder.no,
   });
 
   @override
