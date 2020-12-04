@@ -19,7 +19,9 @@ class SearchBookScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage('assets/images/logo.png'),
+                image: Theme.of(context).brightness == Brightness.light
+                    ? AssetImage('assets/images/logo_light.png')
+                    : AssetImage('assets/images/logo_dark.png'),
               ),
               Row(
                 children: [
