@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/style.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:libgen/screens/book_details/widgets/info_table.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/screens/book_details/widgets/expandable_text.dart';
 import 'package:libgen/screens/book_details/widgets/image_with_placeholder.dart';
 
 class BookDetailsPresenter extends StatelessWidget {
   final BookModel book;
 
   BookDetailsPresenter({@required this.book});
+
+  Widget _buildDivider() {
+    return Divider(indent: 8, endIndent: 8, height: 54, thickness: 2);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +31,21 @@ class BookDetailsPresenter extends StatelessWidget {
                   title: book.title,
                   author: book.author,
                 ),
+                SizedBox(height: 24),
                 if (book.description != null)
-                  _buildDescription(context, book.description),
+                  _buildContentSection(
+                    context: context,
+                    title: "Description",
+                    content: book.description,
+                  ),
                 SizedBox(height: 24),
                 if (book.contents != null)
-                  _buildTableOfContents(context, book.contents),
-                Divider(
-                  indent: 8,
-                  endIndent: 8,
-                  height: 54,
-                  thickness: 2,
-                ),
+                  _buildContentSection(
+                    context: context,
+                    title: "Table of Contents",
+                    content: book.contents,
+                  ),
+                SizedBox(height: 24),
                 _buildInfoTable(context, book),
               ],
             ),
@@ -112,62 +121,26 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription(BuildContext context, String description) {
+  Widget _buildContentSection({
+    @required BuildContext context,
+    @required String title,
+    @required String content,
+  }) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).backgroundColor,
-      ),
       child: Column(
         children: [
           Text(
-            "Decription",
+            title,
             style: Theme.of(context).textTheme.headline2,
           ),
-          SizedBox(height: 20),
-          Html(
-            data: "<div>$description</div>",
-            style: {
-              "div": Style(
-                color: Theme.of(context).textTheme.bodyText2.color,
-                fontSize: FontSize(
-                  Theme.of(context).textTheme.bodyText2.fontSize,
-                ),
-                fontFamily: 'Roboto',
-              ),
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTableOfContents(BuildContext context, String contents) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).backgroundColor,
-      ),
-      child: Column(
-        children: [
-          Text(
-            "Table of Contents",
-            style: Theme.of(context).textTheme.headline2,
-          ),
-          SizedBox(height: 20),
-          Html(
-            data: "<div>$contents</div>",
-            style: {
-              "div": Style(
-                color: Theme.of(context).textTheme.bodyText2.color,
-                fontSize: FontSize(
-                  Theme.of(context).textTheme.bodyText2.fontSize,
-                ),
-                fontFamily: 'Roboto',
-              ),
-            },
+          _buildDivider(),
+          ExpandableText(
+            HTML.toTextSpan(
+              context,
+              "<div>$content</div>",
+              defaultTextStyle: Theme.of(context).textTheme.bodyText2,
+            ),
           ),
         ],
       ),
@@ -181,66 +154,9 @@ class BookDetailsPresenter extends StatelessWidget {
           "Info",
           style: Theme.of(context).textTheme.headline1,
         ),
-        SizedBox(height: 20),
-        Table(
-          columnWidths: {
-            0: FractionColumnWidth(0.3),
-            1: FlexColumnWidth(),
-          },
-          defaultVerticalAlignment: TableCellVerticalAlignment.baseline,
-          children: [
-            _buildTableRow(context, "Title:", book.title),
-            _buildTableRow(context, "Author(s):", book.author),
-            _buildTableRow(context, "Year:", book.year),
-            _buildTableRow(context, "Volume:", book.volumeInfo),
-            _buildTableRow(context, "Series:", book.series),
-            _buildTableRow(context, "Edition:", book.edition),
-            _buildTableRow(context, "Publisher:", book.publisher),
-            _buildTableRow(context, "City:", book.city),
-            _buildTableRow(context, "Pages:", book.pages),
-            _buildTableRow(context, "Language:", book.language),
-            _buildTableRow(context, "ISBN:", book.isbn),
-            _buildTableRow(context, "DOI:", book.doi),
-            _buildTableRow(
-              context,
-              "File Size:",
-              _buildFileSizeMessage(book.fileSize),
-            ),
-            _buildTableRow(context, "File Extension:", book.fileExtension),
-          ],
-        ),
+        _buildDivider(),
+        InfoTable(book),
       ],
     );
-  }
-
-  TableRow _buildTableRow(BuildContext context, String title, dynamic value) {
-    return TableRow(
-      children: [
-        TableCell(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
-        TableCell(
-            child: value != null
-                ? Container(
-                    child: SelectableText(
-                      value.toString(),
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                  )
-                : Container(
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                  )),
-      ],
-    );
-  }
-
-  String _buildFileSizeMessage(int fileSizeInBytes) {
-    int kilobytes = fileSizeInBytes ~/ 1000;
-    int megabytes = fileSizeInBytes ~/ 1000000;
-    return "$megabytes MB ($kilobytes KB)";
   }
 }

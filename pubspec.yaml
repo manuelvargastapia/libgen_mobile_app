@@ -42,9 +42,11 @@ dependencies:
   permission_handler: ^5.0.1+1
   transparent_image: ^1.0.0
   flutter_html: ^1.0.2
+  simple_html_css: ^2.0.0+3
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   dartz: ^0.9.2
+  expandable: ^4.1.4
 
 dev_dependencies:
   flutter_test:
