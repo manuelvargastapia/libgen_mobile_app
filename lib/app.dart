@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/hive_bloc.dart';
-import 'package:libgen/blocs/theme_bloc.dart';
+import 'package:libgen/blocs/theme_cubit.dart';
 import 'package:libgen/data/download_repository.dart';
 import 'package:libgen/data/hive_repositories/suggestion_repository.dart';
 import 'package:libgen/domain/suggestion.dart';
@@ -39,9 +39,9 @@ class LibGenApp extends StatelessWidget {
                   downloadRepository: DownloadRepository(),
                 ),
               ),
-              BlocProvider(create: (context) => ThemeBloc()),
+              BlocProvider(create: (context) => ThemeCubit()),
             ],
-            child: BlocBuilder<ThemeBloc, ThemeState>(
+            child: BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, themeState) => MaterialApp(
                 title: 'LibGen',
                 debugShowCheckedModeBanner: false,
