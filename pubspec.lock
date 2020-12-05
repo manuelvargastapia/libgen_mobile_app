@@ -651,9 +651,11 @@ packages:
   simple_html_css:
     dependency: "direct main"
     description:
-      name: simple_html_css
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: fix_range_error
+      resolved-ref: "7f50f30a20cf36ed1562077ad26a39ca3707cc82"
+      url: "git://github.com/manuelvargastapia/simple_html_css_flutter.git"
+    source: git
     version: "2.0.0+3"
   sky_engine:
     dependency: transitive

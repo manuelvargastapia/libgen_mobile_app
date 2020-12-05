@@ -42,7 +42,10 @@ dependencies:
   permission_handler: ^5.0.1+1
   transparent_image: ^1.0.0
   flutter_html: ^1.0.2
-  simple_html_css: ^2.0.0+3
+  simple_html_css:
+    git:
+      url: git://github.com/manuelvargastapia/simple_html_css_flutter.git # Patch solution to prevent RangeError exception
+      ref: fix_range_error
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   dartz: ^0.9.2
