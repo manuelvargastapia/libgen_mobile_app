@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:libgen/global/navigation/fade_transition_builder.dart';
+
 enum AppTheme { BlueLight, BlueDark }
 
 const Color _primaryColorLight = Color(0xFF548cd4);
@@ -7,6 +9,11 @@ const Color _accentColorLight = Color(0xFFE0E0E0);
 const Color _primaryColorDark = Colors.blueAccent;
 const Color _accentColorDark = Color(0xFF303030);
 const String _fontFamily = 'Roboto';
+const PageTransitionsTheme _transition = const PageTransitionsTheme(
+  builders: {
+    TargetPlatform.android: FadeTransitionBuilder(),
+  },
+);
 
 final Map<AppTheme, ThemeData> appThemeData = {
   AppTheme.BlueLight: ThemeData(
@@ -28,6 +35,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       actionsIconTheme: IconThemeData(color: _primaryColorLight),
     ),
     toggleableActiveColor: _primaryColorLight,
+    pageTransitionsTheme: _transition,
   ),
   AppTheme.BlueDark: ThemeData(
     brightness: Brightness.dark,
@@ -49,6 +57,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       actionsIconTheme: IconThemeData(color: _primaryColorDark),
     ),
     toggleableActiveColor: _primaryColorDark,
+    pageTransitionsTheme: _transition,
   ),
 };
 
