@@ -82,7 +82,31 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
               Transform.translate(
                 offset: Offset.fromDirection(
                   _getRadiansFromDregree(270),
-                  _degOneTranslationAnimation.value * 60,
+                  _degTwoTranslationAnimation.value * 125,
+                ),
+                child: Transform(
+                  transform: Matrix4.rotationZ(
+                    _getRadiansFromDregree(_rotationAnimation.value),
+                  )..scale(_degTwoTranslationAnimation.value),
+                  alignment: Alignment.center,
+                  child: CircularButton(
+                    color: Theme.of(context).primaryColor,
+                    height: 50,
+                    width: 50,
+                    icon: Icon(
+                      Icons.brightness_4,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
+                    onPressed: () {
+                      widget.themeCubit.toggleTheme();
+                    },
+                  ),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset.fromDirection(
+                  _getRadiansFromDregree(270),
+                  _degOneTranslationAnimation.value * 65,
                 ),
                 child: Transform(
                   transform: Matrix4.rotationZ(
@@ -107,30 +131,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                             S.of(context).searchBookScreenApplicationLegalese,
                         applicationVersion: widget.packageInfo.version,
                       );
-                    },
-                  ),
-                ),
-              ),
-              Transform.translate(
-                offset: Offset.fromDirection(
-                  _getRadiansFromDregree(270),
-                  _degTwoTranslationAnimation.value * 120,
-                ),
-                child: Transform(
-                  transform: Matrix4.rotationZ(
-                    _getRadiansFromDregree(_rotationAnimation.value),
-                  )..scale(_degTwoTranslationAnimation.value),
-                  alignment: Alignment.center,
-                  child: CircularButton(
-                    color: Theme.of(context).primaryColor,
-                    height: 50,
-                    width: 50,
-                    icon: Icon(
-                      Icons.brightness_4,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    onPressed: () {
-                      widget.themeCubit.toggleTheme();
                     },
                   ),
                 ),
