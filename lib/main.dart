@@ -4,6 +4,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:package_info/package_info.dart';
 
 import 'app.dart';
 import 'domain/suggestion.dart';
@@ -19,5 +20,7 @@ void main() async {
     statusBarColor: Color(0xFF548cd4),
   ));
 
-  runApp(LibGenApp());
+  final packageInfo = await PackageInfo.fromPlatform();
+
+  runApp(LibGenApp(packageInfo));
 }

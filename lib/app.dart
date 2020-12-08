@@ -10,6 +10,7 @@ import 'package:libgen/data/download_repository.dart';
 import 'package:libgen/data/hive_repositories/suggestion_repository.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/global/theme/themes.dart';
+import 'package:package_info/package_info.dart';
 import 'blocs/book_bloc.dart';
 import 'blocs/states/theme_states.dart';
 import 'data/book_repository.dart';
@@ -17,7 +18,9 @@ import 'screens/search_book/search_book_screen.dart';
 import 'generated/l10n.dart';
 
 class LibGenApp extends StatelessWidget {
-  static const String _appTitle = "LibGen";
+  final PackageInfo packageInfo;
+
+  LibGenApp(this.packageInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class LibGenApp extends StatelessWidget {
             ],
             child: BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, themeState) => MaterialApp(
-                title: _appTitle,
+                title: packageInfo.appName,
                 debugShowCheckedModeBanner: false,
                 theme: appThemeData[themeState.appTheme],
                 localizationsDelegates: [
@@ -57,7 +60,7 @@ class LibGenApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                home: SearchBookScreen(),
+                home: SearchBookScreen(packageInfo),
               ),
             ),
           );
