@@ -80,11 +80,17 @@ class ResultsBuilder extends StatelessWidget {
                   S.of(context).resultsBuilderGenericErrorMessage,
                 );
               } else if (bookState is BookNoResultsState) {
-                return Text(
-                  S.of(context).resultsBuilderNoResultsForSearchTermMessage(
-                        bookState.searchTerm,
-                      ),
-                  style: Theme.of(context).textTheme.bodyText1,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Text(
+                    S.of(context).resultsBuilderNoResultsForSearchTermMessage(
+                          bookState.searchTerm.length > 50
+                              ? '${bookState.searchTerm.substring(0, 50)}...'
+                              : bookState.searchTerm,
+                        ),
+                    style: Theme.of(context).textTheme.bodyText1,
+                    textAlign: TextAlign.center,
+                  ),
                 );
               }
               return _buildResultsList(
