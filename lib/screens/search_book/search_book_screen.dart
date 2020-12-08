@@ -6,11 +6,17 @@ import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/theme_cubit.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/generated/l10n.dart';
+import 'package:package_info/package_info.dart';
 import 'widgets/book_list/book_search_delegate.dart';
 
 class SearchBookScreen extends StatelessWidget {
   static const String _lightLogoPath = "assets/images/logo_light.png";
   static const String _darkLogoPath = "assets/images/logo_dark.png";
+  static const String _appIconPath = "assets/images/app_icon.png";
+
+  final PackageInfo packageInfo;
+
+  SearchBookScreen(this.packageInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -82,15 +88,46 @@ class SearchBookScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.brightness_4,
-            size: 30,
-            color: Theme.of(context).buttonColor,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FloatingActionButton.extended(
+                heroTag: null,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                label: Text(
+                  S.of(context).searchBookScreenAboutFloatingButtomTitle,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+                onPressed: () {
+                  showAboutDialog(
+                    context: context,
+                    applicationIcon: ImageIcon(AssetImage(_appIconPath)),
+                    applicationName: packageInfo.appName,
+                    applicationLegalese:
+                        S.of(context).searchBookScreenApplicationLegalese,
+                    applicationVersion: packageInfo.version,
+                  );
+                },
+              ),
+              FloatingActionButton(
+                heroTag: null,
+                child: Icon(
+                  Icons.brightness_4,
+                  size: 30,
+                  color: Theme.of(context).buttonColor,
+                ),
+                onPressed: () {
+                  BlocProvider.of<ThemeCubit>(context).toggleTheme();
+                },
+              ),
+            ],
           ),
-          onPressed: () {
-            BlocProvider.of<ThemeCubit>(context).toggleTheme();
-          },
         ),
       ),
     );
