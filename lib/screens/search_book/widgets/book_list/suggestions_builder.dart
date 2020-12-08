@@ -23,7 +23,11 @@ class SuggestionsBuilder extends StatelessWidget {
         final reversedIndex = suggestions.length - index - 1;
         return ListTile(
           leading: Icon(Icons.history_rounded),
-          title: Text(suggestions[reversedIndex].query),
+          title: Text(
+            suggestions[reversedIndex].query,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
           onTap: () {
             onSelected(suggestions[reversedIndex]);
           },
