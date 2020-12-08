@@ -32,16 +32,6 @@ class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
       } else {
         yield HiveErrorState();
       }
-    } else if (event is LoadItemEvent<T>) {
-      if (box.isNotEmpty) {
-        final Either<String, T> result = repository.get(box, event.index);
-        yield result.fold<HiveState>(
-          (l) => HiveErrorState(l),
-          (r) => HiveSuccessState(data: r),
-        );
-      } else {
-        yield HiveErrorState();
-      }
     } else if (event is DeleteItemEvent<T>) {
       if (box.isNotEmpty) {
         final Either<String, void> result =
@@ -53,12 +43,6 @@ class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
       } else {
         yield HiveErrorState();
       }
-    } else if (event is ClearCacheEvent<T>) {
-      final Either<String, int> result = await repository.clear(box);
-      yield result.fold<HiveState>(
-        (l) => HiveErrorState(l),
-        (r) => HiveSuccessState(),
-      );
     }
   }
 }

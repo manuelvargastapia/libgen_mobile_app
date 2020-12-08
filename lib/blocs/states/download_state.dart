@@ -12,10 +12,6 @@ class DownloadStarting extends DownloadState {
   const DownloadStarting();
 }
 
-class DownloadInProgress extends DownloadState {
-  const DownloadInProgress();
-}
-
 class FileNeedsToBeDownloadedFromBrowser extends DownloadState {
   final String url;
   const FileNeedsToBeDownloadedFromBrowser({@required this.url});

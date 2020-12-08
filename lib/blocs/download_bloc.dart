@@ -114,10 +114,9 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
                 downloadLink: _downloadLink,
                 downloadPath: downloadsDirectory.path,
               );
-              yield result.fold(
-                (l) => DownloadError(),
-                (r) => DownloadInProgress(),
-              );
+              if (result.isLeft()) {
+                yield DownloadError();
+              }
             }
           } else {
             yield DownloadError();
