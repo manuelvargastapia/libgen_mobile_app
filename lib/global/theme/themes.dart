@@ -34,6 +34,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
       actionsIconTheme: IconThemeData(color: _primaryColorLight),
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     toggleableActiveColor: _primaryColorLight,
     pageTransitionsTheme: _transition,
