@@ -48,6 +48,7 @@ samples, guidance on mobile development, and a full API reference.
   - [x] Home to SearchDelegate vs SearchDelegate to Details
 - [x] Consider make the filtering more user friendly
 - [x] Considera using [replay_bloc](https://pub.dev/packages/replay_bloc) or [hydrated_bloc](https://pub.dev/packages/hydrated_bloc) to handle state conservation between navigation from search page to details
+- [ ] Translate push notification messages from flutter_downloader
 - [ ] Transitions animations right now may seem standard (FadeTransiion), but there are still some minimal differences because most of them are driven by `showSearch()` and `showDialog()` functions
 - [ ] Limit number of characters for search bar
 - [ ] Consider moving `lib/domain/filters_extensions,dart` to `global` folder
