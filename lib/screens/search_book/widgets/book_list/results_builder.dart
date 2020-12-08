@@ -9,6 +9,7 @@ import 'package:libgen/domain/book_model.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/screens/search_book/widgets/book_list_item/book_list_item.dart';
+import 'package:libgen/generated/l10n.dart';
 
 class ResultsBuilder extends StatelessWidget {
   final String query;
@@ -38,7 +39,12 @@ class ResultsBuilder extends StatelessWidget {
                 }
               } else if (bookState is BookNoMoreResults) {
                 Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text(bookState.message)),
+                  SnackBar(
+                    content: Text(
+                      S.of(context).resultsBuilderNoMoreResultsMessage,
+                      style: Theme.of(context).primaryTextTheme.bodyText1,
+                    ),
+                  ),
                 );
               } else if (bookState is BookSuccessState) {
                 _books.addAll(bookState.books);
@@ -49,7 +55,12 @@ class ResultsBuilder extends StatelessWidget {
                 Scaffold.of(context).hideCurrentSnackBar();
               } else if (bookState is BookErrorState && _books.isNotEmpty) {
                 Scaffold.of(context).showSnackBar(
-                  SnackBar(content: Text(bookState.error)),
+                  SnackBar(
+                    content: Text(
+                      S.of(context).resultsBuilderGenericErrorMessage,
+                      style: Theme.of(context).primaryTextTheme.bodyText1,
+                    ),
+                  ),
                 );
                 bookBloc.isFetching = false;
               }
@@ -64,9 +75,17 @@ class ResultsBuilder extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               } else if (bookState is BookErrorState && _books.isEmpty) {
-                return _buildErrorMessage(context, bookState.error);
+                return _buildErrorMessage(
+                  context,
+                  S.of(context).resultsBuilderGenericErrorMessage,
+                );
               } else if (bookState is BookNoResultsState) {
-                return Text(bookState.message);
+                return Text(
+                  S.of(context).resultsBuilderNoResultsForSearchTermMessage(
+                        bookState.searchTerm,
+                      ),
+                  style: Theme.of(context).textTheme.bodyText1,
+                );
               }
               return _buildResultsList(
                 context: context,
@@ -105,7 +124,11 @@ class ResultsBuilder extends StatelessWidget {
           ),
         ),
         SizedBox(height: 30),
-        Text(errorMessage, textAlign: TextAlign.center),
+        Text(
+          errorMessage,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
       ],
     );
   }
@@ -138,15 +161,28 @@ class ResultsBuilder extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.only(left: 30, top: 20, bottom: 14),
+            padding: const EdgeInsets.only(
+              left: 30,
+              right: 30,
+              top: 20,
+              bottom: 14,
+            ),
             child: RichText(
+              maxLines: 1,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
               text: TextSpan(
                 text: "$totalCount",
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
                 children: [
                   TextSpan(
-                    text: " results",
-                    style: Theme.of(context).textTheme.bodyText2,
+                    text:
+                        S.of(context).resultsBuilderTotalResultsCounterMessage,
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontStyle: FontStyle.normal,
+                        ),
                   ),
                 ],
               ),

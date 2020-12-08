@@ -6,6 +6,7 @@ import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/global/widgets/custom_alert_dialog.dart';
+import 'package:libgen/generated/l10n.dart';
 
 Future<FiltersModel> showFilterDialog({
   @required BuildContext context,
@@ -22,9 +23,9 @@ Future<FiltersModel> showFilterDialog({
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return CustomAlertDialog(
-            title: "Filter",
-            textLeft: "Cancel",
-            textRight: "Apply",
+            title: S.of(context).showFilterDialogTitle,
+            textLeft: S.of(context).showFilterDialogCancel,
+            textRight: S.of(context).showFilterDialogApply,
             callbacLeft: () {
               Navigator.of(context).pop(_filters);
             },
@@ -45,10 +46,12 @@ Future<FiltersModel> showFilterDialog({
               child: Column(
                 children: [
                   _buildDropdownFilter<SearchIn>(
-                    title: "Search in",
+                    title: S.of(context).showFilterDialogSearchInLabel,
                     selectedValue: _filters.searchIn,
                     values: SearchIn.values,
-                    labelGenerator: (value) => Text(value.displayUILabel),
+                    labelGenerator: (value) => Text(
+                      value.displayUILabel(context),
+                    ),
                     callback: (value) {
                       setState(() {
                         _filters = FiltersModel(
@@ -60,10 +63,12 @@ Future<FiltersModel> showFilterDialog({
                     },
                   ),
                   _buildDropdownFilter<SortBy>(
-                    title: 'Sort by',
+                    title: S.of(context).showFilterDialogSortByLabel,
                     selectedValue: _filters.sortBy,
                     values: SortBy.values,
-                    labelGenerator: (value) => Text(value.displayUILabel),
+                    labelGenerator: (value) => Text(
+                      value.displayUILabel(context),
+                    ),
                     callback: (value) {
                       setState(() {
                         _filters = FiltersModel(
@@ -150,7 +155,7 @@ Widget _buildChipChpiceFilter({
     children: List.generate(2, (index) {
       return ChoiceChip(
         label: Text(
-          currentSortBy.displaySortingLabel(index),
+          currentSortBy.displaySortingLabel(context, index),
           style: Theme.of(context).textTheme.bodyText2,
         ),
         selected: selectedIndex == index,

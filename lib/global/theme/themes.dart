@@ -30,6 +30,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       backgroundColor: _primaryColorLight,
     ),
     textTheme: _textThemeLight,
+    primaryTextTheme: _primaryTextThemeLight,
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
       actionsIconTheme: IconThemeData(color: _primaryColorLight),
@@ -52,6 +53,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
     ),
     iconTheme: IconThemeData(color: Colors.white),
     textTheme: _textThemeDark,
+    primaryTextTheme: _primaryTextThemeDark,
     appBarTheme: AppBarTheme(
       brightness: Brightness.dark,
       actionsIconTheme: IconThemeData(color: _primaryColorDark),
@@ -60,6 +62,20 @@ final Map<AppTheme, ThemeData> appThemeData = {
     pageTransitionsTheme: _transition,
   ),
 };
+
+final _primaryTextThemeLight = TextTheme(
+  bodyText1: TextStyle(
+    fontSize: 18,
+    color: Colors.white,
+  ),
+);
+
+final _primaryTextThemeDark = TextTheme(
+  bodyText1: TextStyle(
+    fontSize: 18,
+    color: Colors.black,
+  ),
+);
 
 final _textThemeLight = TextTheme(
   headline1: TextStyle(

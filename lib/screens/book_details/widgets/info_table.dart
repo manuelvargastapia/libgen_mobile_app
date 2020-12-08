@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/generated/l10n.dart';
 
 class InfoTable extends StatelessWidget {
   final BookModel book;
@@ -15,24 +16,26 @@ class InfoTable extends StatelessWidget {
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.baseline,
       children: [
-        _buildTableRow(context, "Title:", book.title),
-        _buildTableRow(context, "Author(s):", book.author),
-        _buildTableRow(context, "Year:", book.year),
-        _buildTableRow(context, "Volume:", book.volumeInfo),
-        _buildTableRow(context, "Series:", book.series),
-        _buildTableRow(context, "Edition:", book.edition),
-        _buildTableRow(context, "Publisher:", book.publisher),
-        _buildTableRow(context, "City:", book.city),
-        _buildTableRow(context, "Pages:", book.pages),
-        _buildTableRow(context, "Language:", book.language),
-        _buildTableRow(context, "ISBN:", book.isbn),
-        _buildTableRow(context, "DOI:", book.doi),
+        _buildTableRow(context, S.of(context).infoTableTitle, book.title),
+        _buildTableRow(context, S.of(context).infoTableAuthor, book.author),
+        _buildTableRow(context, S.of(context).infoTableYear, book.year),
+        _buildTableRow(context, S.of(context).infoTableVolume, book.volumeInfo),
+        _buildTableRow(context, S.of(context).infoTableSeries, book.series),
+        _buildTableRow(context, S.of(context).infoTableEdition, book.edition),
+        _buildTableRow(
+            context, S.of(context).infoTablePublisher, book.publisher),
+        _buildTableRow(context, S.of(context).infoTableCity, book.city),
+        _buildTableRow(context, S.of(context).infoTablePages, book.pages),
+        _buildTableRow(context, S.of(context).infoTableLanguage, book.language),
+        _buildTableRow(context, S.of(context).infoTableISBN, book.isbn),
+        _buildTableRow(context, S.of(context).infoTableDOI, book.doi),
         _buildTableRow(
           context,
-          "File Size:",
-          _buildFileSizeMessage(book.fileSize),
+          S.of(context).infoTableFileSize,
+          _buildFileSizeMessage(context, book.fileSize),
         ),
-        _buildTableRow(context, "File Extension:", book.fileExtension),
+        _buildTableRow(
+            context, S.of(context).infoTableFileExtension, book.fileExtension),
       ],
     );
   }
@@ -62,9 +65,9 @@ class InfoTable extends StatelessWidget {
     );
   }
 
-  String _buildFileSizeMessage(int fileSizeInBytes) {
+  String _buildFileSizeMessage(BuildContext context, int fileSizeInBytes) {
     int kilobytes = fileSizeInBytes ~/ 1000;
     int megabytes = fileSizeInBytes ~/ 1000000;
-    return "$megabytes MB ($kilobytes KB)";
+    return S.of(context).infoTableFileSizeMessage(megabytes, kilobytes);
   }
 }

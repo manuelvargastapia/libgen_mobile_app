@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
@@ -13,8 +14,11 @@ import 'blocs/book_bloc.dart';
 import 'blocs/states/theme_states.dart';
 import 'data/book_repository.dart';
 import 'screens/search_book/search_book_screen.dart';
+import 'generated/l10n.dart';
 
 class LibGenApp extends StatelessWidget {
+  static const String _appTitle = "LibGen";
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -43,9 +47,16 @@ class LibGenApp extends StatelessWidget {
             ],
             child: BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, themeState) => MaterialApp(
-                title: 'LibGen',
+                title: _appTitle,
                 debugShowCheckedModeBanner: false,
                 theme: appThemeData[themeState.appTheme],
+                localizationsDelegates: [
+                  S.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
                 home: SearchBookScreen(),
               ),
             ),

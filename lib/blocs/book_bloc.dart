@@ -24,7 +24,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
       );
       if (event.searchQuery.offset > 0 &&
           event.searchQuery.offset >= _totalCount) {
-        yield BookNoMoreResults(message: "No more results!");
+        yield BookNoMoreResults();
       } else {
         final response = await bookRepository.getBooks(event.searchQuery);
         if (response is http.Response) {
@@ -38,18 +38,12 @@ class BookBloc extends Bloc<BookEvent, BookState> {
             });
             yield BookSuccessState(books: books, totalCount: _totalCount);
           } else if (response.statusCode == 404) {
-            yield BookNoResultsState(
-              message: 'No results for "${event.searchQuery.searchTerm}"',
-            );
+            yield BookNoResultsState(searchTerm: event.searchQuery.searchTerm);
           } else {
-            yield BookErrorState(
-              error: "Ups! We messed up. Try again later, please",
-            );
+            yield BookErrorState();
           }
         } else {
-          yield BookErrorState(
-            error: "Ups! We messed up. Try again later, please",
-          );
+          yield BookErrorState();
         }
       }
     }

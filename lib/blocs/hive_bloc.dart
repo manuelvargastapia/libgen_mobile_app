@@ -30,7 +30,7 @@ class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
       if (box.isNotEmpty) {
         yield HiveSuccessState(data: box.values.toList());
       } else {
-        yield HiveErrorState("Box is empty");
+        yield HiveErrorState();
       }
     } else if (event is LoadItemEvent<T>) {
       if (box.isNotEmpty) {
@@ -40,7 +40,7 @@ class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
           (r) => HiveSuccessState(data: r),
         );
       } else {
-        yield HiveErrorState("Box is empty");
+        yield HiveErrorState();
       }
     } else if (event is DeleteItemEvent<T>) {
       if (box.isNotEmpty) {
@@ -51,7 +51,7 @@ class HiveBloc<T> extends Bloc<HiveEvent<T>, HiveState> {
           (r) => HiveSuccessState(data: box.values.toList()),
         );
       } else {
-        yield HiveErrorState("Box is empty");
+        yield HiveErrorState();
       }
     } else if (event is ClearCacheEvent<T>) {
       final Either<String, int> result = await repository.clear(box);

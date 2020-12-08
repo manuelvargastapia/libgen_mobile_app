@@ -24,19 +24,15 @@ class BookSuccessState extends BookState {
 }
 
 class BookNoResultsState extends BookState {
-  final String message;
+  final String searchTerm;
 
-  const BookNoResultsState({@required this.message});
+  const BookNoResultsState({@required this.searchTerm});
 }
 
 class BookNoMoreResults extends BookState {
-  final String message;
-
-  const BookNoMoreResults({@required this.message});
+  const BookNoMoreResults();
 }
 
 class BookErrorState extends BookState {
-  final String error;
-
-  const BookErrorState({@required this.error});
+  const BookErrorState();
 }

@@ -95,7 +95,7 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
       }
 
       if (_permissionGranted) {
-        yield DownloadStarting(message: "Starting download");
+        yield DownloadStarting();
         final _response = await bookRepository.getDownloadLink(event.book.md5);
         if (_response is http.Response) {
           if (_response.statusCode == 200) {
@@ -115,18 +115,15 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
                 downloadPath: downloadsDirectory.path,
               );
               yield result.fold(
-                (l) => DownloadError(
-                  error: "Download error. Try again later, please",
-                ),
-                (r) => DownloadInProgress(message: "Download in progress"),
+                (l) => DownloadError(),
+                (r) => DownloadInProgress(),
               );
             }
           } else {
-            yield DownloadError(
-                error: "Download error. Try again later, please");
+            yield DownloadError();
           }
         } else {
-          yield DownloadError(error: "Download error. Try again later, please");
+          yield DownloadError();
         }
       }
     }

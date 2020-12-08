@@ -10,6 +10,7 @@ import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
 import 'package:libgen/domain/book_model.dart';
 import 'package:libgen/global/widgets/custom_alert_dialog.dart';
+import 'package:libgen/generated/l10n.dart';
 
 class DownloadButton extends StatelessWidget {
   final BookModel book;
@@ -28,22 +29,30 @@ class DownloadButton extends StatelessWidget {
           if (downloadState is DownloadStarting) {
             Scaffold.of(context).showSnackBar(
               SnackBar(
-                content: Text(downloadState.message),
+                content: Text(
+                  S.of(context).downloadButtonStartingDownloadMessage,
+                  style: Theme.of(context).primaryTextTheme.bodyText1,
+                ),
                 duration: Duration(seconds: 8),
               ),
             );
           } else if (downloadState is DownloadError) {
             Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text(downloadState.error)),
+              SnackBar(
+                content: Text(
+                  S.of(context).downloadButtonGenericErrorMessage,
+                  style: Theme.of(context).primaryTextTheme.bodyText1,
+                ),
+              ),
             );
           } else if (downloadState is DownloadPermissionsPermanentlyDenied) {
             showDialog(
               context: context,
               barrierDismissible: false,
               child: CustomAlertDialog(
-                title: "Permissions denied",
-                textLeft: "Cancel",
-                textRight: "Open Settings",
+                title: S.of(context).downloadButtonPermissionsDenied,
+                textLeft: S.of(context).downloadButtonCancel,
+                textRight: S.of(context).downloadButtonOpenSettings,
                 callbacLeft: () {
                   Navigator.of(context).pop();
                 },
@@ -54,7 +63,7 @@ class DownloadButton extends StatelessWidget {
                 content: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    "Please, provide permissions app from app settings",
+                    S.of(context).downloadButtonProvidePermissions,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -65,9 +74,9 @@ class DownloadButton extends StatelessWidget {
               context: context,
               barrierDismissible: true,
               builder: (context) => CustomAlertDialog(
-                title: "Large file",
-                textLeft: "Cancel",
-                textRight: "Open Browser",
+                title: S.of(context).downloadButtonLargeFile,
+                textLeft: S.of(context).downloadButtonCancel,
+                textRight: S.of(context).downloadButtonOpenBrowser,
                 callbacLeft: () {
                   Navigator.of(context).pop(false);
                 },
@@ -77,7 +86,7 @@ class DownloadButton extends StatelessWidget {
                 content: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Text(
-                    "The file is massive! Please, use the browser to download",
+                    S.of(context).downloadButtonDownloadFromBrowser,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -95,7 +104,7 @@ class DownloadButton extends StatelessWidget {
               label: Text(
                 book.fileExtension != null
                     ? book.fileExtension.toUpperCase()
-                    : "TXT",
+                    : S.of(context).downloadButtonDefaultExtension,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2

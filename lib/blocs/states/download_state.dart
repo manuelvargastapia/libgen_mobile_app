@@ -9,13 +9,11 @@ class DownloadInitialState extends DownloadState {
 }
 
 class DownloadStarting extends DownloadState {
-  final String message;
-  const DownloadStarting({@required this.message});
+  const DownloadStarting();
 }
 
 class DownloadInProgress extends DownloadState {
-  final String message;
-  const DownloadInProgress({@required this.message});
+  const DownloadInProgress();
 }
 
 class FileNeedsToBeDownloadedFromBrowser extends DownloadState {
@@ -24,9 +22,7 @@ class FileNeedsToBeDownloadedFromBrowser extends DownloadState {
 }
 
 class DownloadError extends DownloadState {
-  final String error;
-
-  const DownloadError({@required this.error});
+  const DownloadError();
 }
 
 class DownloadPermissionsPermanentlyDenied extends DownloadState {

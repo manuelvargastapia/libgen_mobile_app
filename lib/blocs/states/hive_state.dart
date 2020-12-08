@@ -13,5 +13,5 @@ class HiveSuccessState extends HiveState {
 
 class HiveErrorState extends HiveState {
   final String error;
-  const HiveErrorState(this.error);
+  const HiveErrorState([this.error]);
 }

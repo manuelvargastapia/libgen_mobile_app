@@ -5,6 +5,7 @@ import 'package:simple_html_css/simple_html_css.dart';
 import 'package:libgen/domain/book_model.dart';
 import 'package:libgen/screens/book_details/widgets/expandable_text.dart';
 import 'package:libgen/screens/book_details/widgets/image_with_placeholder.dart';
+import 'package:libgen/generated/l10n.dart';
 
 class BookDetailsPresenter extends StatelessWidget {
   final BookModel book;
@@ -35,14 +36,14 @@ class BookDetailsPresenter extends StatelessWidget {
                 if (book.description != null)
                   _buildContentSection(
                     context: context,
-                    title: "Description",
+                    title: S.of(context).bookDetailsPresenterDescription,
                     content: book.description,
                   ),
                 SizedBox(height: 24),
                 if (book.contents != null)
                   _buildContentSection(
                     context: context,
-                    title: "Table of Contents",
+                    title: S.of(context).bookDetailsPresenterTOC,
                     content: book.contents,
                   ),
                 SizedBox(height: 24),
@@ -68,7 +69,7 @@ class BookDetailsPresenter extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                book.title ?? "(no title)",
+                book.title ?? S.of(context).bookDetailsPresenterNoTitle,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.headline3,
@@ -101,7 +102,7 @@ class BookDetailsPresenter extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            title ?? "(no title)",
+            title ?? S.of(context).bookDetailsPresenterNoTitle,
             style: Theme.of(context).textTheme.headline1,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
@@ -110,7 +111,7 @@ class BookDetailsPresenter extends StatelessWidget {
           SizedBox(height: 14),
           if (author != null)
             Text(
-              "by $author",
+              S.of(context).bookDetailsPresenterByAuthor(author),
               style: Theme.of(context).textTheme.bodyText1,
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
@@ -151,7 +152,7 @@ class BookDetailsPresenter extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "Info",
+          S.of(context).bookDetailsPresenterInfo,
           style: Theme.of(context).textTheme.headline1,
         ),
         _buildDivider(),

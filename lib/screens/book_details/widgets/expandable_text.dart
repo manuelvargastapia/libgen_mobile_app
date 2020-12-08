@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 
+import 'package:libgen/generated/l10n.dart';
+
 class ExpandableText extends StatelessWidget {
   final InlineSpan content;
 
@@ -45,7 +47,7 @@ class ExpandableText extends StatelessWidget {
                   if (_didExceedMaxLines(context, content, constraints))
                     ExpandableButton(
                       child: Text(
-                        "Show more",
+                        S.of(context).expandableTextShowMore,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2
@@ -66,13 +68,14 @@ class ExpandableText extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ExpandableButton(
-                  child: Text(
-                "Show less",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2
-                    .copyWith(color: Theme.of(context).primaryColor),
-              ))
+                child: Text(
+                  S.of(context).expandableTextShowLess,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      .copyWith(color: Theme.of(context).primaryColor),
+                ),
+              ),
             ],
           ),
         ),

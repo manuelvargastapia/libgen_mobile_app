@@ -10,19 +10,24 @@ import 'package:libgen/domain/filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/screens/search_book/widgets/book_list/suggestions_builder.dart';
+import 'package:libgen/generated/l10n.dart';
 import 'results_builder.dart';
 import 'show_filter_dialog.dart';
 
 class BookSearchDelegate extends SearchDelegate {
-  @override
-  final String searchFieldLabel = "Title, author or ISBN";
-
   FiltersModel filters = FiltersModel();
 
+  BuildContext context;
   BookBloc bookBloc;
   HiveBloc<Suggestion> hiveBloc;
 
-  BookSearchDelegate({@required this.bookBloc, @required this.hiveBloc});
+  BookSearchDelegate({
+    @required this.context,
+    @required this.bookBloc,
+    @required this.hiveBloc,
+  }) : super(
+          searchFieldLabel: S.of(context).searchBookDelegateSearchFieldLabel,
+        );
 
   @override
   ThemeData appBarTheme(BuildContext context) {

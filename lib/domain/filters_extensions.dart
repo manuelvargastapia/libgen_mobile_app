@@ -1,4 +1,7 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart' show describeEnum;
+
+import 'package:libgen/generated/l10n.dart';
 
 enum SortBy { def, title, year, pages, fileSize }
 
@@ -9,25 +12,25 @@ enum ReverseOrder { no, yes }
 extension SortByExtension on SortBy {
   String get name => describeEnum(this);
 
-  String get displayUILabel {
+  String displayUILabel(BuildContext context) {
     switch (this) {
       case SortBy.def:
-        return "Relevance";
+        return S.of(context).filtersExtensionsRelevance;
         break;
       case SortBy.title:
-        return "Title";
+        return S.of(context).filtersExtensionsTitle;
         break;
       case SortBy.year:
-        return "Year";
+        return S.of(context).filtersExtensionsYear;
         break;
       case SortBy.pages:
-        return "Pages";
+        return S.of(context).filtersExtensionsPages;
         break;
       case SortBy.fileSize:
-        return "File size";
+        return S.of(context).filtersExtensionsFileSize;
         break;
       default:
-        return "Relevance";
+        return S.of(context).filtersExtensionsRelevance;
     }
   }
 
@@ -53,25 +56,37 @@ extension SortByExtension on SortBy {
     }
   }
 
-  String displaySortingLabel(int index) {
+  String displaySortingLabel(BuildContext context, int index) {
     switch (this) {
       case SortBy.def:
-        return "No ordering";
+        return null;
         break;
       case SortBy.title:
-        return ["Ascending", "Descending"][index];
+        return [
+          S.of(context).filtersExtensionsAscending,
+          S.of(context).filtersExtensionsDescending
+        ][index];
         break;
       case SortBy.year:
-        return ["Older first", "Newer first"][index];
+        return [
+          S.of(context).filtersExtensionsOlderFirst,
+          S.of(context).filtersExtensionsNewerFirst
+        ][index];
         break;
       case SortBy.pages:
-        return ["Shorter first", "Larger first"][index];
+        return [
+          S.of(context).filtersExtensionsShorterFirst,
+          S.of(context).filtersExtensionsLargerFirst
+        ][index];
         break;
       case SortBy.fileSize:
-        return ["Smaller first", "Bigger first"][index];
+        return [
+          S.of(context).filtersExtensionsSmallerFirst,
+          S.of(context).filtersExtensionsBiggerFirst
+        ][index];
         break;
       default:
-        return "No ordering";
+        return null;
     }
   }
 }
@@ -79,31 +94,31 @@ extension SortByExtension on SortBy {
 extension SearchInExtension on SearchIn {
   String get name => describeEnum(this);
 
-  String get displayUILabel {
+  String displayUILabel(BuildContext context) {
     switch (this) {
       case SearchIn.def:
-        return "All";
+        return S.of(context).filtersExtensionsAll;
         break;
       case SearchIn.title:
-        return "Title";
+        return S.of(context).filtersExtensionsTitle;
         break;
       case SearchIn.author:
-        return "Author";
+        return S.of(context).filtersExtensionsAuthor;
         break;
       case SearchIn.series:
-        return "Series";
+        return S.of(context).filtersExtensionsSeries;
         break;
       case SearchIn.publisher:
-        return "Publisher";
+        return S.of(context).filtersExtensionsPublisher;
         break;
       case SearchIn.isbn:
-        return "ISBN";
+        return S.of(context).filtersExtensionsISBN;
         break;
       case SearchIn.md5:
-        return "MD5";
+        return S.of(context).filtersExtensionsMD5;
         break;
       default:
-        return "All";
+        return S.of(context).filtersExtensionsAll;
     }
   }
 
