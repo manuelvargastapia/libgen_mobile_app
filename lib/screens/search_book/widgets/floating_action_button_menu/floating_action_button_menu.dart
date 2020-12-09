@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/screens/search_book/widgets/floating_action_button_menu/circular_button.dart';
 import 'package:package_info/package_info.dart';
 
+import 'package:libgen/screens/search_book/widgets/floating_action_button_menu/circular_button.dart';
 import 'package:libgen/blocs/theme_cubit.dart';
 import 'package:libgen/generated/l10n.dart';
 
@@ -93,10 +93,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                     color: Theme.of(context).primaryColor,
                     height: 50,
                     width: 50,
-                    icon: Icon(
-                      Icons.brightness_4,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
+                    icon: Icon(Icons.brightness_4),
                     onPressed: () {
                       widget.themeCubit.toggleTheme();
                     },
@@ -117,15 +114,14 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                     color: Theme.of(context).primaryColor,
                     height: 50,
                     width: 50,
-                    icon: Icon(
-                      Icons.info,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
+                    icon: Icon(Icons.info),
                     onPressed: () {
                       showAboutDialog(
                         context: context,
-                        applicationIcon:
-                            ImageIcon(AssetImage(widget.appIconPath)),
+                        applicationIcon: ImageIcon(
+                          AssetImage(widget.appIconPath),
+                          color: Theme.of(context).primaryColor,
+                        ),
                         applicationName: widget.packageInfo.appName,
                         applicationLegalese:
                             S.of(context).searchBookScreenApplicationLegalese,
@@ -144,10 +140,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                   color: Theme.of(context).buttonColor,
                   height: 60,
                   width: 60,
-                  icon: Icon(
-                    Icons.menu,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
+                  icon: Icon(Icons.menu),
                   onPressed: () {
                     if (_animationController.isCompleted) {
                       _animationController.reverse();

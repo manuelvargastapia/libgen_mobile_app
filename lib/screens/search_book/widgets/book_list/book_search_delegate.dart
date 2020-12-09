@@ -47,7 +47,10 @@ class BookSearchDelegate extends SearchDelegate {
         },
       ),
       IconButton(
-        icon: Icon(Icons.tune),
+        icon: Icon(
+          Icons.tune,
+          color: Theme.of(context).buttonColor,
+        ),
         onPressed: () async {
           filters = await showFilterDialog(
             context: context,

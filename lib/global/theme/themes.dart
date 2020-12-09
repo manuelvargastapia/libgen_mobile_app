@@ -4,10 +4,31 @@ import 'package:libgen/global/navigation/fade_transition_builder.dart';
 
 enum AppTheme { BlueLight, BlueDark }
 
-const Color _primaryColorLight = Color(0xFF548cd4);
-const Color _accentColorLight = Color(0xFFE0E0E0);
-const Color _primaryColorDark = Colors.blueAccent;
-const Color _accentColorDark = Color(0xFF303030);
+MaterialColor _createMaterialColor(Color color) {
+  List strengths = <double>[.05];
+  Map swatch = <int, Color>{};
+  final int r = color.red, g = color.green, b = color.blue;
+
+  for (int i = 1; i < 10; i++) {
+    strengths.add(0.1 * i);
+  }
+  strengths.forEach((strength) {
+    final double ds = 0.5 - strength;
+    swatch[(strength * 1000).round()] = Color.fromRGBO(
+      r + ((ds < 0 ? r : (255 - r)) * ds).round(),
+      g + ((ds < 0 ? g : (255 - g)) * ds).round(),
+      b + ((ds < 0 ? b : (255 - b)) * ds).round(),
+      1,
+    );
+  });
+  return MaterialColor(color.value, swatch);
+}
+
+final _primarySwatchLight = _createMaterialColor(Color(0xFF548cd4));
+final _primarySwatchDark = _createMaterialColor(Colors.blueAccent);
+final _secondarySwatch = _createMaterialColor(Colors.deepOrange);
+const _iconThemeData = const IconThemeData(color: Colors.white);
+
 const String _fontFamily = 'Roboto';
 const PageTransitionsTheme _transition = const PageTransitionsTheme(
   builders: {
@@ -18,49 +39,66 @@ const PageTransitionsTheme _transition = const PageTransitionsTheme(
 final Map<AppTheme, ThemeData> appThemeData = {
   AppTheme.BlueLight: ThemeData(
     brightness: Brightness.light,
-    primaryColor: _primaryColorLight,
-    accentColor: _accentColorLight,
-    buttonColor: Colors.white,
-    dividerColor: Colors.black26,
-    disabledColor: Colors.black45,
-    backgroundColor: Colors.white,
-    primaryIconTheme: IconThemeData(color: Colors.black),
-    fontFamily: _fontFamily,
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: _primaryColorLight,
+    primarySwatch: _primarySwatchLight,
+    primaryColor: _primarySwatchLight,
+    chipTheme: ChipThemeData(
+      brightness: Brightness.light,
+      backgroundColor: Colors.white70,
+      disabledColor: Colors.black45,
+      selectedColor: _secondarySwatch[300],
+      secondarySelectedColor: _secondarySwatch[100],
+      padding: const EdgeInsets.all(5),
+      shape: StadiumBorder(),
+      labelStyle: _textThemeLight.bodyText2,
+      secondaryLabelStyle: _textThemeLight.bodyText2,
+      elevation: 3,
     ),
+    accentColor: _primarySwatchLight[700],
     textTheme: _textThemeLight,
     primaryTextTheme: _primaryTextThemeLight,
+    pageTransitionsTheme: _transition,
+    fontFamily: _fontFamily,
+    dividerColor: Colors.black26,
+    disabledColor: Colors.black45,
+    primaryIconTheme: _iconThemeData,
+    iconTheme: _iconThemeData,
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
-      actionsIconTheme: IconThemeData(color: _primaryColorLight),
-      iconTheme: IconThemeData(color: Colors.white),
+      actionsIconTheme: IconThemeData(color: _primarySwatchLight),
+      iconTheme: _iconThemeData,
     ),
-    toggleableActiveColor: _primaryColorLight,
-    pageTransitionsTheme: _transition,
+    buttonColor: _secondarySwatch[400],
   ),
   AppTheme.BlueDark: ThemeData(
     brightness: Brightness.dark,
-    primaryColor: _primaryColorDark,
-    accentColor: _accentColorDark,
-    buttonColor: Colors.white,
-    dividerColor: Colors.white70,
-    disabledColor: Colors.white70,
-    backgroundColor: Colors.black,
-    primaryIconTheme: IconThemeData(color: Colors.white),
-    fontFamily: _fontFamily,
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: _primaryColorDark,
+    primarySwatch: _primarySwatchDark,
+    primaryColor: _primarySwatchDark,
+    chipTheme: ChipThemeData(
+      brightness: Brightness.dark,
+      backgroundColor: Colors.grey,
+      disabledColor: Colors.black45,
+      selectedColor: _secondarySwatch[400],
+      secondarySelectedColor: _secondarySwatch[200],
+      padding: const EdgeInsets.all(5),
+      shape: const StadiumBorder(),
+      labelStyle: _textThemeDark.bodyText2,
+      secondaryLabelStyle: _textThemeDark.bodyText2,
+      elevation: 3,
     ),
-    iconTheme: IconThemeData(color: Colors.white),
+    accentColor: _primarySwatchDark[700],
     textTheme: _textThemeDark,
     primaryTextTheme: _primaryTextThemeDark,
+    pageTransitionsTheme: _transition,
+    fontFamily: _fontFamily,
+    dividerColor: Colors.white70,
+    disabledColor: Colors.white70,
+    primaryIconTheme: _iconThemeData,
+    iconTheme: _iconThemeData,
     appBarTheme: AppBarTheme(
       brightness: Brightness.dark,
-      actionsIconTheme: IconThemeData(color: _primaryColorDark),
+      actionsIconTheme: IconThemeData(color: _primarySwatchDark),
     ),
-    toggleableActiveColor: _primaryColorDark,
-    pageTransitionsTheme: _transition,
+    buttonColor: _secondarySwatch[400],
   ),
 };
 

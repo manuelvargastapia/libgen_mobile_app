@@ -51,7 +51,7 @@ class ExpandableText extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2
-                            .copyWith(color: Theme.of(context).primaryColor),
+                            .copyWith(color: Theme.of(context).buttonColor),
                       ),
                     ),
                 ],
@@ -73,7 +73,7 @@ class ExpandableText extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
-                      .copyWith(color: Theme.of(context).primaryColor),
+                      .copyWith(color: Theme.of(context).buttonColor),
                 ),
               ),
             ],

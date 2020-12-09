@@ -68,12 +68,7 @@ class ResultsBuilder extends StatelessWidget {
             builder: (context, bookState) {
               if (bookState is BookInitialState ||
                   bookState is BookLoadingState && _books.isEmpty) {
-                return Theme(
-                  data: Theme.of(context).copyWith(
-                    accentColor: Theme.of(context).primaryColor,
-                  ),
-                  child: CircularProgressIndicator(),
-                );
+                return CircularProgressIndicator();
               } else if (bookState is BookErrorState && _books.isEmpty) {
                 return _buildErrorMessage(
                   context,
@@ -126,7 +121,7 @@ class ResultsBuilder extends StatelessWidget {
           icon: Icon(
             Icons.refresh,
             size: 46,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
           ),
         ),
         SizedBox(height: 30),
@@ -214,12 +209,7 @@ class ResultsBuilder extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 20),
               child: Center(
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    accentColor: Theme.of(context).primaryColor,
-                  ),
-                  child: CircularProgressIndicator(),
-                ),
+                child: CircularProgressIndicator(),
               ),
             ),
           )

@@ -101,6 +101,7 @@ class DownloadButton extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.only(top: 8),
             child: FloatingActionButton.extended(
+              elevation: 0,
               label: Text(
                 book.fileExtension != null
                     ? book.fileExtension.toUpperCase()
@@ -110,10 +111,7 @@ class DownloadButton extends StatelessWidget {
                     .bodyText2
                     .copyWith(color: Colors.white),
               ),
-              icon: Icon(
-                Icons.download_sharp,
-                color: Theme.of(context).buttonColor,
-              ),
+              icon: Icon(Icons.download_sharp),
               onPressed: downloadState is DownloadStarting
                   ? null
                   : () {
@@ -121,7 +119,7 @@ class DownloadButton extends StatelessWidget {
                     },
               backgroundColor: downloadState is DownloadStarting
                   ? Theme.of(context).disabledColor
-                  : Theme.of(context).primaryColor,
+                  : Theme.of(context).accentColor,
             ),
           );
         },

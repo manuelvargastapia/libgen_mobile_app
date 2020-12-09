@@ -156,14 +156,11 @@ Widget _buildChipChpiceFilter({
       return ChoiceChip(
         label: Text(
           currentSortBy.displaySortingLabel(context, index),
-          style: Theme.of(context).textTheme.bodyText2,
         ),
         selected: selectedIndex == index,
         onSelected: (value) {
           callback(value, index);
         },
-        labelPadding: const EdgeInsets.all(5),
-        elevation: 3,
       );
     }).toList(),
   );

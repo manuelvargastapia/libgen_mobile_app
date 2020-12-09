@@ -24,7 +24,6 @@ class BookDetailsPresenter extends StatelessWidget {
           _buildCover(context, book),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-            color: Theme.of(context).accentColor,
             child: Column(
               children: [
                 _buildContentHeader(

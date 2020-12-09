@@ -16,11 +16,17 @@ class BookDetailsScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          leading: Material(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(50),
+            ),
+            color: Theme.of(context).accentColor,
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back),
+            ),
           ),
         ),
         extendBodyBehindAppBar: true,
