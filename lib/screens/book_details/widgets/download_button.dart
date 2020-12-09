@@ -70,7 +70,7 @@ class DownloadButton extends StatelessWidget {
               ),
             );
           } else if (downloadState is FileNeedsToBeDownloadedFromBrowser) {
-            final downloadFromBrowser = await showDialog<bool>(
+            final dynamic downloadFromBrowser = await showDialog<bool>(
               context: context,
               barrierDismissible: true,
               builder: (context) => CustomAlertDialog(
@@ -92,7 +92,9 @@ class DownloadButton extends StatelessWidget {
                 ),
               ),
             );
-            if (downloadFromBrowser) {
+
+            // It could be "null" because of "barrierDismissible: true".
+            if (downloadFromBrowser == true) {
               launch(downloadState.url);
             }
           }
