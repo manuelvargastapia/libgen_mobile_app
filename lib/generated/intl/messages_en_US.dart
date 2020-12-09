@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "filtersExtensionsSmallerFirst" : MessageLookupByLibrary.simpleMessage("Smaller first"),
     "filtersExtensionsTitle" : MessageLookupByLibrary.simpleMessage("Title"),
     "filtersExtensionsYear" : MessageLookupByLibrary.simpleMessage("Year"),
+    "infoDialogAlertDialogRightButtonText" : MessageLookupByLibrary.simpleMessage("Close"),
     "infoTableAuthor" : MessageLookupByLibrary.simpleMessage("Author(s):"),
     "infoTableCity" : MessageLookupByLibrary.simpleMessage("City:"),
     "infoTableDOI" : MessageLookupByLibrary.simpleMessage("DOI:"),

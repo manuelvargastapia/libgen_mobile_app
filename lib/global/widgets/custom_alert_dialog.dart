@@ -6,11 +6,11 @@ class CustomAlertDialog extends StatelessWidget {
   final Function callbacLeft, callbackRight;
 
   CustomAlertDialog({
-    @required this.textLeft,
-    @required this.callbacLeft,
     @required this.textRight,
     @required this.callbackRight,
     @required this.content,
+    this.textLeft,
+    this.callbacLeft,
     this.title,
   });
 
@@ -25,19 +25,24 @@ class CustomAlertDialog extends StatelessWidget {
             )
           : null,
       actions: [
-        FlatButton(
-          child: Text(
-            textLeft,
-            style: Theme.of(context).textTheme.bodyText1,
+        if (textLeft != null && callbacLeft != null)
+          FlatButton(
+            child: Text(
+              textLeft,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Theme.of(context).primaryColor,
+                  ),
+            ),
+            onPressed: () {
+              callbacLeft();
+            },
           ),
-          onPressed: () {
-            callbacLeft();
-          },
-        ),
         FlatButton(
           child: Text(
             textRight,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
           ),
           onPressed: () {
             callbackRight();
@@ -45,6 +50,7 @@ class CustomAlertDialog extends StatelessWidget {
         ),
       ],
       content: content,
+      scrollable: true,
     );
   }
 }

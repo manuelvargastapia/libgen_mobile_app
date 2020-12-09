@@ -65,5 +65,6 @@
     "filtersExtensionsSeries": "Series",
     "filtersExtensionsPublisher": "Publisher",
     "filtersExtensionsISBN": "ISBN",
-    "filtersExtensionsMD5": "MD5"
+    "filtersExtensionsMD5": "MD5",
+    "infoDialogAlertDialogRightButtonText": "Close"
 }

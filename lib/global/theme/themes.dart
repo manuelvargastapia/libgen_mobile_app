@@ -145,6 +145,10 @@ final _textThemeLight = TextTheme(
     fontSize: 16,
     color: Colors.black,
   ),
+  caption: TextStyle(
+    fontSize: 14,
+    color: Colors.grey[600],
+  ),
 );
 
 final _textThemeDark = TextTheme(
@@ -175,5 +179,9 @@ final _textThemeDark = TextTheme(
   bodyText2: TextStyle(
     fontSize: 16,
     color: Colors.white,
+  ),
+  caption: TextStyle(
+    fontSize: 14,
+    color: Colors.grey[200],
   ),
 );

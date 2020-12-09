@@ -694,6 +694,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Close`
+  String get infoDialogAlertDialogRightButtonText {
+    return Intl.message(
+      'Close',
+      name: 'infoDialogAlertDialogRightButtonText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

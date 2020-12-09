@@ -4,6 +4,7 @@ import 'package:package_info/package_info.dart';
 import 'package:libgen/screens/search_book/widgets/floating_action_button_menu/circular_button.dart';
 import 'package:libgen/blocs/theme_cubit.dart';
 import 'package:libgen/generated/l10n.dart';
+import 'package:libgen/screens/search_book/widgets/floating_action_button_menu/info_dialog.dart';
 
 class FloatingActionButtonMenu extends StatefulWidget {
   final String appIconPath;
@@ -116,7 +117,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                     width: 50,
                     icon: Icon(Icons.info),
                     onPressed: () {
-                      showAboutDialog(
+                      showInfoDialog(
                         context: context,
                         applicationIcon: ImageIcon(
                           AssetImage(widget.appIconPath),
