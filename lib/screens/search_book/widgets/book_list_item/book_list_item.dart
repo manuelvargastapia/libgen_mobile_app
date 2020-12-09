@@ -15,9 +15,14 @@ class BookListItem extends StatelessWidget {
       title: Text(
         book.title ?? S.of(context).bookListItemNoTitle,
         overflow: TextOverflow.ellipsis,
+        maxLines: 2,
       ),
       subtitle: book.author != null
-          ? Text(S.of(context).bookListItemByAuthor(book.author))
+          ? Text(
+              S.of(context).bookListItemByAuthor(book.author),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            )
           : null,
       trailing: book.fileExtension != null
           ? Text(book.fileExtension.toUpperCase())
