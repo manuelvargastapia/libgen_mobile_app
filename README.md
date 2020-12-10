@@ -1,23 +1,63 @@
 # LibGen Mobile
 
-This is a **non-offical** mobile client for Library Genesis service. It's an independent side project. Also, it's Open Source, so feel free to collaborate.
+This is a **non-offical** mobile client for [Library Genesis](http://gen.lib.rus.ec) service. It's an independent side project. And it's Open Source, so feel free to collaborate.
 
 The app is built with Flutter and it'll be submitted to [FDroid](https://f-droid.org).
 
-## Getting Started
+Currently, we're working mainly in Android version.
 
-This project is a starting point for a Flutter application.
+[*Versión en español*](README.es.md)
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Search books by title, author, series, publisher, ISBN or MD5
+- Order results by relevance, title, year, pages or file size
+- Decide ordering criteria according to sorting option (newer firsts, smaller first, etc)
+- See book detailed info:
+  - cover
+  - title
+  - author
+  - description
+  - table of contents
+  - year
+  - volume
+  - series
+  - edition
+  - publisher
+  - city
+  - pages
+  - language
+  - ISBN
+  - DOI
+  - file size
+  - fiel extension
+- Show historial as suggestions
+- Download book
+- Switch between ligh and dark theme
+- Show info dialog
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## TODO
+
+The following is a list of desired new features within the scope of the project. Notwithstanding, we're happy to hear new ideas and feeback.
+
+- [ ] Share book
+- [ ] Search books in other sections of LibGen (fiction, scientific articles, etc)
+- [ ] Allow for switching between languages, instead of only using the system's
+- [ ] Translate to other languages
+- [ ] UI improvements (smoother animations, colors, layout, fonts, etc)
+
+**We recommend to submit first an issue to discuss ideas, instead of directly send a PR.**
+
+An important issue that affects the overall UX of the app is the API performance. Any improvement will be welcomed.
 
 ## Environment
+
+### Flutter and Dart
+
+- Flutter: version 1.22.4 (channel stable)
+- Dart: version 2.10.4 (stable)
+
+### Environment config
 
 We're managing the different stages of the app (basically, *development* and *production*) throught **compile time variables** (check [this article](https://binary-studio.com/2020/06/23/flutter-3/) for information). The only environmental variable in use right now is LIBGEN_MOBILE_API. This allow us to pass a development and production API URL directly from CLI commands.
 
@@ -25,7 +65,7 @@ To run the app with compile time variable, use the following command:
 
 `flutter run --dart-define=LIBGEN_API_URL=<VALUE>`
 
-Also, in VSCode, it could be useful define a `launch.json` file to debug. Such a file would look like this, for instance:
+Also, in VSCode, it could be useful define a `launch.json` file to debug. Such file would look like this:
 
 ```
 {
@@ -43,7 +83,7 @@ Also, in VSCode, it could be useful define a `launch.json` file to debug. Such a
 }
 ```
 
-This flag also works with `flutter build apk` and others.
+This flag also works with `flutter build apk` and others similar commands.
 
 ## Libgen API
 
@@ -67,18 +107,10 @@ Additionally, for generating the needed boilerplate we used the VSCode plugin [*
 
   - [http](https://pub.dev/packages/http): ^0.12.2
 
-**State manageent**
+**State management**
 
   - [flutter_bloc](https://pub.dev/packages/flutter_bloc): ^6.0.6
   - [hydrated_bloc](https://pub.dev/packages/hydrated_bloc): ^6.1.0
-
-**Code generation**
-
-  - [json_annotation](https://pub.dev/packages/json_annotation): ^3.1.0
-  - [build_runner](https://pub.dev/packages/build_runner): ^1.10.3
-  - [json_serializable](https://pub.dev/packages/json_serializable): ^3.5.0
-  - [hive_generator](https://pub.dev/packages/hive_generator): ^0.8.2
-  - [equatable](https://pub.dev/packages/equatable): ^1.2.5
 
 **Downloads**
 
@@ -103,63 +135,16 @@ For rendering HTML, we're using a fork of *simple_html_css* package. Check `pubs
   - [hive](https://pub.dev/packages/hive): ^1.4.4+1
   - [hive_flutter](https://pub.dev/packages/hive_flutter): ^0.3.1
 
+**Code generation**
+
+  - [json_annotation](https://pub.dev/packages/json_annotation): ^3.1.0
+  - [build_runner](https://pub.dev/packages/build_runner): ^1.10.3
+  - [json_serializable](https://pub.dev/packages/json_serializable): ^3.5.0
+  - [hive_generator](https://pub.dev/packages/hive_generator): ^0.8.2
+  - [equatable](https://pub.dev/packages/equatable): ^1.2.5
+
 **Others**
 
   - [dartz](https://pub.dev/packages/dartz): ^0.9.2
   - [expandable](https://pub.dev/packages/expandable): ^4.1.4
   - [package_info](https://pub.dev/packages/package_info): ^0.4.3+2
-
-
-## TODO
-
-This is a 
-
-- [x] Cover URL error handling (ex: when HTTP request fails)
-- [x] Implement suggestions
-- [x] Replace any debuggin error message
-  - [x] Network errors
-  - [x] Downloading events
-- [x] Improve lazy loading of fetching books:
-  - [x] Currently only show a SnackBar without proper feedback about what's going on with the loading, leading to bad experience.
-  - [x] Clean current book list displayed before execute another query
-  - [x] Handle properly the case when there are no more books to fetch, to avoid fetching duplicates when the bottom of the screen is falsely reached by the list because of expanding the list tiles
-- [x] Improve Bloc States to avoid using the optional parameter `String md5` in abstract class BookState
-- [x] Improve internal logic of filters in *lib/src/feature_search_book/widgets/book_list/show_filter_dialog.dart*
-- [x] Validar posibilidad de obtener más resultado usando conteo total de resultados
-  - [x] Retornar conteo total desde API
-  - [x] Usar conteo total para validar posibilidad de obtener más resultados
-  - [x] Mostrar conteo total en UI
-- [x] Consider making only one API request instead of two (general search plus details), because potential cost-by-time constraint at the moment of release
-- [x] Control layout of "No results for..." message (eg: it use max width when search term is large). Same for suggestions
-- [x] Remove unused Bloc States and Events
-- [x] Implement translations
-- [x] Cache search results to avoid refetching after coming back from details
-- [x] File can't be opened directly tapping notification after downloading
-- [x] Organize and handle Styles and Themes
-- [x] Be consistent in transition animations
-  - [x] Home to SearchDelegate vs SearchDelegate to Details
-- [x] Consider make the filtering more user friendly
-- [x] Considera using [replay_bloc](https://pub.dev/packages/replay_bloc) or [hydrated_bloc](https://pub.dev/packages/hydrated_bloc) to handle state conservation between navigation from search page to details
-- [x] Monitor network connection to improve error handling
-- [x] Implement env files management ([check this package](https://pub.dev/packages/envify))
-  - [x] API URLs
-  - [x] Flutter Downloader initialization (set debug to `false`)
-- [ ] Translate push notification messages from flutter_downloader
-- [ ] Transitions animations right now may seem standard (FadeTransiion), but there are still some minimal differences because most of them are driven by `showSearch()` and `showDialog()` functions
-- [ ] Limit number of characters for search bar
-- [ ] Consider moving `lib/domain/filters_extensions,dart` to `global` folder
-- [ ] Organize hardcoded non-translatable strings (eg: `displayAPILabel` in `filters_extensions.dart`)
-- [ ] Find a good solution for constant and impredictable IP changes in Library Genesis (see _/home/manuel/development/libgen_mobile_app/flutter_app/libgen/android/app/src/main/res/xml/network_security_config.xml_ and the [API repo](https://github.com/manuelvargastapia/libgen_api/tree/master) for better understanding)
-- [ ] Unit testing
-- [ ] Work with [cached images](https://flutter.dev/docs/cookbook/images/cached-images)
-- [ ] Automated testing for Blocs ([check this package](https://pub.dev/packages/bloc_test))
-- [ ] Find a better solution for permissions issues in Android 10: currently, a temporary solution has been implemented in `AndroidManifext.xml` (`android:requestLegacyExternalStorage="true"`). [Check this post](https://medium.com/@sriramaripirala/android-10-open-failed-eacces-permission-denied-da8b630a89df)
-- [ ] Find a better solution for lint options issues associated to Gradle plugin ([see GitHub issue](https://github.com/flutter/flutter/issues/30598)). Currently, a temporary solution is being applied in `android/app/build.gradle` (`checkReleaseBuilds false)
-- [ ] Update flutter_bloc package. See [migration guide](https://bloclibrary.dev/#/migration)
-- [ ] Implement analytics or logging for better error tracking
-- [ ] Control appropiately the error case when opening Hive box
-- [ ] Implement lazy boxes in Hive for large data sets
-  - [ ] Portentially large data set of suggestions
-  - [ ] API data cached
-- [ ] Solve Android 11 access issue [ver documentación](https://developer.android.com/about/versions/11/privacy/storage)
-- [ ] Handle potential issues (run after `flutter clean`): `Note: Some input files use or override a deprecated API.`
