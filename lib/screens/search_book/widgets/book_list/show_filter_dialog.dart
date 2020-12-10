@@ -53,6 +53,7 @@ Future<FiltersModel> showFilterDialog({
                     labelGenerator: (value) => Text(
                       value.displayUILabel(context),
                       style: Theme.of(context).textTheme.bodyText1,
+                      maxLines: 1,
                     ),
                     callback: (value) {
                       setState(() {
@@ -72,6 +73,7 @@ Future<FiltersModel> showFilterDialog({
                     labelGenerator: (value) => Text(
                       value.displayUILabel(context),
                       style: Theme.of(context).textTheme.bodyText1,
+                      maxLines: 1,
                     ),
                     callback: (value) {
                       setState(() {
