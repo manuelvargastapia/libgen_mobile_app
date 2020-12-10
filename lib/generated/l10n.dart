@@ -115,6 +115,16 @@ class S {
     );
   }
 
+  /// `Network error.\nPlease, check your internet connection`
+  String get resultsBuilderConnectionFailedErrorMessage {
+    return Intl.message(
+      'Network error.\nPlease, check your internet connection',
+      name: 'resultsBuilderConnectionFailedErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Filter`
   String get showFilterDialogTitle {
     return Intl.message(
@@ -310,6 +320,16 @@ class S {
     return Intl.message(
       'Download error. Try again later, please',
       name: 'downloadButtonGenericErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network error. Please, check your internet connection`
+  String get downloadButtonConnectionFailedErrorMessage {
+    return Intl.message(
+      'Network error. Please, check your internet connection',
+      name: 'downloadButtonConnectionFailedErrorMessage',
       desc: '',
       args: [],
     );

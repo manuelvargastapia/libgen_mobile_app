@@ -36,7 +36,7 @@ class BookRepository {
       }
       return response;
     } catch (e) {
-      return e.toString();
+      return e;
     }
   }
 
@@ -44,7 +44,7 @@ class BookRepository {
     try {
       return await http.get('$devURLEmulator/download?md5=$md5');
     } catch (e) {
-      return e.toString();
+      return e;
     }
   }
 }

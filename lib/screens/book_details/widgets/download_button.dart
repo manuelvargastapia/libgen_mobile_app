@@ -45,6 +45,15 @@ class DownloadButton extends StatelessWidget {
                 ),
               ),
             );
+          } else if (downloadState is DownloadConnectionFailed) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  S.of(context).downloadButtonConnectionFailedErrorMessage,
+                  style: Theme.of(context).primaryTextTheme.bodyText1,
+                ),
+              ),
+            );
           } else if (downloadState is DownloadPermissionsPermanentlyDenied) {
             showDialog(
               context: context,

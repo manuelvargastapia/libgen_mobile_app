@@ -121,6 +121,8 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
           } else {
             yield DownloadError();
           }
+        } else if (_response is SocketException) {
+          yield DownloadConnectionFailed();
         } else {
           yield DownloadError();
         }

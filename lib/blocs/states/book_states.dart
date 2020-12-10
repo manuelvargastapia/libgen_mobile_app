@@ -36,3 +36,7 @@ class BookNoMoreResults extends BookState {
 class BookErrorState extends BookState {
   const BookErrorState();
 }
+
+class BookConnectionFailed extends BookState {
+  const BookConnectionFailed();
+}

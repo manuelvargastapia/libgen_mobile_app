@@ -74,6 +74,11 @@ class ResultsBuilder extends StatelessWidget {
                   context,
                   S.of(context).resultsBuilderGenericErrorMessage,
                 );
+              } else if (bookState is BookConnectionFailed) {
+                return _buildErrorMessage(
+                  context,
+                  S.of(context).resultsBuilderConnectionFailedErrorMessage,
+                );
               } else if (bookState is BookNoResultsState) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),

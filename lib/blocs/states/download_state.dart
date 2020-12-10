@@ -24,3 +24,7 @@ class DownloadError extends DownloadState {
 class DownloadPermissionsPermanentlyDenied extends DownloadState {
   const DownloadPermissionsPermanentlyDenied();
 }
+
+class DownloadConnectionFailed extends DownloadState {
+  const DownloadConnectionFailed();
+}

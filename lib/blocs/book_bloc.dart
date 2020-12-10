@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,8 @@ class BookBloc extends Bloc<BookEvent, BookState> {
           } else {
             yield BookErrorState();
           }
+        } else if (response is SocketException) {
+          yield BookConnectionFailed();
         } else {
           yield BookErrorState();
         }
