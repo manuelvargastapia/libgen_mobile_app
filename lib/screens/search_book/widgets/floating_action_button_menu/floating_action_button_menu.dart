@@ -11,10 +11,14 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final PackageInfo packageInfo;
   final ThemeCubit themeCubit;
 
+  /// Reset FAB menu animation only if `showSearch` page is called.
+  final bool animationMustBeReset;
+
   FloatingActionButtonMenu({
     @required this.appIconPath,
     @required this.packageInfo,
     @required this.themeCubit,
+    this.animationMustBeReset = false,
   });
 
   @override
@@ -57,6 +61,14 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     _animationController.addListener(() {
       setState(() {});
     });
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.animationMustBeReset) {
+      _animationController.reset();
+    }
   }
 
   double _getRadiansFromDregree(double degree) {

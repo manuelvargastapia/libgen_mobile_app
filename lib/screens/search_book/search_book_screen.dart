@@ -16,6 +16,9 @@ class SearchBookScreen extends StatelessWidget {
   static const String _darkLogoPath = "assets/images/logo_dark.png";
   static const String _appIconPath = "assets/images/app_icon.png";
 
+  /// Rebuilds [FloatingActionButtonMenu] anytime `showSearch` is called to reset FAB menu animation.
+  final ValueNotifier<bool> _openingShowSearch = ValueNotifier(false);
+
   final PackageInfo packageInfo;
 
   SearchBookScreen(this.packageInfo);
@@ -76,6 +79,7 @@ class SearchBookScreen extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
+                        _openingShowSearch.value = true;
                         showSearch(
                           context: context,
                           delegate: BookSearchDelegate(
@@ -95,10 +99,18 @@ class SearchBookScreen extends StatelessWidget {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButtonMenu(
-          appIconPath: _appIconPath,
-          packageInfo: packageInfo,
-          themeCubit: BlocProvider.of<ThemeCubit>(context),
+        floatingActionButton: ValueListenableBuilder(
+          valueListenable: _openingShowSearch,
+          builder: (_, __, ___) {
+            final bool animationMustBeReset = _openingShowSearch.value;
+            _openingShowSearch.value = false;
+            return FloatingActionButtonMenu(
+              appIconPath: _appIconPath,
+              packageInfo: packageInfo,
+              themeCubit: BlocProvider.of<ThemeCubit>(context),
+              animationMustBeReset: animationMustBeReset,
+            );
+          },
         ),
       ),
     );
