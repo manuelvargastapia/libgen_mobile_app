@@ -114,7 +114,7 @@ En adición, para generar el *boilerplate* se usó el *plugin* de VScode [*Flutt
 
 **Descargas**
 
-Para las descargas, se está usando un *fork* del paquete *flutter_downloader*. Ver `pubspec.yaml` para más detalles.
+Para las descargas, se está usando un [*fork*](https://github.com/manuelvargastapia/flutter_downloader) del paquete *flutter_downloader*. Ver `pubspec.yaml` para más detalles.
 
   - [flutter_downloader](https://pub.dev/packages/flutter_downloader)
   - [downloads_path_provider](https://pub.dev/packages/downloads_path_provider): ^0.1.0
@@ -126,7 +126,7 @@ Para las descargas, se está usando un *fork* del paquete *flutter_downloader*. 
 
 **Renderizar contenido HTML**
 
-Para renderizar HTML, se está usando un *fork* del paquete *simple_html_css*. Ver `pubspec.yaml` para más detalles.
+Para renderizar HTML, se está usando un [*fork*](https://github.com/manuelvargastapia/simple_html_css_flutter) del paquete *simple_html_css*. Ver `pubspec.yaml` para más detalles.
 
   - [simple_html_css](https://pub.dev/packages/simple_html_css)
 
