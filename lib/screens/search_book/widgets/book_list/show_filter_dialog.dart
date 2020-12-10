@@ -150,17 +150,21 @@ Widget _buildChipChpiceFilter({
   @required SortBy currentSortBy,
 }) {
   if (currentSortBy == SortBy.def) return Container();
-  return Wrap(
-    spacing: 10,
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisSize: MainAxisSize.max,
     children: List.generate(2, (index) {
-      return ChoiceChip(
-        label: Text(
-          currentSortBy.displaySortingLabel(context, index),
+      return Expanded(
+        child: ChoiceChip(
+          label: Text(
+            currentSortBy.displaySortingLabel(context, index),
+            maxLines: 1,
+          ),
+          selected: selectedIndex == index,
+          onSelected: (value) {
+            callback(value, index);
+          },
         ),
-        selected: selectedIndex == index,
-        onSelected: (value) {
-          callback(value, index);
-        },
       );
     }).toList(),
   );
