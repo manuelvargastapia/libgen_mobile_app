@@ -10,7 +10,10 @@ import 'domain/suggestion.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(debug: true);
+
+  // Set debug: true to see library logs
+  await FlutterDownloader.initialize(debug: false);
+
   await Hive.initFlutter();
   Hive.registerAdapter(SuggestionAdapter());
   HydratedBloc.storage = await HydratedStorage.build();
