@@ -51,7 +51,10 @@ final Map<AppTheme, ThemeData> appThemeData = {
       labelPadding: const EdgeInsets.all(8),
       shape: StadiumBorder(),
       labelStyle: _textThemeLight.bodyText2.copyWith(fontSize: 14),
-      secondaryLabelStyle: _textThemeLight.bodyText2.copyWith(fontSize: 14),
+      secondaryLabelStyle: _textThemeLight.bodyText2.copyWith(
+        fontSize: 14,
+        color: Colors.white,
+      ),
       elevation: 3,
     ),
     accentColor: _primarySwatchLight[700],
@@ -69,6 +72,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       iconTheme: _iconThemeData,
     ),
     buttonColor: _secondarySwatch[400],
+    accentIconTheme: IconThemeData(color: Colors.black54),
   ),
   AppTheme.BlueDark: ThemeData(
     brightness: Brightness.dark,
@@ -101,6 +105,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       actionsIconTheme: IconThemeData(color: _primarySwatchDark),
     ),
     buttonColor: _secondarySwatch[400],
+    accentIconTheme: IconThemeData(color: Colors.white70),
   ),
 };
 

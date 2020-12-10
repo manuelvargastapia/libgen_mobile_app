@@ -46,11 +46,13 @@ Future<FiltersModel> showFilterDialog({
               child: Column(
                 children: [
                   _buildDropdownFilter<SearchIn>(
+                    context: context,
                     title: S.of(context).showFilterDialogSearchInLabel,
                     selectedValue: _filters.searchIn,
                     values: SearchIn.values,
                     labelGenerator: (value) => Text(
                       value.displayUILabel(context),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     callback: (value) {
                       setState(() {
@@ -63,11 +65,13 @@ Future<FiltersModel> showFilterDialog({
                     },
                   ),
                   _buildDropdownFilter<SortBy>(
+                    context: context,
                     title: S.of(context).showFilterDialogSortByLabel,
                     selectedValue: _filters.sortBy,
                     values: SortBy.values,
                     labelGenerator: (value) => Text(
                       value.displayUILabel(context),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     callback: (value) {
                       setState(() {
@@ -107,6 +111,7 @@ Future<FiltersModel> showFilterDialog({
 }
 
 Widget _buildDropdownFilter<T>({
+  @required BuildContext context,
   @required String title,
   @required T selectedValue,
   @required List<T> values,
@@ -119,7 +124,10 @@ Widget _buildDropdownFilter<T>({
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: Text(title),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
         ),
         Expanded(
           child: DropdownButtonHideUnderline(

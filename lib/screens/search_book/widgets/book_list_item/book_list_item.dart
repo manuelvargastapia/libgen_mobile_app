@@ -16,16 +16,21 @@ class BookListItem extends StatelessWidget {
         book.title ?? S.of(context).bookListItemNoTitle,
         overflow: TextOverflow.ellipsis,
         maxLines: 2,
+        style: Theme.of(context).textTheme.headline6,
       ),
       subtitle: book.author != null
           ? Text(
               S.of(context).bookListItemByAuthor(book.author),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.caption.copyWith(fontSize: 16),
             )
           : null,
       trailing: book.fileExtension != null
-          ? Text(book.fileExtension.toUpperCase())
+          ? Text(
+              book.fileExtension.toUpperCase(),
+              style: Theme.of(context).textTheme.bodyText2,
+            )
           : null,
       contentPadding: const EdgeInsets.symmetric(horizontal: 30),
       onTap: () {

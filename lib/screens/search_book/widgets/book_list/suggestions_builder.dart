@@ -22,11 +22,18 @@ class SuggestionsBuilder extends StatelessWidget {
       itemBuilder: (context, index) {
         final reversedIndex = suggestions.length - index - 1;
         return ListTile(
-          leading: Icon(Icons.history_rounded),
+          leading: Icon(
+            Icons.history_rounded,
+            size: 18,
+            color: Theme.of(context).accentIconTheme.color,
+          ),
           title: Text(
             suggestions[reversedIndex].query,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodyText2.copyWith(
+                  color: Theme.of(context).accentIconTheme.color,
+                ),
           ),
           onTap: () {
             onSelected(suggestions[reversedIndex]);
@@ -35,6 +42,7 @@ class SuggestionsBuilder extends StatelessWidget {
             icon: Icon(
               Icons.close,
               size: 18,
+              color: Theme.of(context).accentIconTheme.color,
             ),
             onPressed: () {
               hiveBloc.add(DeleteItemEvent<Suggestion>(reversedIndex));
