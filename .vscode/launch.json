@@ -5,9 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "libgen",
+            "name": "emulator",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--dart-define=LIBGEN_API_URL=http://10.0.2.2:3000",
+            ]
+        },
+        {
+            "name": "physical",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=LIBGEN_API_URL=http://192.168.0.14:3000",
+            ]
         }
     ]
 }
