@@ -20,7 +20,7 @@ class BookDetailsScreen extends StatelessWidget {
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(50),
             ),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).accentIconTheme.color,
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
