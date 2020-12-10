@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "emulator",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=LIBGEN_API_URL=http://10.0.2.2:3000",
+            ]
+        },
+        {
+            "name": "physical",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=LIBGEN_API_URL=http://192.168.0.14:3000",
+            ]
+        }
+    ]
+}
