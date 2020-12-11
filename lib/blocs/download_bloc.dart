@@ -72,7 +72,13 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     final author = book.author != null ? " - " + book.author : "";
     final publisher = book.publisher != null ? " - " + book.publisher : "";
     final year = book.year != null ? " - " + book.year.toString() : "";
-    return "$title$author$publisher$year".replaceAll(RegExp(r'\/'), ' ');
+
+    // Needed to allow devices recognize the files in Downloads folder
+    final fileExtension =
+        book.fileExtension != null ? "." + book.fileExtension : "";
+
+    return "$title$author$publisher$year$fileExtension"
+        .replaceAll(RegExp(r'\/'), ' ');
   }
 
   @override
