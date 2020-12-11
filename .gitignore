@@ -9,6 +9,9 @@
 .history
 .svn/
 
+# VSCode
+.vscode
+
 # IntelliJ related
 *.iml
 *.ipr
