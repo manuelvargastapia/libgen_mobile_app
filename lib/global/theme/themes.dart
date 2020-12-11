@@ -29,7 +29,7 @@ final _primarySwatchDark = _createMaterialColor(Colors.blueAccent);
 final _secondarySwatch = _createMaterialColor(Colors.deepOrange);
 const _iconThemeData = const IconThemeData(color: Colors.white);
 
-const String _fontFamily = 'Roboto';
+const String _fontFamily = 'Lato';
 const PageTransitionsTheme _transition = const PageTransitionsTheme(
   builders: {
     TargetPlatform.android: FadeTransitionBuilder(),
