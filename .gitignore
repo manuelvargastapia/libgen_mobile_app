@@ -12,6 +12,9 @@
 # VSCode
 .vscode
 
+# FDroid
+com.manuelvargastapia.libgen.yml
+
 # IntelliJ related
 *.iml
 *.ipr
