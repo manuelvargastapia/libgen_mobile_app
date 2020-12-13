@@ -46,32 +46,38 @@ android {
         versionName flutterVersionName
     }
 
-    flavorDimensions "deploy"
+    // flavorDimensions "deploy"
 
-    productFlavors {
-        play {
-            dimension "deploy"
-            signingConfig null
-        }
-        fdroid {
-            dimension "deploy"
-            signingConfig null
-        }
-    }
+    // productFlavors {
+    //     play {
+    //         dimension "deploy"
+    //         signingConfig null
+    //     }
+    //     fdroid {
+    //         dimension "deploy"
+    //         signingConfig null
+    //     }
+    // }
 
-    android.applicationVariants.all { variant ->
-        if (variant.flavorName == "fdroid") {
-            variant.outputs.all { output ->
-                output.outputFileName = "app-fdroid-release.apk"
-            }
-        }
-    }
+    // android.applicationVariants.all { variant ->
+    //     if (variant.flavorName == "fdroid") {
+    //         variant.outputs.all { output ->
+    //             output.outputFileName = "app-fdroid-release.apk"
+    //         }
+    //     }
+    // }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig null
+            signingConfig signingConfigs.debug
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    output.outputFileName = "app-release.apk"
+                }
+            }
         }
     }
 }
