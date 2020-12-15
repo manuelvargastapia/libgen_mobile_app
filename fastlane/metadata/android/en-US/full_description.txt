@@ -1,0 +1,26 @@
+This is a non-official <a href="http://gen.lib.rus.ec">Library Genesis</a> mobile client.
+
+The project is completely independent and Open Source. The developer has 
+no relation with Library Genesis.
+
+Feel free to collaborate.
+Check the <a href="https://github.com/manuelvargastapia/libgen_mobile_app">repo</a>
+
+Features:
+
+<ul>
+  <li>Search books by title, author, and other parameters</li>
+  <li>See detailed info about the book (pages, size, etc)</li>
+  <li>Download the book (directly to Downloads folder)</li>
+  <li>Switch between light and dark theme</li>
+  <li>Available in English and Spanish (according to system)</li>
+  <li>Currently, the app provide access only to Sci-Tech section</li>
+</ul>
+
+New features are in development.
+
+The only permission required is <b>Storage</b>. It's used only 
+to place the downloaded files in Downloads directory.
+
+
+Powered by <a href="https://flutter.dev">Flutter</a>.
