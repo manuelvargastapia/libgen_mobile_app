@@ -1,7 +1,9 @@
 # LibGen Mobile
 [![F-Droid](https://img.shields.io/f-droid/v/com.manuelvargastapia.libgen?color=%231976d2)](https://f-droid.org/packages/com.manuelvargastapia.libgen) [![GitHub](https://img.shields.io/github/license/manuelvargastapia/libgen_mobile_app?color=%2335c202)](https://github.com/manuelvargastapia/libgen_mobile_app/blob/main/LICENSE)
 
+<a href="https://f-droid.org/packages/com.manuelvargastapia.libgen" target="_blank">
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">
+</a>
 
 This is a **non-offical** mobile client for [Library Genesis](http://gen.lib.rus.ec) service. It's an independent side project. And it's Open Source, so feel free to collaborate.
 
