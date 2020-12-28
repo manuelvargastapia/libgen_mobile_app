@@ -121,6 +121,25 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
+  /// Returns a `TextSpan` widget.
+  ///
+  /// If `HTML.toTextSpan()` can't parse the String, a default `TextSpan` using
+  /// the raw String is returned.
+  TextSpan _generateTextSpanFromHTML(BuildContext context, String content) {
+    TextSpan ts = TextSpan(
+      text: content,
+      style: Theme.of(context).textTheme.bodyText2,
+    );
+    try {
+      ts = HTML.toTextSpan(
+        context,
+        "<div>$content</div>",
+        defaultTextStyle: Theme.of(context).textTheme.bodyText2,
+      );
+    } catch (_) {}
+    return ts;
+  }
+
   Widget _buildContentSection({
     @required BuildContext context,
     @required String title,
@@ -135,13 +154,7 @@ class BookDetailsPresenter extends StatelessWidget {
             style: Theme.of(context).textTheme.headline2,
           ),
           _buildDivider(),
-          ExpandableText(
-            HTML.toTextSpan(
-              context,
-              "<div>$content</div>",
-              defaultTextStyle: Theme.of(context).textTheme.bodyText2,
-            ),
-          ),
+          ExpandableText(_generateTextSpanFromHTML(context, content)),
         ],
       ),
     );
