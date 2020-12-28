@@ -7,20 +7,15 @@ Toda colaboración es bienvenida.
 Revisa el <a href="https://github.com/manuelvargastapia/libgen_mobile_app">repo</a>.
 
 Funcionalidades:
-
 <ul>
-  <li>Buscar libros por título, autor u otros campos</li>
-  <li>Ver información detallada del libro (páginas, tamaño, etc)</li>
-  <li>Descargar libro (directo al directorio de Descargas)</li>
-  <li>Escoger entre tema Claro y Oscuro</li>
-  <li>Disponible en inglés y español (dependiendo del sistema)</li>
-  <li>De momento, la app provee acceso sólo a la sección Sci-Tech</li>
+  <li> Buscar libros por título, autor u otros campos</li>
+  <li> Ver información detallada del libro (páginas, tamaño, etc)</li>
+  <li> Descargar libro (directo al directorio de Descargas)</li>
+  <li> Escoger entre tema Claro y Oscuro</li>
+  <li> Idiomas: inglés, español, polaco</li>
+  <li> De momento, la app provee acceso sólo a la sección Sci-Tech</li>
 </ul>
 
 Nuevas funcionalidades están en desarrolo.
-
-El único permiso requerido es <b>Almacenamiento</b>. Se usa sólo 
-para depositar los archivos descargados en el directorio de Descargas.
-
-
+El único permiso requerido es <b>Almacenamiento</b>. Se usa sólo para depositar los archivos descargados en el directorio de Descargas.
 Hecho con <a href="https://flutter.dev">Flutter</a>.

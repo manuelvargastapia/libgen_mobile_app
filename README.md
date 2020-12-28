@@ -1,8 +1,13 @@
 # LibGen Mobile
+[![F-Droid](https://img.shields.io/f-droid/v/com.manuelvargastapia.libgen?color=%231976d2)](https://f-droid.org/packages/com.manuelvargastapia.libgen) [![GitHub](https://img.shields.io/github/license/manuelvargastapia/libgen_mobile_app?color=%2335c202)](https://github.com/manuelvargastapia/libgen_mobile_app/blob/main/LICENSE)
+
+<a href="https://f-droid.org/packages/com.manuelvargastapia.libgen" target="_blank">
+<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">
+</a>
 
 This is a **non-offical** mobile client for [Library Genesis](http://gen.lib.rus.ec) service. It's an independent side project. And it's Open Source, so feel free to collaborate.
 
-The app is built with Flutter and it'll be submitted to [FDroid](https://f-droid.org).
+The app is built with Flutter and it's available in [FDroid](https://f-droid.org).
 
 Currently, we're working mainly in Android version.
 
@@ -43,7 +48,7 @@ The following is a list of desired new features within the scope of the project.
 - [ ] Share book
 - [ ] Search books in other sections of LibGen (fiction, scientific articles, etc)
 - [ ] Allow for switching between languages, instead of only using the system's
-- [ ] Translate to other languages
+- [ ] Translate to other languages (already available: English, Spanish, Polish)
 - [ ] UI improvements (smoother animations, colors, layout, fonts, etc)
 
 **We recommend to submit first an issue to discuss ideas, instead of directly send a PR.**
