@@ -48,7 +48,7 @@ La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los a
 - [ ] Compartir libro
 - [ ] Buscar libros en otras secciones de LibGen (fiction, scientific articles, etc)
 - [ ] Permitir cambiar de idioma, en lugar de sólo usar el del sistema
-- [ ] Traducir a otros idiomas (disponibles: inglés, español, polaco)
+- [ ] Traducir a otros idiomas (disponibles: inglés, español, polaco, portugués)
 - [ ] Mejoras de UI (animaciones más fluidas, colores, estructura, fuentes, etc)
 
 **Se sugiere enviar primero un *issue* para discutir ideas, en lugar de enviar directamente un PR**
