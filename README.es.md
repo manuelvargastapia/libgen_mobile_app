@@ -50,6 +50,7 @@ La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los a
 - [ ] Permitir cambiar de idioma, en lugar de sólo usar el del sistema
 - [ ] Traducir a otros idiomas (disponibles: inglés, español, polaco, portugués)
 - [ ] Mejoras de UI (animaciones más fluidas, colores, estructura, fuentes, etc)
+- [ ] Filtrar por tipo de archivo (puede requerir modificar el _backend_)
 
 **Se sugiere enviar primero un *issue* para discutir ideas, en lugar de enviar directamente un PR**
 
