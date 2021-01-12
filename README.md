@@ -51,6 +51,7 @@ The following is a list of desired new features within the scope of the project.
 - [ ] Allow for switching between languages, instead of only using the system's
 - [ ] Translate to other languages (already available: English, Spanish, Polish, Portuguese)
 - [ ] UI improvements (smoother animations, colors, layout, fonts, etc)
+- [ ] Filter by file extension (it may require work on backend)
 
 **We recommend to submit first an issue to discuss ideas, instead of directly send a PR.**
 
