@@ -68,11 +68,13 @@ An important issue that affects the overall UX of the app is the API performance
 
 We're managing the different stages of the app (basically, _development_ and _production_) throught **compile time variables** (check [this article](https://binary-studio.com/2020/06/23/flutter-3/) for information). The only environmental variable in use right now is LIBGEN_MOBILE_API. This allow us to pass a development and production API URL directly from CLI commands.
 
-To run the app with compile time variable, use the following command:
+Also note that this app is using [multiple flavors](https://github.com/Than-DE/libgen_mobile_app/blob/main/android/app/build.gradle#L51), therefore it has to be specifically referenced when running the app. Otherwise, you'll get the a "Gradle build failed to produce an .apk file" error.
 
-`flutter run --dart-define=LIBGEN_API_URL=<VALUE>`
+To run the app with compile time variable plus the correct flavor, use the following command:
 
-Also, in VSCode, it could be useful define a `launch.json` file to debug. Such file would look like this:
+`flutter run --dart-define=LIBGEN_API_URL=<VALUE> --flavor play`
+
+Finally, in VSCode, it could be useful define a `launch.json` file to debug. Such file would look like this:
 
 ```
 {
@@ -84,19 +86,15 @@ Also, in VSCode, it could be useful define a `launch.json` file to debug. Such f
             "type": "dart",
             "args": [
                 "--dart-define=LIBGEN_API_URL=http://10.0.2.2:3000",
+                "--flavor",
+                "play"
             ]
         },
     ]
 }
 ```
 
-This flag also works with `flutter build apk` and others similar commands.
-
-### Running the app with the correct flavor
-
-This app is using [multiple flavors](https://github.com/Than-DE/libgen_mobile_app/blob/main/android/app/build.gradle#L51), therefore it has to be specifically referenced when running the app. If you encounter a "Gradle build failed to produce an .apk file" error, try running the project with this command
-
-`flutter run --flavor play -t lib/main.dart`
+Those flags also work with `flutter build apk` and others similar commands.
 
 ## Libgen API
 

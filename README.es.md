@@ -13,7 +13,7 @@ De momento, el desarrollo está enfocado sólo en Android.
 
 [*English version*](README.md)
 
-## Features
+## Funcionalidades
 
 - Buscar por título, autor, serie, editorial, ISBN o MD5
 - Ordenar resultados por relevancia, título, año, páginas o tamaño de archivo.
@@ -56,22 +56,24 @@ La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los a
 
 Un problema importante que está afectando la UX de la app es el rendimiento de la API. Se agradece cualquier mejora.
 
-## Environment
+## Entorno de ejecución
 
 ### Flutter y Dart
 
 - Flutter: version 1.22.4 (channel stable)
 - Dart: version 2.10.4 (stable)
 
-### Environment config
+### Configuraciones
 
 Los diferentes entornos de desarrollo de la app (basicamente, *development* y *production*) son manejados por medio de las ***compile time variables*** (consultar [artículo](https://binary-studio.com/2020/06/23/flutter-3/)). La única variable a considerar por ahora es LIBGEN_MOBILE_API. Esto nos permite pasar la URL de la API de desarrollo o producción directamente desde la terminal.
 
-Para ejecutar la app con la *compile time variable* se debe usar el siguiente comando:
+Notar también que esta app está usando [multiples *flavors*](https://github.com/Than-DE/libgen_mobile_app/blob/main/android/app/build.gradle#L51), por tanto se debe especificar al ejecutar la app. De lo contrario, ocurrirá el error "Gradle build failed to produce an .apk file".
 
-`flutter run --dart-define=LIBGEN_API_URL=<VALUE>`
+Para ejecutar la app con la *compile time variable* más el *flavor* correcto se debe usar el siguiente comando:
 
-Además, en VSCode, es buena idea definir un archivo `launch.json` para la depuración. Dicho archivo podría contener lo siguiente:
+`flutter run --dart-define=LIBGEN_API_URL=<VALUE> --flavor play`
+
+Finalment, en VSCode, es buena idea definir un archivo `launch.json` para la depuración. Dicho archivo podría contener lo siguiente:
 
 ```
 {
@@ -83,15 +85,17 @@ Además, en VSCode, es buena idea definir un archivo `launch.json` para la depur
             "type": "dart",
             "args": [
                 "--dart-define=LIBGEN_API_URL=http://10.0.2.2:3000",
+                "--flavor",
+                "play"
             ]
         },
     ]
 }
 ```
 
-Esta *flag* también funciona con `flutter build apk` y otros comandos similares.
+Estas *flags* también funcionan con `flutter build apk` y otros comandos similares.
 
-## Libgen API
+## API de LibGen
 
 Library Genesis no dispone de una API pública con la que trabajar, por lo que se decidió crear un *backend* para consumir. Actualmente está alojado en Heroku.
 
