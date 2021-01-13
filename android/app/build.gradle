@@ -54,7 +54,7 @@ android {
         signingConfig null
       }
 
-      play {
+      local {
         dimension "deploy"
         signingConfig signingConfigs.debug
       }

@@ -72,7 +72,7 @@ Also note that this app is using [multiple flavors](https://github.com/Than-DE/l
 
 To run the app with compile time variable plus the correct flavor, use the following command:
 
-`flutter run --dart-define=LIBGEN_API_URL=<VALUE> --flavor play`
+`flutter run --dart-define=LIBGEN_API_URL=<VALUE> --flavor local`
 
 Finally, in VSCode, it could be useful define a `launch.json` file to debug. Such file would look like this:
 
@@ -87,7 +87,7 @@ Finally, in VSCode, it could be useful define a `launch.json` file to debug. Suc
             "args": [
                 "--dart-define=LIBGEN_API_URL=http://10.0.2.2:3000",
                 "--flavor",
-                "play"
+                "local"
             ]
         },
     ]

@@ -71,7 +71,7 @@ Notar también que esta app está usando [multiples *flavors*](https://github.co
 
 Para ejecutar la app con la *compile time variable* más el *flavor* correcto se debe usar el siguiente comando:
 
-`flutter run --dart-define=LIBGEN_API_URL=<VALUE> --flavor play`
+`flutter run --dart-define=LIBGEN_API_URL=<VALUE> --flavor local`
 
 Finalment, en VSCode, es buena idea definir un archivo `launch.json` para la depuración. Dicho archivo podría contener lo siguiente:
 
@@ -86,7 +86,7 @@ Finalment, en VSCode, es buena idea definir un archivo `launch.json` para la dep
             "args": [
                 "--dart-define=LIBGEN_API_URL=http://10.0.2.2:3000",
                 "--flavor",
-                "play"
+                "local"
             ]
         },
     ]
