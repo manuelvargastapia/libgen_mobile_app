@@ -92,6 +92,12 @@ Also, in VSCode, it could be useful define a `launch.json` file to debug. Such f
 
 This flag also works with `flutter build apk` and others similar commands.
 
+### Running the app with the correct flavor
+
+This app is using [multiple flavors](https://github.com/Than-DE/libgen_mobile_app/blob/main/android/app/build.gradle#L51), therefore it has to be specifically referenced when running the app. If you encounter a "Gradle build failed to produce an .apk file" error, try running the project with this command
+
+`flutter run --flavor play -t lib/main.dart`
+
 ## Libgen API
 
 Library Genesis doesn't provide a public API to work with, so we decided to build a _backend_ service to consume. It's currently hosted in Heroku.
