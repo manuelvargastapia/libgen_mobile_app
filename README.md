@@ -96,11 +96,17 @@ Finally, in VSCode, it could be useful define a `launch.json` file to debug. Suc
 
 Those flags also work with `flutter build apk` and others similar commands.
 
+IMPORTANT
+
+To use a phisical device to run the app, you'll need to pass the internal IP of the machine that's running the server as the value of LIBGEN_API_URL. "http://10.0.2.2:3000" will only provide access to emulators, as those are part of the same network.
+
 ## Libgen API
 
 Library Genesis doesn't provide a public API to work with, so we decided to build a _backend_ service to consume. It's currently hosted in Heroku.
 
 Check [the repo](https://github.com/manuelvargastapia/libgen_api/tree/master) to run your own instance and pass the corresponding URLs to the app throught compile time variables.
+
+It's an ExpressJS project; you just need to clone (or fork) the repo, install dependencies and run `npm start`.
 
 ## Dependencies
 
