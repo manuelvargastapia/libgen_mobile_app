@@ -95,11 +95,17 @@ Finalment, en VSCode, es buena idea definir un archivo `launch.json` para la dep
 
 Estas *flags* también funcionan con `flutter build apk` y otros comandos similares.
 
+IMPORTANTE
+
+En caso de ejecutar la aplicación en un dispositivo físico, se requiere usar como valor para LIBGEN_API_URL la IP privada de la máquina en la que se está ejecutando el servidor. "http://10.0.2.2:3000" sólo permitirá la conexión a emuladores, ya que están dentro de la misma red.
+
 ## API de LibGen
 
 Library Genesis no dispone de una API pública con la que trabajar, por lo que se decidió crear un *backend* para consumir. Actualmente está alojado en Heroku.
 
-Revisar [repo](https://github.com/manuelvargastapia/libgen_api/tree/master) para ejecutar una instancia propia y poder así pasar a la app la correspondiente URL como *compile time variable*
+Revisar [repo](https://github.com/manuelvargastapia/libgen_api/tree/master) para ejecutar una instancia propia y poder así pasar a la app la correspondiente URL como *compile time variable*.
+
+Es un proyecto ExpressJS; clonar (o _fork_) repo, instalar dependencias y ejecutar con `npm start`.
 
 ## Dependencias
 
