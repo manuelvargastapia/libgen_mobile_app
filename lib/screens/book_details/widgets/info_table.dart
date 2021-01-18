@@ -11,7 +11,7 @@ class InfoTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Table(
       columnWidths: {
-        0: FractionColumnWidth(0.3),
+        0: FractionColumnWidth(0.4),
         1: FlexColumnWidth(),
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.baseline,
