@@ -45,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "downloadButtonOpenBrowser" : MessageLookupByLibrary.simpleMessage("Open Browser"),
     "downloadButtonOpenSettings" : MessageLookupByLibrary.simpleMessage("Open Settings"),
     "downloadButtonPermissionsDenied" : MessageLookupByLibrary.simpleMessage("Permissions denied"),
-    "downloadButtonProvidePermissions" : MessageLookupByLibrary.simpleMessage("Please, provide permissions app from app settings"),
+    "downloadButtonProvidePermissions" : MessageLookupByLibrary.simpleMessage("Please, provide app permissions from app settings"),
     "downloadButtonStartingDownloadMessage" : MessageLookupByLibrary.simpleMessage("Starting download"),
     "expandableTextShowLess" : MessageLookupByLibrary.simpleMessage("Show less"),
     "expandableTextShowMore" : MessageLookupByLibrary.simpleMessage("Show more"),

@@ -225,10 +225,10 @@ class S {
     );
   }
 
-  /// `Please, provide permissions app from app settings`
+  /// `Please, provide app permissions from app settings`
   String get downloadButtonProvidePermissions {
     return Intl.message(
-      'Please, provide permissions app from app settings',
+      'Please, provide app permissions from app settings',
       name: 'downloadButtonProvidePermissions',
       desc: '',
       args: [],
@@ -734,6 +734,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
       Locale.fromSubtags(languageCode: 'de', countryCode: 'DE'),
       Locale.fromSubtags(languageCode: 'es', countryCode: 'ES'),
+      Locale.fromSubtags(languageCode: 'fr', countryCode: 'FR'),
       Locale.fromSubtags(languageCode: 'pl', countryCode: 'PL'),
       Locale.fromSubtags(languageCode: 'pt', countryCode: 'BR'),
     ];
