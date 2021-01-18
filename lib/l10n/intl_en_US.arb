@@ -19,7 +19,7 @@
     "bookDetailsPresenterInfo": "Info",
     "bookDetailsPresenterDescription": "Description",
     "bookDetailsPresenterTOC":"Table of Contents",
-    "downloadButtonProvidePermissions": "Please, provide permissions app from app settings",
+    "downloadButtonProvidePermissions": "Please, provide app permissions from app settings",
     "downloadButtonDownloadFromBrowser": "The file is massive! Please, use the browser to download",
     "downloadButtonDefaultExtension": "TXT",
     "downloadButtonPermissionsDenied": "Permissions denied",
