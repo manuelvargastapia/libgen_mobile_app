@@ -49,7 +49,7 @@ The following is a list of desired new features within the scope of the project.
 - [ ] Share book
 - [ ] Search books in other sections of LibGen (fiction, scientific articles, etc)
 - [ ] Allow for switching between languages, instead of only using the system's
-- [ ] Translate to other languages (already available: English, Spanish, Polish, Portuguese)
+- [ ] Translate to other languages (already available: English, Spanish, Polish, Portuguese, German, and French)
 - [ ] UI improvements (smoother animations, colors, layout, fonts, etc)
 - [ ] Filter by file extension (it may require work on backend)
 

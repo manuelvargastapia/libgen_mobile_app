@@ -48,7 +48,7 @@ La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los a
 - [ ] Compartir libro
 - [ ] Buscar libros en otras secciones de LibGen (fiction, scientific articles, etc)
 - [ ] Permitir cambiar de idioma, en lugar de sólo usar el del sistema
-- [ ] Traducir a otros idiomas (disponibles: inglés, español, polaco, portugués)
+- [ ] Traducir a otros idiomas (disponibles: inglés, español, polaco, portugués, alemán y francés)
 - [ ] Mejoras de UI (animaciones más fluidas, colores, estructura, fuentes, etc)
 - [ ] Filtrar por tipo de archivo (puede requerir modificar el _backend_)
 
