@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:libgen/domain/i_book_model.dart';
-import 'package:libgen/screens/book_details/widgets/info_table.dart';
+import 'package:libgen/screens/book_details/widgets/fiction_info_table.dart';
+import 'package:libgen/screens/book_details/widgets/sci_tech_info_table.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
 import 'package:libgen/domain/book_sci_tech_model.dart';
@@ -161,7 +162,7 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoTable(BuildContext context, BookSciTechModel book) {
+  Widget _buildInfoTable(BuildContext context, BookModel book) {
     return Column(
       children: [
         Text(
@@ -169,7 +170,9 @@ class BookDetailsPresenter extends StatelessWidget {
           style: Theme.of(context).textTheme.headline1,
         ),
         _buildDivider(),
-        InfoTable(book),
+        book is BookSciTechModel
+            ? SciTechInfoTable(book)
+            : FictionInfoTable(book),
       ],
     );
   }

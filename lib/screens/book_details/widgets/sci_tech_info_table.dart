@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/domain/book_sci_tech_model.dart';
 import 'package:libgen/generated/l10n.dart';
 
-class InfoTable extends StatelessWidget {
-  final BookModel book;
+class SciTechInfoTable extends StatelessWidget {
+  final BookSciTechModel book;
 
-  InfoTable(this.book);
+  SciTechInfoTable(this.book);
 
   @override
   Widget build(BuildContext context) {
