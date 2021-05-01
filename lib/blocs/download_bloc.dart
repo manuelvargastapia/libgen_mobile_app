@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:http/http.dart' as http;
 import 'package:libgen/data/download_repository.dart';
-import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/domain/i_book_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,7 +83,7 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
 
   @override
   Stream<DownloadState> mapEventToState(DownloadEvent event) async* {
-    if (event is DownloadBookEvent) {
+    if (event is DownloadEvent) {
       bool _permissionGranted = false;
       final _status = await Permission.storage.status;
 
@@ -102,35 +102,59 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
 
       if (_permissionGranted) {
         yield DownloadStarting();
-        final _response = await bookRepository.getDownloadLink(event.book.md5);
-        if (_response is http.Response) {
-          if (_response.statusCode == 200) {
-            final String _downloadLink = DownloadLinkModel.fromJson(
-              jsonDecode(_response.body)['data'],
-            ).downloadLink;
-            Directory downloadsDirectory =
-                await DownloadsPathProvider.downloadsDirectory;
-            final String fileName = _generateFileName(event.book);
-            if ((event.book.fileSize ~/ 1000000) > 200 &&
-                await canLaunch(_downloadLink)) {
-              yield FileNeedsToBeDownloadedFromBrowser(url: _downloadLink);
-            } else {
-              final result = await downloadRepository.requestDownload(
-                fileName: fileName,
-                downloadLink: _downloadLink,
-                downloadPath: downloadsDirectory.path,
-              );
-              if (result.isLeft()) {
-                yield DownloadError();
+
+        if (event is SciTechDownloadBookEvent) {
+          final _response = await bookRepository.getDownloadLink(
+            md5: event.book.md5,
+          );
+          if (_response is http.Response) {
+            if (_response.statusCode == 200) {
+              final String _downloadLink = DownloadLinkModel.fromJson(
+                jsonDecode(_response.body)['data'],
+              ).downloadLink;
+              Directory downloadsDirectory =
+                  await DownloadsPathProvider.downloadsDirectory;
+              final String fileName = _generateFileName(event.book);
+              if ((event.book.fileSize ~/ 1000000) > 200 &&
+                  await canLaunch(_downloadLink)) {
+                yield FileNeedsToBeDownloadedFromBrowser(url: _downloadLink);
+              } else {
+                final result = await downloadRepository.requestDownload(
+                  fileName: fileName,
+                  downloadLink: _downloadLink,
+                  downloadPath: downloadsDirectory.path,
+                );
+                if (result.isLeft()) {
+                  yield DownloadError();
+                }
               }
+            } else {
+              yield DownloadError();
             }
+          } else if (_response is SocketException) {
+            yield DownloadConnectionFailed();
           } else {
             yield DownloadError();
           }
-        } else if (_response is SocketException) {
-          yield DownloadConnectionFailed();
-        } else {
-          yield DownloadError();
+        } else if (event is FictionDownloadBookEvent) {
+          Directory downloadsDirectory =
+              await DownloadsPathProvider.downloadsDirectory;
+          final String fileName = _generateFileName(event.book);
+          if ((int.parse(event.book.fileSize) ~/ 1000000) > 200 &&
+              await canLaunch(event.book.downloadPageURL)) {
+            yield FileNeedsToBeDownloadedFromBrowser(
+              url: event.book.downloadPageURL,
+            );
+          } else {
+            final result = await downloadRepository.requestDownload(
+              fileName: fileName,
+              downloadLink: event.book.downloadPageURL,
+              downloadPath: downloadsDirectory.path,
+            );
+            if (result.isLeft()) {
+              yield DownloadError();
+            }
+          }
         }
       }
     }
