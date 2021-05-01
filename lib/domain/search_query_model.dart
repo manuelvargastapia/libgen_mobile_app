@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-
-import 'filters_model.dart';
+import 'package:libgen/domain/i_filters_model.dart';
 
 class SearchQueryModel extends Equatable {
   final String searchTerm;
