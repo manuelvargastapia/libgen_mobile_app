@@ -10,11 +10,11 @@ import 'package:libgen/data/download_repository.dart';
 import 'package:libgen/data/hive_repositories/suggestion_repository.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/global/theme/themes.dart';
+import 'package:libgen/screens/search_book/sci_tech_search_book_screen.dart';
 import 'package:package_info/package_info.dart';
 import 'blocs/book_bloc.dart';
 import 'blocs/states/theme_states.dart';
 import 'data/book_repository.dart';
-import 'screens/search_book/search_book_screen.dart';
 import 'generated/l10n.dart';
 
 class LibGenApp extends StatelessWidget {
@@ -60,7 +60,7 @@ class LibGenApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                home: SearchBookScreen(packageInfo),
+                home: SciTechSearchBookScreen(packageInfo),
               ),
             ),
           );
