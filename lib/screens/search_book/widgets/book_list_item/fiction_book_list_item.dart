@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:libgen/domain/book_fiction_model.dart';
+import 'package:libgen/screens/book_details/fiction_book_details_screen.dart';
 
-import 'package:libgen/domain/book_model.dart';
-import 'package:libgen/screens/book_details/book_details_screen.dart';
 import 'package:libgen/generated/l10n.dart';
 
-class BookListItem extends StatelessWidget {
-  final BookModel book;
+class FictionBookListItem extends StatelessWidget {
+  final BookFictionModel book;
 
-  BookListItem(this.book);
+  FictionBookListItem(this.book);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class BookListItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BookDetailsScreen(book: book),
+            builder: (context) => FictionBookDetailsScreen(book: book),
           ),
         );
       },

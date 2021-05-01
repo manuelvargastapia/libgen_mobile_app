@@ -5,20 +5,20 @@ import 'dart:math' as math;
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/blocs/states/book_states.dart';
-import 'package:libgen/domain/book_model.dart';
-import 'package:libgen/domain/filters_model.dart';
+import 'package:libgen/domain/book_sci_tech_model.dart';
+import 'package:libgen/domain/i_filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
-import 'package:libgen/screens/search_book/widgets/book_list_item/book_list_item.dart';
+import 'package:libgen/screens/search_book/widgets/book_list_item/sci_tech_book_list_item.dart';
 import 'package:libgen/generated/l10n.dart';
 
-class ResultsBuilder extends StatelessWidget {
+class SciTechResultsBuilder extends StatelessWidget {
   final String query;
   final FiltersModel filters;
   final BookBloc bookBloc;
-  final List<BookModel> _books = [];
+  final List<BookSciTechModel> _books = [];
   final ScrollController _scrollController = ScrollController();
 
-  ResultsBuilder({
+  SciTechResultsBuilder({
     @required this.query,
     @required this.filters,
     @required this.bookBloc,
@@ -47,7 +47,7 @@ class ResultsBuilder extends StatelessWidget {
                   ),
                 );
               } else if (bookState is BookSuccessState) {
-                _books.addAll(bookState.books);
+                _books.addAll(bookState.books as List<BookSciTechModel>);
                 setState(() {
                   _totalCount = bookState.totalCount;
                 });
@@ -114,7 +114,7 @@ class ResultsBuilder extends StatelessWidget {
             bookBloc
               ..isFetching = true
               ..add(
-                BookFetchEvent(
+                BookFetchSciTechEvent(
                   SearchQueryModel(
                     searchTerm: query,
                     offset: _books.length,
@@ -154,7 +154,7 @@ class ResultsBuilder extends StatelessWidget {
             bookBloc
               ..isFetching = true
               ..add(
-                BookFetchEvent(
+                BookFetchSciTechEvent(
                   SearchQueryModel(
                     searchTerm: query,
                     offset: _books.length,
@@ -198,7 +198,7 @@ class ResultsBuilder extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) => index.isEven
-                ? BookListItem(_books[index ~/ 2])
+                ? SciTechBookListItem(_books[index ~/ 2])
                 : Divider(
                     height: 30,
                     indent: 20,

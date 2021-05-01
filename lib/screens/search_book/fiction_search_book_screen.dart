@@ -1,3 +1,5 @@
+import 'dart:math' as Math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +9,12 @@ import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/theme_cubit.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/generated/l10n.dart';
+import 'package:libgen/screens/search_book/sci_tech_search_book_screen.dart';
+import 'package:libgen/screens/search_book/widgets/book_list/fiction_book_search_delegate.dart';
 import 'package:libgen/screens/search_book/widgets/floating_action_button_menu/floating_action_button_menu.dart';
 import 'package:package_info/package_info.dart';
-import 'widgets/book_list/book_search_delegate.dart';
 
-class SearchBookScreen extends StatelessWidget {
+class FictionSearchBookScreen extends StatelessWidget {
   static const String _lightLogoPath = "assets/images/logo_light.png";
   static const String _darkLogoPath = "assets/images/logo_dark.png";
   static const String _appIconPath = "assets/images/app_icon.png";
@@ -21,7 +24,7 @@ class SearchBookScreen extends StatelessWidget {
 
   final PackageInfo packageInfo;
 
-  SearchBookScreen(this.packageInfo);
+  FictionSearchBookScreen(this.packageInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,15 @@ class SearchBookScreen extends StatelessWidget {
                 image: Theme.of(context).brightness == Brightness.light
                     ? AssetImage(_lightLogoPath)
                     : AssetImage(_darkLogoPath),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  "Fiction", // TODO: translate
+                  style: Theme.of(context).textTheme.headline1.copyWith(
+                        color: Theme.of(context).buttonColor,
+                      ),
+                ),
               ),
               Row(
                 children: [
@@ -82,7 +94,7 @@ class SearchBookScreen extends StatelessWidget {
                         _openingShowSearch.value = true;
                         showSearch(
                           context: context,
-                          delegate: BookSearchDelegate(
+                          delegate: FictionBookSearchDelegate(
                             context: context,
                             bookBloc: BlocProvider.of<BookBloc>(context),
                             hiveBloc: BlocProvider.of<HiveBloc<Suggestion>>(
@@ -92,8 +104,44 @@ class SearchBookScreen extends StatelessWidget {
                         );
                       },
                     ),
-                  )
+                  ),
                 ],
+              ),
+              const SizedBox(height: 24),
+              InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Transform.rotate(
+                        angle: 180 * Math.pi / 180,
+                        child: Icon(
+                          Icons.arrow_right_alt_outlined,
+                          size: 50,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      Text(
+                        'SciTech', // TODO: translate
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  ),
+                ),
+                borderRadius: BorderRadius.circular(16),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SciTechSearchBookScreen(packageInfo),
+                    ),
+                  );
+                },
               ),
             ],
           ),

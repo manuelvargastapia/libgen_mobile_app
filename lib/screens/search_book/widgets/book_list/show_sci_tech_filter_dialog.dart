@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/domain/filters_extensions.dart';
-import 'package:libgen/domain/filters_model.dart';
+import 'package:libgen/domain/filters_sci_tech_model.dart';
+import 'package:libgen/domain/i_filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/global/widgets/custom_alert_dialog.dart';
 import 'package:libgen/generated/l10n.dart';
 
-Future<FiltersModel> showFilterDialog({
+Future<FiltersModel> showSciTechFilterDialog({
   @required BuildContext context,
   @required String currentQuery,
   @required FiltersModel currentFilters,
@@ -33,7 +34,7 @@ Future<FiltersModel> showFilterDialog({
               Navigator.of(context).pop(_filters);
               if (currentQuery != '') {
                 bookBloc.add(
-                  BookFetchEvent(
+                  BookFetchSciTechEvent(
                     SearchQueryModel(
                       searchTerm: currentQuery,
                       filters: _filters,
@@ -57,8 +58,7 @@ Future<FiltersModel> showFilterDialog({
                     ),
                     callback: (value) {
                       setState(() {
-                        _filters = FiltersModel(
-                          reverseOrder: _filters.reverseOrder,
+                        _filters = FiltersSciTechModel(
                           searchIn: value,
                           sortBy: _filters.sortBy,
                         );
@@ -77,8 +77,7 @@ Future<FiltersModel> showFilterDialog({
                     ),
                     callback: (value) {
                       setState(() {
-                        _filters = FiltersModel(
-                          reverseOrder: _filters.reverseOrder,
+                        _filters = FiltersSciTechModel(
                           searchIn: _filters.searchIn,
                           sortBy: value,
                         );
@@ -86,22 +85,21 @@ Future<FiltersModel> showFilterDialog({
                     },
                   ),
                   SizedBox(height: 20),
-                  _buildChipChpiceFilter(
-                    context: context,
-                    selectedIndex: _filters.reverseOrder.index,
-                    currentSortBy: _filters.sortBy,
-                    callback: (bool value, int index) {
-                      setState(() {
-                        if (value) {
-                          _filters = FiltersModel(
-                            reverseOrder: ReverseOrder.values[index],
-                            searchIn: _filters.searchIn,
-                            sortBy: _filters.sortBy,
-                          );
-                        }
-                      });
-                    },
-                  ),
+                  // _buildChipFilter(
+                  //   context: context,
+                  //   selectedIndex: _filters.reverseOrder.index,
+                  //   currentSortBy: _filters.sortBy,
+                  //   callback: (bool value, int index) {
+                  //     setState(() {
+                  //       if (value) {
+                  //         _filters = FiltersSciTechModel(
+                  //           searchIn: _filters.searchIn,
+                  //           sortBy: _filters.sortBy,
+                  //         );
+                  //       }
+                  //     });
+                  //   },
+                  // ),
                 ],
               ),
             ),
@@ -153,7 +151,7 @@ Widget _buildDropdownFilter<T>({
   );
 }
 
-Widget _buildChipChpiceFilter({
+Widget _buildChipFilter({
   @required BuildContext context,
   @required int selectedIndex,
   @required void Function(bool value, int index) callback,

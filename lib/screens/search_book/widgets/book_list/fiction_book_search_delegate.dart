@@ -6,22 +6,22 @@ import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/blocs/events/hive_event.dart';
 import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/states/hive_state.dart';
-import 'package:libgen/domain/filters_model.dart';
+import 'package:libgen/domain/filters_fiction_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/domain/suggestion.dart';
+import 'package:libgen/screens/search_book/widgets/book_list/fiction_results_builder.dart';
+import 'package:libgen/screens/search_book/widgets/book_list/show_fiction_filter_dialog.dart';
 import 'package:libgen/screens/search_book/widgets/book_list/suggestions_builder.dart';
 import 'package:libgen/generated/l10n.dart';
-import 'results_builder.dart';
-import 'show_filter_dialog.dart';
 
-class BookSearchDelegate extends SearchDelegate {
-  FiltersModel filters = FiltersModel();
+class FictionBookSearchDelegate extends SearchDelegate {
+  FiltersFictionModel filters = FiltersFictionModel();
 
   BuildContext context;
   BookBloc bookBloc;
   HiveBloc<Suggestion> hiveBloc;
 
-  BookSearchDelegate({
+  FictionBookSearchDelegate({
     @required this.context,
     @required this.bookBloc,
     @required this.hiveBloc,
@@ -52,7 +52,7 @@ class BookSearchDelegate extends SearchDelegate {
           color: Theme.of(context).buttonColor,
         ),
         onPressed: () async {
-          filters = await showFilterDialog(
+          filters = await showFictionFilterDialog(
             context: context,
             currentQuery: query,
             currentFilters: filters,
@@ -106,12 +106,12 @@ class BookSearchDelegate extends SearchDelegate {
     hiveBloc.add(CacheDataEvent<Suggestion>(Suggestion(query)));
 
     bookBloc.add(
-      BookFetchEvent(
+      BookFetchFictionEvent(
         SearchQueryModel(searchTerm: query, filters: filters),
       ),
     );
 
-    return ResultsBuilder(
+    return FictionResultsBuilder(
       query: query,
       filters: filters,
       bookBloc: bookBloc,
