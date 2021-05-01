@@ -68,5 +68,13 @@
     "filtersExtensionsPublisher": "Editora",
     "filtersExtensionsISBN": "ISBN",
     "filtersExtensionsMD5": "MD5",
+    "filtersExtensionsEpub": "EPUB",
+    "filtersExtensionsMobi": "MOBI",
+    "filtersExtensionsAzw": "AZW",
+    "filtersExtensionsAzw3": "AZW3",
+    "filtersExtensionsFb2": "FB2",
+    "filtersExtensionsPdf": "PDF",
+    "filtersExtensionsRtf": "RTF",
+    "filtersExtensionsTxt": "TXT",
     "infoDialogAlertDialogRightButtonText": "Fechar"
 }

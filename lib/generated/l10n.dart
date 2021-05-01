@@ -715,6 +715,86 @@ class S {
     );
   }
 
+  /// `EPUB`
+  String get filtersExtensionsEpub {
+    return Intl.message(
+      'EPUB',
+      name: 'filtersExtensionsEpub',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MOBI`
+  String get filtersExtensionsMobi {
+    return Intl.message(
+      'MOBI',
+      name: 'filtersExtensionsMobi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AZW`
+  String get filtersExtensionsAzw {
+    return Intl.message(
+      'AZW',
+      name: 'filtersExtensionsAzw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AZW3`
+  String get filtersExtensionsAzw3 {
+    return Intl.message(
+      'AZW3',
+      name: 'filtersExtensionsAzw3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FB2`
+  String get filtersExtensionsFb2 {
+    return Intl.message(
+      'FB2',
+      name: 'filtersExtensionsFb2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PDF`
+  String get filtersExtensionsPdf {
+    return Intl.message(
+      'PDF',
+      name: 'filtersExtensionsPdf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RTF`
+  String get filtersExtensionsRtf {
+    return Intl.message(
+      'RTF',
+      name: 'filtersExtensionsRtf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TXT`
+  String get filtersExtensionsTxt {
+    return Intl.message(
+      'TXT',
+      name: 'filtersExtensionsTxt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Close`
   String get infoDialogAlertDialogRightButtonText {
     return Intl.message(
