@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">31.42.184.140</domain>
+        <!-- TODO: check effects in release build -->
+        <!-- <domain includeSubdomains="true">31.42.184.140</domain> -->
         <domain includeSubdomains="true">cloudflare-ipfs.com</domain>
     </domain-config>
 </network-security-config>
