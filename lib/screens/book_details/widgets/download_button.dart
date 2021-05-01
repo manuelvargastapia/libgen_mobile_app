@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libgen/data/book_repository.dart';
 import 'package:libgen/data/download_repository.dart';
+import 'package:libgen/domain/i_book_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:libgen/blocs/download_bloc.dart';
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
-import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/domain/book_sci_tech_model.dart';
 import 'package:libgen/global/widgets/custom_alert_dialog.dart';
 import 'package:libgen/generated/l10n.dart';
 
@@ -58,25 +59,27 @@ class DownloadButton extends StatelessWidget {
             showDialog(
               context: context,
               barrierDismissible: false,
-              child: CustomAlertDialog(
-                title: S.of(context).downloadButtonPermissionsDenied,
-                textLeft: S.of(context).downloadButtonCancel,
-                textRight: S.of(context).downloadButtonOpenSettings,
-                callbacLeft: () {
-                  Navigator.of(context).pop();
-                },
-                callbackRight: () {
-                  openAppSettings();
-                  Navigator.of(context).pop();
-                },
-                content: Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text(
-                    S.of(context).downloadButtonProvidePermissions,
-                    style: Theme.of(context).textTheme.bodyText1,
+              builder: (context) {
+                return CustomAlertDialog(
+                  title: S.of(context).downloadButtonPermissionsDenied,
+                  textLeft: S.of(context).downloadButtonCancel,
+                  textRight: S.of(context).downloadButtonOpenSettings,
+                  callbacLeft: () {
+                    Navigator.of(context).pop();
+                  },
+                  callbackRight: () {
+                    openAppSettings();
+                    Navigator.of(context).pop();
+                  },
+                  content: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      S.of(context).downloadButtonProvidePermissions,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             );
           } else if (downloadState is FileNeedsToBeDownloadedFromBrowser) {
             final dynamic downloadFromBrowser = await showDialog<bool>(
@@ -126,7 +129,11 @@ class DownloadButton extends StatelessWidget {
               onPressed: downloadState is DownloadStarting
                   ? null
                   : () {
-                      context.bloc<DownloadBloc>().add(DownloadBookEvent(book));
+                      context.bloc<DownloadBloc>().add(
+                            book is BookSciTechModel
+                                ? SciTechDownloadBookEvent(book)
+                                : FictionDownloadBookEvent(book),
+                          );
                     },
               backgroundColor: downloadState is DownloadStarting
                   ? Theme.of(context).disabledColor
