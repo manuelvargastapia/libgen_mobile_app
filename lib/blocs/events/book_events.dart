@@ -4,7 +4,12 @@ abstract class BookEvent {
   const BookEvent();
 }
 
-class BookFetchEvent extends BookEvent {
+class BookFetchSciTechEvent extends BookEvent {
   final SearchQueryModel searchQuery;
-  const BookFetchEvent(this.searchQuery);
+  const BookFetchSciTechEvent(this.searchQuery);
+}
+
+class BookFetchFictionEvent extends BookEvent {
+  final SearchQueryModel searchQuery;
+  const BookFetchFictionEvent(this.searchQuery);
 }
