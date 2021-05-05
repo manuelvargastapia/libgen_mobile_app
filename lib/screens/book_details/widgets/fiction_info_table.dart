@@ -15,6 +15,7 @@ class FictionInfoTable extends StatelessWidget {
         1: FlexColumnWidth(),
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         _buildTableRow(context, S.of(context).infoTableTitle, book.title),
         _buildTableRow(context, S.of(context).infoTableAuthor, book.author),
