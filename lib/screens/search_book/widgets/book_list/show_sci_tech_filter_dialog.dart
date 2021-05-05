@@ -85,21 +85,23 @@ Future<FiltersModel> showSciTechFilterDialog({
                     },
                   ),
                   SizedBox(height: 20),
-                  // _buildChipFilter(
-                  //   context: context,
-                  //   selectedIndex: _filters.reverseOrder.index,
-                  //   currentSortBy: _filters.sortBy,
-                  //   callback: (bool value, int index) {
-                  //     setState(() {
-                  //       if (value) {
-                  //         _filters = FiltersSciTechModel(
-                  //           searchIn: _filters.searchIn,
-                  //           sortBy: _filters.sortBy,
-                  //         );
-                  //       }
-                  //     });
-                  //   },
-                  // ),
+                  _buildChipFilter(
+                    context: context,
+                    selectedIndex:
+                        (_filters as FiltersSciTechModel).reverseOrder.index,
+                    currentSortBy: _filters.sortBy,
+                    callback: (bool value, int index) {
+                      setState(() {
+                        if (value) {
+                          _filters = FiltersSciTechModel(
+                            reverseOrder: ReverseOrder.values[index],
+                            searchIn: _filters.searchIn,
+                            sortBy: _filters.sortBy,
+                          );
+                        }
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
