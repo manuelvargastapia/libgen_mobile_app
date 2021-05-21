@@ -3,6 +3,7 @@ abstract class BookModel {
   String author;
   String description;
   int year;
+  String coverUrl;
   String fileExtension;
   String series;
   String isbn;
