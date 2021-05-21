@@ -41,12 +41,13 @@ class BookDetailsPresenter extends StatelessWidget {
                     content: book.description,
                   ),
                 SizedBox(height: 24),
-                if ((book as BookSciTechModel).contents != null)
-                  _buildContentSection(
-                    context: context,
-                    title: S.of(context).bookDetailsPresenterTOC,
-                    content: (book as BookSciTechModel).contents,
-                  ),
+                if (book is BookSciTechModel)
+                  if ((book as BookSciTechModel).contents != null)
+                    _buildContentSection(
+                      context: context,
+                      title: S.of(context).bookDetailsPresenterTOC,
+                      content: (book as BookSciTechModel).contents,
+                    ),
                 SizedBox(height: 24),
                 _buildInfoTable(context, book),
               ],
@@ -57,7 +58,7 @@ class BookDetailsPresenter extends StatelessWidget {
     );
   }
 
-  Widget _buildCover(BuildContext context, BookSciTechModel book) {
+  Widget _buildCover(BuildContext context, BookModel book) {
     return Container(
       height: MediaQuery.of(context).size.height / 2,
       child: ImageWidgetPlaceholder(
