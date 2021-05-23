@@ -74,8 +74,9 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     final year = book.year != null ? " - " + book.year.toString() : "";
 
     // Needed to allow devices recognize the files in Downloads folder
-    final fileExtension =
-        book.fileExtension != null ? "." + book.fileExtension : "";
+    final fileExtension = book.fileExtension != null
+        ? "." + book.fileExtension.toLowerCase()
+        : "";
 
     return "$title$author$publisher$year$fileExtension"
         .replaceAll(RegExp(r'\/'), ' ');
@@ -137,23 +138,32 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
             yield DownloadError();
           }
         } else if (event is FictionDownloadBookEvent) {
-          Directory downloadsDirectory =
-              await DownloadsPathProvider.downloadsDirectory;
-          final String fileName = _generateFileName(event.book);
-          if ((int.parse(event.book.fileSize) ~/ 1000000) > 200 &&
-              await canLaunch(event.book.downloadPageURL)) {
-            yield FileNeedsToBeDownloadedFromBrowser(
-              url: event.book.downloadPageURL,
-            );
-          } else {
-            final result = await downloadRepository.requestDownload(
-              fileName: fileName,
-              downloadLink: event.book.downloadPageURL,
-              downloadPath: downloadsDirectory.path,
-            );
-            if (result.isLeft()) {
+          final _response = await bookRepository.getDownloadLink(
+            downloadPageURL: event.book.downloadPageURL,
+          );
+          if (_response is http.Response) {
+            if (_response.statusCode == 200) {
+              final String _downloadLink = DownloadLinkModel.fromJson(
+                jsonDecode(_response.body)['data'],
+              ).downloadLink;
+              Directory downloadsDirectory =
+                  await DownloadsPathProvider.downloadsDirectory;
+              final String fileName = _generateFileName(event.book);
+              final result = await downloadRepository.requestDownload(
+                fileName: fileName,
+                downloadLink: _downloadLink,
+                downloadPath: downloadsDirectory.path,
+              );
+              if (result.isLeft()) {
+                yield DownloadError();
+              }
+            } else {
               yield DownloadError();
             }
+          } else if (_response is SocketException) {
+            yield DownloadConnectionFailed();
+          } else {
+            yield DownloadError();
           }
         }
       }
