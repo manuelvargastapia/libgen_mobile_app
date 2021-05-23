@@ -12,8 +12,8 @@ Features:
   <li> See detailed info about the book (pages, size, etc)</li>
   <li> Download the book (directly to Downloads folder)</li>
   <li> Switch between light and dark theme</li>
-  <li> Languages: English, Spanish, Polish, Portuguese, German, French and Chinese</li>
-  <li> Currently, the app provide access only to Sci-Tech section</li>
+  <li> Languages: English, Spanish, Polish, Portuguese, German, Japanese, French and Chinese</li>
+  <li> The app provides access to Sci-Tech and Fiction sections</li>
 </ul>
 
 New features are in development.
