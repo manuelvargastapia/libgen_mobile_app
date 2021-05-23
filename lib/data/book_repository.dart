@@ -8,8 +8,8 @@ import 'package:libgen/domain/filters_sci_tech_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/global/environment/environment_config.dart';
 
-const String _apiURL = EnvironmentConfig.libgenApiURL;
 const int count = 10;
+final Uri _apiURL = Uri.parse(EnvironmentConfig.libgenApiURL);
 
 class BookRepository {
   static final BookRepository _bookRepository = BookRepository._();
@@ -30,8 +30,19 @@ class BookRepository {
       }
       final sciTechFilters = searchQuery.filters as FiltersSciTechModel;
       final response = await http.get(
-        Uri.parse(
-          '$_apiURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${sciTechFilters.searchIn.displayAPILabel}&sortBy=${sciTechFilters.sortBy.displayAPILabel}&reverse=${sciTechFilters.reverseOrder.value}',
+        Uri(
+          scheme: _apiURL.scheme,
+          host: _apiURL.host,
+          port: _apiURL.port,
+          path: '/search',
+          queryParameters: {
+            'searchTerm': searchQuery.searchTerm,
+            'offset': searchQuery.offset.toString(),
+            'count': count.toString(),
+            'searchIn': sciTechFilters.searchIn.displayAPILabel,
+            'sortBy': sciTechFilters.sortBy.displayAPILabel,
+            'reverse': sciTechFilters.reverseOrder.value.toString(),
+          },
         ),
       );
       if (_cachedQuery != searchQuery) {
@@ -52,8 +63,20 @@ class BookRepository {
       }
       final fictionFilters = searchQuery.filters as FiltersFictionModel;
       final response = await http.get(
-        Uri.parse(
-          '$_apiURL/search/fiction?searchTerm=${searchQuery.searchTerm}&count=$count&searchIn=${fictionFilters.searchIn.displayAPILabel}&offset=${searchQuery.offset}&wildcardWords=${fictionFilters.wildcardWords.value}&language=${fictionFilters.language}&extension=${fictionFilters.fileExtension.displayAPILabel}',
+        Uri(
+          scheme: _apiURL.scheme,
+          host: _apiURL.host,
+          port: _apiURL.port,
+          path: '/search/fiction',
+          queryParameters: {
+            'searchTerm': searchQuery.searchTerm,
+            'offset': searchQuery.offset.toString(),
+            'count': count.toString(),
+            'searchIn': fictionFilters.searchIn.displayAPILabel,
+            'wildcardWords': fictionFilters.wildcardWords.value.toString(),
+            'language': fictionFilters.language,
+            'extension': fictionFilters.fileExtension.displayAPILabel,
+          },
         ),
       );
       if (_cachedQuery != searchQuery) {
@@ -69,13 +92,19 @@ class BookRepository {
 
   Future<dynamic> getDownloadLink({String md5, String downloadPageURL}) async {
     try {
-      if (downloadPageURL != null) {
-        return await http.get(
-          Uri.parse('$_apiURL/download?downloadPageURL=$downloadPageURL'),
-        );
-      } else {
-        return await http.get(Uri.parse('$_apiURL/download?md5=$md5'));
-      }
+      return await http.get(
+        Uri(
+          scheme: _apiURL.scheme,
+          host: _apiURL.host,
+          port: _apiURL.port,
+          path: '/download',
+          queryParameters: downloadPageURL != null
+              ? {
+                  'downloadPageURL': downloadPageURL,
+                }
+              : {'md5': md5},
+        ),
+      );
     } catch (e) {
       return e;
     }

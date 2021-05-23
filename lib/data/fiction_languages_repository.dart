@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:libgen/global/environment/environment_config.dart';
 
-const String _apiURL = EnvironmentConfig.libgenApiURL;
+final Uri _apiURL = Uri.parse(EnvironmentConfig.libgenApiURL);
 
 class FictionLanguagesRepository {
   static final FictionLanguagesRepository _fictionLanguagesRepository =
@@ -18,7 +18,12 @@ class FictionLanguagesRepository {
   Future<dynamic> getFictionLanguagesList() async {
     try {
       return await http.get(
-        Uri.parse('$_apiURL/fiction/languages'),
+        Uri(
+          scheme: _apiURL.scheme,
+          host: _apiURL.host,
+          port: _apiURL.port,
+          path: '/fiction/languages',
+        ),
       );
     } catch (e) {
       return e;
