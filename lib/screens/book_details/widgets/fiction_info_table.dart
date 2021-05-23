@@ -22,11 +22,18 @@ class FictionInfoTable extends StatelessWidget {
         _buildTableRow(context, S.of(context).infoTableYear, book.year),
         _buildTableRow(context, S.of(context).infoTableSeries, book.series),
         _buildTableRow(
-            context, S.of(context).infoTablePublisher, book.publisher),
+          context,
+          S.of(context).infoTablePublisher,
+          book.publisher,
+        ),
         _buildTableRow(context, S.of(context).infoTableLanguage, book.language),
         _buildTableRow(context, S.of(context).infoTableISBN, book.isbn),
         _buildTableRow(
-            context, S.of(context).infoTableFileExtension, book.fileExtension),
+          context,
+          S.of(context).infoTableFileExtension,
+          book.fileExtension,
+        ),
+        _buildTableRow(context, S.of(context).infoTableFileSize, book.fileSize)
       ],
     );
   }
@@ -54,11 +61,5 @@ class FictionInfoTable extends StatelessWidget {
                   )),
       ],
     );
-  }
-
-  String _buildFileSizeMessage(BuildContext context, int fileSizeInBytes) {
-    int kilobytes = fileSizeInBytes ~/ 1000;
-    int megabytes = fileSizeInBytes ~/ 1000000;
-    return S.of(context).infoTableFileSizeMessage(megabytes, kilobytes);
   }
 }
