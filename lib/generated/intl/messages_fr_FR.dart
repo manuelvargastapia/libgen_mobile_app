@@ -103,8 +103,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchBookScreenSearchBarHint" : MessageLookupByLibrary.simpleMessage("Chercher par titre, auteur ou ISBN"),
     "showFilterDialogApply" : MessageLookupByLibrary.simpleMessage("Appliquer"),
     "showFilterDialogCancel" : MessageLookupByLibrary.simpleMessage("Annuler"),
+    "showFilterDialogExtensionLabel" : MessageLookupByLibrary.simpleMessage("Extension du fichier"),
+    "showFilterDialogLanguageLabel" : MessageLookupByLibrary.simpleMessage("Langage"),
     "showFilterDialogSearchInLabel" : MessageLookupByLibrary.simpleMessage("Rechercher dans"),
     "showFilterDialogSortByLabel" : MessageLookupByLibrary.simpleMessage("Trier par"),
-    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("Filtrer")
+    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("Filtrer"),
+    "showFilterDialogWildcardWordsLabel" : MessageLookupByLibrary.simpleMessage("Caractère générique")
   };
 }

@@ -95,8 +95,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchBookScreenSearchBarHint" : MessageLookupByLibrary.simpleMessage("タイトル、著者、またはISBNで検索"),
     "showFilterDialogApply" : MessageLookupByLibrary.simpleMessage("適用する"),
     "showFilterDialogCancel" : MessageLookupByLibrary.simpleMessage("キャンセル"),
+    "showFilterDialogExtensionLabel" : MessageLookupByLibrary.simpleMessage("ファイルの種類"),
+    "showFilterDialogLanguageLabel" : MessageLookupByLibrary.simpleMessage("言語"),
     "showFilterDialogSearchInLabel" : MessageLookupByLibrary.simpleMessage("検索"),
     "showFilterDialogSortByLabel" : MessageLookupByLibrary.simpleMessage("並び替え"),
-    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("フィルタ")
+    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("フィルタ"),
+    "showFilterDialogWildcardWordsLabel" : MessageLookupByLibrary.simpleMessage("ワイルドカード")
   };
 }

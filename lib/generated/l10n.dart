@@ -165,6 +165,36 @@ class S {
     );
   }
 
+  /// `Language`
+  String get showFilterDialogLanguageLabel {
+    return Intl.message(
+      'Language',
+      name: 'showFilterDialogLanguageLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File Extension`
+  String get showFilterDialogExtensionLabel {
+    return Intl.message(
+      'File Extension',
+      name: 'showFilterDialogExtensionLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wildcard`
+  String get showFilterDialogWildcardWordsLabel {
+    return Intl.message(
+      'Wildcard',
+      name: 'showFilterDialogWildcardWordsLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sort by`
   String get showFilterDialogSortByLabel {
     return Intl.message(

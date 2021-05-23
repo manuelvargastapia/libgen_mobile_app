@@ -77,7 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "infoTableFileSize" : MessageLookupByLibrary.simpleMessage("文件大小："),
     "infoTableFileSizeMessage" : m2,
     "infoTableISBN" : MessageLookupByLibrary.simpleMessage("ISBN(s)："),
-    "infoTableLanguage" : MessageLookupByLibrary.simpleMessage("语言"),
+    "infoTableLanguage" : MessageLookupByLibrary.simpleMessage("语言:"),
     "infoTablePages" : MessageLookupByLibrary.simpleMessage("页数："),
     "infoTablePublisher" : MessageLookupByLibrary.simpleMessage("出版商："),
     "infoTableSeries" : MessageLookupByLibrary.simpleMessage("系列："),
@@ -95,8 +95,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchBookScreenSearchBarHint" : MessageLookupByLibrary.simpleMessage("按标题、作者或 ISBN 进行搜索"),
     "showFilterDialogApply" : MessageLookupByLibrary.simpleMessage("应用"),
     "showFilterDialogCancel" : MessageLookupByLibrary.simpleMessage("取消"),
+    "showFilterDialogExtensionLabel" : MessageLookupByLibrary.simpleMessage("文件扩展名"),
+    "showFilterDialogLanguageLabel" : MessageLookupByLibrary.simpleMessage("语言"),
     "showFilterDialogSearchInLabel" : MessageLookupByLibrary.simpleMessage("搜索范围"),
     "showFilterDialogSortByLabel" : MessageLookupByLibrary.simpleMessage("排序依据"),
-    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("过滤器")
+    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("过滤器"),
+    "showFilterDialogWildcardWordsLabel" : MessageLookupByLibrary.simpleMessage("通配符")
   };
 }

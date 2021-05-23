@@ -103,8 +103,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "searchBookScreenSearchBarHint" : MessageLookupByLibrary.simpleMessage("Pesquise por título, autor ou ISBN"),
     "showFilterDialogApply" : MessageLookupByLibrary.simpleMessage("Aplicar"),
     "showFilterDialogCancel" : MessageLookupByLibrary.simpleMessage("Cancelar"),
+    "showFilterDialogExtensionLabel" : MessageLookupByLibrary.simpleMessage("Extensão do arquivo"),
+    "showFilterDialogLanguageLabel" : MessageLookupByLibrary.simpleMessage("Idioma"),
     "showFilterDialogSearchInLabel" : MessageLookupByLibrary.simpleMessage("Pesquisar em"),
     "showFilterDialogSortByLabel" : MessageLookupByLibrary.simpleMessage("Ordenar por"),
-    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("Filtro")
+    "showFilterDialogTitle" : MessageLookupByLibrary.simpleMessage("Filtro"),
+    "showFilterDialogWildcardWordsLabel" : MessageLookupByLibrary.simpleMessage("Curinga")
   };
 }
