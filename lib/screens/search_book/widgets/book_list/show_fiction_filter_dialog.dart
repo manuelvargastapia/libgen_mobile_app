@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
-import 'package:libgen/domain/filters_extensions.dart';
+import 'package:libgen/blocs/fiction_languages_bloc.dart';
+import 'package:libgen/blocs/states/fiction_languages_states.dart';
+import 'package:libgen/domain/fiction_filters_extensions.dart';
 import 'package:libgen/domain/filters_fiction_model.dart';
-import 'package:libgen/domain/i_filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/global/widgets/custom_alert_dialog.dart';
 import 'package:libgen/generated/l10n.dart';
 
-Future<FiltersModel> showFictionFilterDialog({
+Future<FiltersFictionModel> showFictionFilterDialog({
   @required BuildContext context,
   @required String currentQuery,
-  @required FiltersModel currentFilters,
+  @required FiltersFictionModel currentFilters,
   @required BookBloc bookBloc,
 }) {
-  FiltersModel _filters = currentFilters;
+  FiltersFictionModel _filters = currentFilters;
 
-  return showDialog<FiltersModel>(
+  return showDialog<FiltersFictionModel>(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
@@ -60,16 +63,48 @@ Future<FiltersModel> showFictionFilterDialog({
                       setState(() {
                         _filters = FiltersFictionModel(
                           searchIn: value,
-                          sortBy: _filters.sortBy,
+                          language: _filters.language,
+                          fileExtension: _filters.fileExtension,
+                          wildcardWords: _filters.wildcardWords,
                         );
                       });
                     },
                   ),
-                  _buildDropdownFilter<SortBy>(
+                  BlocBuilder<FictionLanguagesBloc, FictionLanguagesState>(
+                    builder: (context, state) {
+                      if (state is FictionLanguagesSuccessState) {
+                        return _buildDropdownFilter<String>(
+                          context: context,
+                          title: S.of(context).showFilterDialogLanguageLabel,
+                          selectedValue: _filters.language,
+                          values: state.languages,
+                          labelGenerator: (value) => Text(
+                            value == 'def'
+                                ? S.of(context).filtersExtensionsAll
+                                : value,
+                            style: Theme.of(context).textTheme.bodyText1,
+                            maxLines: 1,
+                          ),
+                          callback: (value) {
+                            setState(() {
+                              _filters = FiltersFictionModel(
+                                language: value,
+                                fileExtension: _filters.fileExtension,
+                                searchIn: _filters.searchIn,
+                                wildcardWords: _filters.wildcardWords,
+                              );
+                            });
+                          },
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
+                  _buildDropdownFilter<Extension>(
                     context: context,
-                    title: S.of(context).showFilterDialogSortByLabel,
-                    selectedValue: _filters.sortBy,
-                    values: SortBy.values,
+                    title: S.of(context).showFilterDialogExtensionLabel,
+                    selectedValue: _filters.fileExtension,
+                    values: Extension.values,
                     labelGenerator: (value) => Text(
                       value.displayUILabel(context),
                       style: Theme.of(context).textTheme.bodyText1,
@@ -78,28 +113,30 @@ Future<FiltersModel> showFictionFilterDialog({
                     callback: (value) {
                       setState(() {
                         _filters = FiltersFictionModel(
+                          fileExtension: value,
+                          language: _filters.language,
                           searchIn: _filters.searchIn,
-                          sortBy: value,
+                          wildcardWords: _filters.wildcardWords,
                         );
                       });
                     },
                   ),
+                  _buildCheckboxFilter(
+                      context: context,
+                      title: S.of(context).showFilterDialogWildcardWordsLabel,
+                      value: _filters.wildcardWords.value,
+                      callback: (value) {
+                        setState(() {
+                          _filters = FiltersFictionModel(
+                            wildcardWords:
+                                value ? WildcardWords.yes : WildcardWords.no,
+                            fileExtension: _filters.fileExtension,
+                            language: _filters.language,
+                            searchIn: _filters.searchIn,
+                          );
+                        });
+                      }),
                   SizedBox(height: 20),
-                  // _buildChipFilter(
-                  //   context: context,
-                  //   selectedIndex: _filters.reverseOrder.index,
-                  //   currentSortBy: _filters.sortBy,
-                  //   callback: (bool value, int index) {
-                  //     setState(() {
-                  //       if (value) {
-                  //         _filters = FiltersFictionModel(
-                  //           searchIn: _filters.searchIn,
-                  //           sortBy: _filters.sortBy,
-                  //         );
-                  //       }
-                  //     });
-                  //   },
-                  // ),
                 ],
               ),
             ),
@@ -151,29 +188,27 @@ Widget _buildDropdownFilter<T>({
   );
 }
 
-Widget _buildChipFilter({
+Widget _buildCheckboxFilter({
   @required BuildContext context,
-  @required int selectedIndex,
-  @required void Function(bool value, int index) callback,
-  @required SortBy currentSortBy,
+  @required String title,
+  @required bool value,
+  @required void Function(bool value) callback,
 }) {
-  if (currentSortBy == SortBy.def) return Container();
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    mainAxisSize: MainAxisSize.max,
-    children: List.generate(2, (index) {
-      return Expanded(
-        child: ChoiceChip(
-          label: Text(
-            currentSortBy.displaySortingLabel(context, index),
-            maxLines: 1,
+  return Container(
+    padding: const EdgeInsets.only(top: 8, right: 10),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.bodyText1,
           ),
-          selected: selectedIndex == index,
-          onSelected: (value) {
-            callback(value, index);
-          },
         ),
-      );
-    }).toList(),
+        Expanded(
+          child: Checkbox(value: value, onChanged: callback),
+        ),
+      ],
+    ),
   );
 }

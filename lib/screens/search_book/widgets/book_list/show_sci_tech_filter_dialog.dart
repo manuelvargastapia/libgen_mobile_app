@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
-import 'package:libgen/domain/filters_extensions.dart';
+import 'package:libgen/domain/sci_tech_filters_extensions.dart';
 import 'package:libgen/domain/filters_sci_tech_model.dart';
-import 'package:libgen/domain/i_filters_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/global/widgets/custom_alert_dialog.dart';
 import 'package:libgen/generated/l10n.dart';
 
-Future<FiltersModel> showSciTechFilterDialog({
+Future<FiltersSciTechModel> showSciTechFilterDialog({
   @required BuildContext context,
   @required String currentQuery,
-  @required FiltersModel currentFilters,
+  @required FiltersSciTechModel currentFilters,
   @required BookBloc bookBloc,
 }) {
-  FiltersModel _filters = currentFilters;
+  FiltersSciTechModel _filters = currentFilters;
 
-  return showDialog<FiltersModel>(
+  return showDialog<FiltersSciTechModel>(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
@@ -87,8 +86,7 @@ Future<FiltersModel> showSciTechFilterDialog({
                   SizedBox(height: 20),
                   _buildChipFilter(
                     context: context,
-                    selectedIndex:
-                        (_filters as FiltersSciTechModel).reverseOrder.index,
+                    selectedIndex: _filters.reverseOrder.index,
                     currentSortBy: _filters.sortBy,
                     callback: (bool value, int index) {
                       setState(() {

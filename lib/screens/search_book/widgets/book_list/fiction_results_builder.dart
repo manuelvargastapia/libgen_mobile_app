@@ -6,14 +6,14 @@ import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/blocs/states/book_states.dart';
 import 'package:libgen/domain/book_fiction_model.dart';
-import 'package:libgen/domain/i_filters_model.dart';
+import 'package:libgen/domain/filters_fiction_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/screens/search_book/widgets/book_list_item/fiction_book_list_item.dart';
 import 'package:libgen/generated/l10n.dart';
 
 class FictionResultsBuilder extends StatelessWidget {
   final String query;
-  final FiltersModel filters;
+  final FiltersFictionModel filters;
   final BookBloc bookBloc;
   final List<BookFictionModel> _books = [];
   final ScrollController _scrollController = ScrollController();

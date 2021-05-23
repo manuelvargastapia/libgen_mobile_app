@@ -1,14 +1,11 @@
 import 'package:equatable/equatable.dart';
-
-import 'package:libgen/domain/filters_extensions.dart';
 import 'package:libgen/domain/i_filters_model.dart';
 
-class FiltersSciTechModel extends Equatable implements FiltersModel {
-  @override
-  final SortBy sortBy;
-  @override
-  final SearchIn searchIn;
+import 'package:libgen/domain/sci_tech_filters_extensions.dart';
 
+class FiltersSciTechModel extends Equatable implements FiltersModel {
+  final SortBy sortBy;
+  final SearchIn searchIn;
   final ReverseOrder reverseOrder;
 
   FiltersSciTechModel({

@@ -6,14 +6,14 @@ import 'package:libgen/blocs/book_bloc.dart';
 import 'package:libgen/blocs/events/book_events.dart';
 import 'package:libgen/blocs/states/book_states.dart';
 import 'package:libgen/domain/book_sci_tech_model.dart';
-import 'package:libgen/domain/i_filters_model.dart';
+import 'package:libgen/domain/filters_sci_tech_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
 import 'package:libgen/screens/search_book/widgets/book_list_item/sci_tech_book_list_item.dart';
 import 'package:libgen/generated/l10n.dart';
 
 class SciTechResultsBuilder extends StatelessWidget {
   final String query;
-  final FiltersModel filters;
+  final FiltersSciTechModel filters;
   final BookBloc bookBloc;
   final List<BookSciTechModel> _books = [];
   final ScrollController _scrollController = ScrollController();
