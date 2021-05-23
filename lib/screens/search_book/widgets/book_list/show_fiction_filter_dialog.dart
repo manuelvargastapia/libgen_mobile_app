@@ -122,11 +122,12 @@ Future<FiltersFictionModel> showFictionFilterDialog({
                     },
                   ),
                   _buildCheckboxFilter(
-                      context: context,
-                      title: S.of(context).showFilterDialogWildcardWordsLabel,
-                      value: _filters.wildcardWords.value,
-                      callback: (value) {
-                        setState(() {
+                    context: context,
+                    title: S.of(context).showFilterDialogWildcardWordsLabel,
+                    value: _filters.wildcardWords.value,
+                    callback: (value) {
+                      setState(
+                        () {
                           _filters = FiltersFictionModel(
                             wildcardWords:
                                 value ? WildcardWords.yes : WildcardWords.no,
@@ -134,9 +135,10 @@ Future<FiltersFictionModel> showFictionFilterDialog({
                             language: _filters.language,
                             searchIn: _filters.searchIn,
                           );
-                        });
-                      }),
-                  SizedBox(height: 20),
+                        },
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -206,7 +208,10 @@ Widget _buildCheckboxFilter({
           ),
         ),
         Expanded(
-          child: Checkbox(value: value, onChanged: callback),
+          child: Checkbox(
+            value: value,
+            onChanged: callback, //Theme.of(context).accentColor,
+          ),
         ),
       ],
     ),
