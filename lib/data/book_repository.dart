@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-import 'package:libgen/domain/filters_extensions.dart';
+import 'package:libgen/domain/sci_tech_filters_extensions.dart';
+import 'package:libgen/domain/fiction_filters_extensions.dart';
 import 'package:libgen/domain/filters_fiction_model.dart';
 import 'package:libgen/domain/filters_sci_tech_model.dart';
 import 'package:libgen/domain/search_query_model.dart';
@@ -30,7 +31,7 @@ class BookRepository {
       final sciTechFilters = searchQuery.filters as FiltersSciTechModel;
       final response = await http.get(
         Uri.parse(
-          '$_apiURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&sortBy=${searchQuery.filters.sortBy.displayAPILabel}&reverse=${sciTechFilters.reverseOrder.value}',
+          '$_apiURL/search?searchTerm=${searchQuery.searchTerm}&offset=${searchQuery.offset}&count=$count&searchIn=${sciTechFilters.searchIn.displayAPILabel}&sortBy=${sciTechFilters.sortBy.displayAPILabel}&reverse=${sciTechFilters.reverseOrder.value}',
         ),
       );
       if (_cachedQuery != searchQuery) {
@@ -52,7 +53,7 @@ class BookRepository {
       final fictionFilters = searchQuery.filters as FiltersFictionModel;
       final response = await http.get(
         Uri.parse(
-          '$_apiURL/search/fiction?searchTerm=${searchQuery.searchTerm}&count=$count&searchIn=${searchQuery.filters.searchIn.displayAPILabel}&offset=${searchQuery.offset}&wildcardWords=${fictionFilters.wildcardWords.value}&language=${fictionFilters.language.displayAPILabel}&extension=${fictionFilters.fileExtension.displayAPILabel}',
+          '$_apiURL/search/fiction?searchTerm=${searchQuery.searchTerm}&count=$count&searchIn=${fictionFilters.searchIn.displayAPILabel}&offset=${searchQuery.offset}&wildcardWords=${fictionFilters.wildcardWords.value}&language=${fictionFilters.language}&extension=${fictionFilters.fileExtension.displayAPILabel}',
         ),
       );
       if (_cachedQuery != searchQuery) {
