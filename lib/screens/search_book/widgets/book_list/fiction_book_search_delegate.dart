@@ -99,10 +99,6 @@ class FictionBookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query.trim().length < 4) {
-      return Container();
-    }
-
     hiveBloc.add(CacheDataEvent<Suggestion>(Suggestion(query)));
 
     bookBloc.add(
