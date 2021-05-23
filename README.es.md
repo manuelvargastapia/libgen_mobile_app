@@ -15,42 +15,26 @@ De momento, el desarrollo está enfocado sólo en Android.
 
 ## Funcionalidades
 
-- Buscar por título, autor, serie, editorial, ISBN o MD5
-- Ordenar resultados por relevancia, título, año, páginas o tamaño de archivo.
-- Decidir el criterio de orden según el tipo de orden seleccionado (más nuevos primero, más livianos, etc).
-- Ver detalles del libro:
-  - portada
-  - título
-  - autor
-  - descripción
-  - índice
-  - año
-  - volumen
-  - serie
-  - edición
-  - editorial
-  - ciudad
-  - páginas
-  - idioma
-  - ISBN
-  - DOI
-  - tamaño de archivo
-  - extensión del archivo
-- Mostrar historial a modo de sugerencias
-- Descargar libro
+- Buscar libros en las secciones **SciTech** o **Fiction** de Library Genesis, ya sea por título, autor, serie, editorial, ISBN o MD5
+- En SciTech, ordenar resultados por relevancia, título, año, páginas o tamaño de archivo, y definir criterios de orden según el tipo seleccionado (más nuevos primero, más livianos, etc)
+- En Ficción, filtrar por extensión del archivo: Epub, Mobi, AZW, AZW3, FB2, PDF, RTF y TXT; filtrar por lenguage, entre una gran cantidad de opciones; y también es posible usar la opción "Comodín" para buscar usando cada palabra como comodín
+- Ver detalles acerca de los libros (dependiendo de la *metadadata* provista, algunos campos pueden no estar presentes): portada, título, autor, descripción, índice, año, volumen, serie, edición, editorial, ciudad, páginas, idioma, ISBN, DOI, tamaño del archivo y extensión del archivo
+- Mostrar historial de búsqueda a modo de sugerencias
 - Cambiar entre tema claro y oscuro
 - Mostrar *pop-up* con información de la app
+- La interfaz está disponible en múltiples idiomas: alemán (DE), inglés (US), español (ES), francés (FR), japonés (JP), polaco (PL), portugués (BR) y chino (rCN)
+- Y por supuesto, descargar cualquier libro
 
 ## TODO
 
 La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los alcances del proyecto. No obstante, toda idea y feedback es bienvenido.
 
 - [ ] Compartir libro
-- [ ] Buscar libros en otras secciones de LibGen (fiction, scientific articles, etc)
+- [ ] Buscar libros en otras secciones de LibGen (SciTech y Fiction ya están cubiertas)
 - [ ] Permitir cambiar de idioma, en lugar de sólo usar el del sistema
-- [ ] Traducir a otros idiomas (disponibles: inglés, español, polaco, portugués, alemán, francés y chino)
+- [ ] Traducir a otros idiomas (ver arriba la lista de idiomas ya cubiertos)
 - [ ] Mejoras de UI (animaciones más fluidas, colores, estructura, fuentes, etc)
-- [ ] Filtrar por tipo de archivo (puede requerir modificar el _backend_)
+- [ ] Filtrar por tipo de archivo (ya implementado en Fiction, pero puede requerir un esfuerzo adicional hacerlo también en SciTech)
 
 **Se sugiere enviar primero un *issue* para discutir ideas, en lugar de enviar directamente un PR**
 
@@ -60,8 +44,8 @@ Un problema importante que está afectando la UX de la app es el rendimiento de 
 
 ### Flutter y Dart
 
-- Flutter: version 1.22.4 (channel stable)
-- Dart: version 2.10.4 (stable)
+- Flutter: versión 2.0.4 (channel stable)
+- Dart: versión 2.12.2
 
 ### Configuraciones
 
@@ -103,9 +87,9 @@ En caso de ejecutar la aplicación en un dispositivo físico, se requiere usar c
 
 Library Genesis no dispone de una API pública con la que trabajar, por lo que se decidió crear un *backend* para consumir. Actualmente está alojado en Heroku.
 
-Revisar [repo](https://github.com/manuelvargastapia/libgen_api/tree/master) para ejecutar una instancia propia y poder así pasar a la app la correspondiente URL como *compile time variable*.
+Revisar [repo](https://github.com/manuelvargastapia/libgen_api/tree/master) para ejecutar una instancia propia y poder así pasar a la app la correspondiente URL como *compile time variable*. Es un proyecto ExpressJS; basta con clonar (o _fork_) el repo, instalar dependencias y ejecutar con `npm start`.
 
-Es un proyecto ExpressJS; clonar (o _fork_) repo, instalar dependencias y ejecutar con `npm start`.
+Durante el desarrollo, se creó un _fork_ de [esta librería no oficial para Libgen](https://github.com/dunn/libgen.js), a fin de poder acceder a los datos. [Este es el repo](https://github.com/manuelvargastapia/libgen.js/tree/custom_libgen) de la versión modificada.
 
 ## Dependencias
 
@@ -115,13 +99,13 @@ La siguiente es una lista de todos los paquetes oficiales y de terceros en uso h
 
   - flutter_localizations:
     - sdk: flutter
-  - [intl](https://pub.dev/packages/intl): ^0.16.1
+  - [intl](https://pub.dev/packages/intl): ^0.17.1
 
 En adición, para generar el *boilerplate* se usó el *plugin* de VScode [*Flutter Intl*](https://marketplace.visualstudio.com/items?itemName=localizely.flutter-intl). De este modo, se recomienda usar el mismo *plugin* para generar automáticamente el nuevo código para las nuevas traducciones. Por desgracia, la [documentación oficial](https://flutter.dev/docs/development/accessibility-and-localization/internationalization) parece estar desactualizada.
 
 **Peticiones a API**
 
-  - [http](https://pub.dev/packages/http): ^0.12.2
+  - [http](https://pub.dev/packages/http): ^0.13.2
 
 **Manejo del estado**
 
