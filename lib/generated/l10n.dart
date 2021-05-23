@@ -55,10 +55,10 @@ class S {
     );
   }
 
-  /// `LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nBy now, this app only provide access to the Sci-Tech section.\n\nThe destination folder for downloaded files is the default Downloads directory.`
+  /// `LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nThe destination folder for downloaded files is the default Downloads directory.`
   String get searchBookScreenApplicationLegalese {
     return Intl.message(
-      'LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nBy now, this app only provide access to the Sci-Tech section.\n\nThe destination folder for downloaded files is the default Downloads directory.',
+      'LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nThe destination folder for downloaded files is the default Downloads directory.',
       name: 'searchBookScreenApplicationLegalese',
       desc: '',
       args: [],

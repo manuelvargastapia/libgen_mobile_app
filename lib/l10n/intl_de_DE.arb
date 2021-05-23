@@ -2,7 +2,7 @@
     "@@locale": "de_DE",
     "searchBookScreenSearchBarHint": "Nach Titel, Author oder ISBN suchen",
     "searchBookDelegateSearchFieldLabel": "Titel, Author oder ISBN",
-    "searchBookScreenApplicationLegalese": "LibGen Mobile ist ein FLOSS-Projekt (Free/Libre Open Source Software). Der Entwickler ist in irgendeiner Weise mit Library Genesis verbunden.\n\nDiese App bietet derzeit nur Zugriff auf den Bereich Sci-Tech.\n\nDer Zielordner für heruntergeladene Dateien ist das Standardverzeichnis Downloads.",
+    "searchBookScreenApplicationLegalese": "LibGen Mobile ist ein FLOSS-Projekt (Free/Libre Open Source Software). Der Entwickler ist in irgendeiner Weise mit Library Genesis verbunden.\n\nDer Zielordner für heruntergeladene Dateien ist das Standardverzeichnis Downloads.",
     "searchBookScreenAboutFloatingButtomTitle": "Über",
     "resultsBuilderTotalResultsCounterMessage": " Ergebnisse",
     "resultsBuilderNoMoreResultsMessage": "Keine Ergebnisse mehr!",

@@ -99,7 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resultsBuilderTotalResultsCounterMessage" : MessageLookupByLibrary.simpleMessage(" Ergebnisse"),
     "searchBookDelegateSearchFieldLabel" : MessageLookupByLibrary.simpleMessage("Titel, Author oder ISBN"),
     "searchBookScreenAboutFloatingButtomTitle" : MessageLookupByLibrary.simpleMessage("Über"),
-    "searchBookScreenApplicationLegalese" : MessageLookupByLibrary.simpleMessage("LibGen Mobile ist ein FLOSS-Projekt (Free/Libre Open Source Software). Der Entwickler ist in irgendeiner Weise mit Library Genesis verbunden.\n\nDiese App bietet derzeit nur Zugriff auf den Bereich Sci-Tech.\n\nDer Zielordner für heruntergeladene Dateien ist das Standardverzeichnis Downloads."),
+    "searchBookScreenApplicationLegalese" : MessageLookupByLibrary.simpleMessage("LibGen Mobile ist ein FLOSS-Projekt (Free/Libre Open Source Software). Der Entwickler ist in irgendeiner Weise mit Library Genesis verbunden.\n\nDer Zielordner für heruntergeladene Dateien ist das Standardverzeichnis Downloads."),
     "searchBookScreenSearchBarHint" : MessageLookupByLibrary.simpleMessage("Nach Titel, Author oder ISBN suchen"),
     "showFilterDialogApply" : MessageLookupByLibrary.simpleMessage("Anwenden"),
     "showFilterDialogCancel" : MessageLookupByLibrary.simpleMessage("Abbrechen"),

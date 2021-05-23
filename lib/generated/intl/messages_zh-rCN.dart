@@ -91,7 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resultsBuilderTotalResultsCounterMessage" : MessageLookupByLibrary.simpleMessage("结果"),
     "searchBookDelegateSearchFieldLabel" : MessageLookupByLibrary.simpleMessage("标题、作者或 ISBN"),
     "searchBookScreenAboutFloatingButtomTitle" : MessageLookupByLibrary.simpleMessage("关于"),
-    "searchBookScreenApplicationLegalese" : MessageLookupByLibrary.simpleMessage("LibGen Mobile 是一个自由开源软件项目。本应用开发者与 Library Genesis 没有任何关系。\n\n这款应用眼下只提供对科技板块的访问。\n\n所下载文件的目标文件夹是默认的下载目录。"),
+    "searchBookScreenApplicationLegalese" : MessageLookupByLibrary.simpleMessage("LibGen Mobile 是一个自由开源软件项目。本应用开发者与 Library Genesis 没有任何关系。\n\n所下载文件的目标文件夹是默认的下载目录。"),
     "searchBookScreenSearchBarHint" : MessageLookupByLibrary.simpleMessage("按标题、作者或 ISBN 进行搜索"),
     "showFilterDialogApply" : MessageLookupByLibrary.simpleMessage("应用"),
     "showFilterDialogCancel" : MessageLookupByLibrary.simpleMessage("取消"),
