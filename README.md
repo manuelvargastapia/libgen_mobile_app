@@ -30,7 +30,6 @@ Currently, we're working mainly in Android version.
 
 The following is a list of desired new features within the scope of the project. Notwithstanding, we're happy to hear new ideas and feeback.
 
-- [ ] Share book
 - [ ] Search books in other sections of LibGen (SciTech and Fiction already covered)
 - [ ] Allow for switching between languages, instead of only using the system's
 - [ ] Translate to other languages (see above the list of languages already covered)

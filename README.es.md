@@ -29,7 +29,6 @@ De momento, el desarrollo está enfocado sólo en Android.
 
 La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los alcances del proyecto. No obstante, toda idea y feedback es bienvenido.
 
-- [ ] Compartir libro
 - [ ] Buscar libros en otras secciones de LibGen (SciTech y Fiction ya están cubiertas)
 - [ ] Permitir cambiar de idioma, en lugar de sólo usar el del sistema
 - [ ] Traducir a otros idiomas (ver arriba la lista de idiomas ya cubiertos)
