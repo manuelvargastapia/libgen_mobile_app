@@ -23,7 +23,7 @@ Currently, we're working mainly in Android version.
 - Show search history as suggestions
 - Switch between ligh and dark theme
 - Show info dialog
-- Available on multiple languages: German (DE), English (US), Spanish (ES), French (FR), Japanese (JP), Polish (PL), Portuguese (BR), and Chinese (rCN)
+- Available on multiple languages: German (DE), English (US), Spanish (ES), French (FR), Japanese (JP), Polish (PL), Portuguese (BR), and Chinese (CN, simplified)
 - And of course, download any book
 
 ## TODO
@@ -38,8 +38,6 @@ The following is a list of desired new features within the scope of the project.
 - [ ] Filter by file extension (already implement in Fiction, but it may require some extra work to do it in SciTech)
 
 **We recommend to submit first an issue to discuss ideas, instead of directly send a PR.**
-
-An important issue that affects the overall UX of the app is the API performance. Any improvement will be welcomed.
 
 ## Environment
 

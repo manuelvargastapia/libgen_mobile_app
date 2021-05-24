@@ -22,7 +22,7 @@ De momento, el desarrollo está enfocado sólo en Android.
 - Mostrar historial de búsqueda a modo de sugerencias
 - Cambiar entre tema claro y oscuro
 - Mostrar *pop-up* con información de la app
-- La interfaz está disponible en múltiples idiomas: alemán (DE), inglés (US), español (ES), francés (FR), japonés (JP), polaco (PL), portugués (BR) y chino (rCN)
+- La interfaz está disponible en múltiples idiomas: alemán (DE), inglés (US), español (ES), francés (FR), japonés (JP), polaco (PL), portugués (BR) y chino (CN, simplificado)
 - Y por supuesto, descargar cualquier libro
 
 ## TODO
@@ -37,8 +37,6 @@ La siguiente es una lisata con nuevas funcionalidades deseables, dentro de los a
 - [ ] Filtrar por tipo de archivo (ya implementado en Fiction, pero puede requerir un esfuerzo adicional hacerlo también en SciTech)
 
 **Se sugiere enviar primero un *issue* para discutir ideas, en lugar de enviar directamente un PR**
-
-Un problema importante que está afectando la UX de la app es el rendimiento de la API. Se agradece cualquier mejora.
 
 ## Entorno de ejecución
 
