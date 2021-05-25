@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -63,7 +64,7 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
   }
 
-  String _generateFileName(BookModel book) {
+  String _generateFileName(BookModel book, String downloadsDirectory) {
     final title = book.title ?? book.series ?? book.isbn ?? "untitled";
     final author = book.author != null ? " - " + book.author : "";
     final publisher = book.publisher != null ? " - " + book.publisher : "";
@@ -74,8 +75,17 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
         ? "." + book.fileExtension.toLowerCase()
         : "";
 
-    return "$title$author$publisher$year$fileExtension"
-        .replaceAll(RegExp(r'\/'), ' ');
+    String generatedName = "$title$author$publisher$year$fileExtension";
+    int existsCounter = 0;
+
+    while (File('$downloadsDirectory/$generatedName').existsSync()) {
+      generatedName =
+          "$title$author$publisher$year(${existsCounter + 1})$fileExtension";
+
+      existsCounter++;
+    }
+
+    return generatedName.replaceAll(RegExp(r'\/'), ' ');
   }
 
   @override
@@ -102,7 +112,7 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
 
         final downloadsDirectory =
             await DownloadsPathProvider.downloadsDirectory;
-        final fileName = _generateFileName(event.book);
+        final fileName = _generateFileName(event.book, downloadsDirectory.path);
 
         performDownload() async {
           final result = await downloadRepository.requestDownload(
