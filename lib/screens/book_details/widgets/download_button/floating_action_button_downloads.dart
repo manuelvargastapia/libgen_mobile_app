@@ -135,6 +135,7 @@ class _FloatingActionButtonMenuState
                                 horizontal: 12,
                                 vertical: 8,
                               ),
+                              margin: const EdgeInsets.only(right: 4),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: widget.optionButtonsBackgroundColor,
