@@ -23,7 +23,7 @@ De momento, el desarrollo está enfocado sólo en Android.
 - Cambiar entre tema claro y oscuro
 - Mostrar *pop-up* con información de la app
 - La interfaz está disponible en múltiples idiomas: alemán (DE), inglés (US), español (ES), francés (FR), japonés (JP), polaco (PL), portugués (BR) y chino (CN, simplificado)
-- Y por supuesto, descargar cualquier libro
+- Y por supuesto, descargar cualquier libro. Se ofrecen múltiples opciones de descarga.
 
 ## TODO
 

@@ -24,7 +24,7 @@ Currently, we're working mainly in Android version.
 - Switch between ligh and dark theme
 - Show info dialog
 - Available on multiple languages: German (DE), English (US), Spanish (ES), French (FR), Japanese (JP), Polish (PL), Portuguese (BR), and Chinese (CN, simplified)
-- And of course, download any book
+- And of course, download any book. Multiple download options are provided.
 
 ## TODO
 
