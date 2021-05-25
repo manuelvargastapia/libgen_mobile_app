@@ -4,3 +4,4 @@
 * New languages: German, Japanese, French, and Simplified Chinese
 * More download options if available: default ("GET"), Cloudflare, IPFS, and Infura
 * Downloaded files are renamed to avoid replacing existing ones (ex: my_book.pdf, my_book(1).pdf, etc)
+* In SciTech, decrease minimum characters length to 2
