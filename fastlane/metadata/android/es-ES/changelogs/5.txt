@@ -1,0 +1,6 @@
+* Nueva sección Fiction, con opciones de filtrado por idioma y por tipo de archivo
+* Corrección de error: búsqueda con caracteres especiales
+* Mejora en persistencia de preferencia de tema después de reiniciar la app
+* Nuevos idiomas: alemán, japonés, francés y chino simplificado
+* Más opciones de descarga, si están disponibles: Default ("GET"), Cloudflare, IPFS e Infura
+* Los archivos descargados son renombrados para evitar reemplazar los existentes (ej: mi_libro.pdf, mi_libro(1).pdf, etc)

@@ -1,0 +1,6 @@
+* New Fiction section, with filtering options by language and by file extension
+* Bug-fix: searching with special characters
+* Improved theme preference persistence after restarting the app
+* New languages: German, Japanese, French, and Simplified Chinese
+* More download options if available: default ("GET"), Cloudflare, IPFS, and Infura
+* Downloaded files are renamed to avoid replacing existing ones (ex: my_book.pdf, my_book(1).pdf, etc)
