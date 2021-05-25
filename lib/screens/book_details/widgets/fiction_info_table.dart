@@ -28,12 +28,12 @@ class FictionInfoTable extends StatelessWidget {
         ),
         _buildTableRow(context, S.of(context).infoTableLanguage, book.language),
         _buildTableRow(context, S.of(context).infoTableISBN, book.isbn),
+        _buildTableRow(context, S.of(context).infoTableFileSize, book.fileSize),
         _buildTableRow(
           context,
           S.of(context).infoTableFileExtension,
           book.fileExtension,
         ),
-        _buildTableRow(context, S.of(context).infoTableFileSize, book.fileSize)
       ],
     );
   }
