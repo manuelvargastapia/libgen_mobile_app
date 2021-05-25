@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -7,16 +6,14 @@ import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:http/http.dart' as http;
 import 'package:libgen/data/download_repository.dart';
-import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/domain/i_book_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:libgen/blocs/events/download_event.dart';
 import 'package:libgen/blocs/states/download_state.dart';
 import 'package:libgen/data/book_repository.dart';
-import 'package:libgen/domain/download_link_model.dart';
 
 class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
   BookRepository bookRepository;
@@ -67,23 +64,33 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
   }
 
-  String _generateFileName(BookModel book) {
+  String _generateFileName(BookModel book, String downloadsDirectory) {
     final title = book.title ?? book.series ?? book.isbn ?? "untitled";
     final author = book.author != null ? " - " + book.author : "";
     final publisher = book.publisher != null ? " - " + book.publisher : "";
     final year = book.year != null ? " - " + book.year.toString() : "";
 
     // Needed to allow devices recognize the files in Downloads folder
-    final fileExtension =
-        book.fileExtension != null ? "." + book.fileExtension : "";
+    final fileExtension = book.fileExtension != null
+        ? "." + book.fileExtension.toLowerCase()
+        : "";
 
-    return "$title$author$publisher$year$fileExtension"
-        .replaceAll(RegExp(r'\/'), ' ');
+    String generatedName = "$title$author$publisher$year$fileExtension";
+    int existsCounter = 0;
+
+    while (File('$downloadsDirectory/$generatedName').existsSync()) {
+      generatedName =
+          "$title$author$publisher$year(${existsCounter + 1})$fileExtension";
+
+      existsCounter++;
+    }
+
+    return generatedName.replaceAll(RegExp(r'\/'), ' ');
   }
 
   @override
   Stream<DownloadState> mapEventToState(DownloadEvent event) async* {
-    if (event is DownloadBookEvent) {
+    if (event is DownloadEvent) {
       bool _permissionGranted = false;
       final _status = await Permission.storage.status;
 
@@ -102,35 +109,31 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
 
       if (_permissionGranted) {
         yield DownloadStarting();
-        final _response = await bookRepository.getDownloadLink(event.book.md5);
-        if (_response is http.Response) {
-          if (_response.statusCode == 200) {
-            final String _downloadLink = DownloadLinkModel.fromJson(
-              jsonDecode(_response.body)['data'],
-            ).downloadLink;
-            Directory downloadsDirectory =
-                await DownloadsPathProvider.downloadsDirectory;
-            final String fileName = _generateFileName(event.book);
-            if ((event.book.fileSize ~/ 1000000) > 200 &&
-                await canLaunch(_downloadLink)) {
-              yield FileNeedsToBeDownloadedFromBrowser(url: _downloadLink);
-            } else {
-              final result = await downloadRepository.requestDownload(
-                fileName: fileName,
-                downloadLink: _downloadLink,
-                downloadPath: downloadsDirectory.path,
-              );
-              if (result.isLeft()) {
-                yield DownloadError();
-              }
-            }
-          } else {
-            yield DownloadError();
+
+        final downloadsDirectory =
+            await DownloadsPathProvider.downloadsDirectory;
+        final fileName = _generateFileName(event.book, downloadsDirectory.path);
+
+        performDownload() async {
+          final result = await downloadRepository.requestDownload(
+            fileName: fileName,
+            downloadLink: event.downloadLink,
+            downloadPath: downloadsDirectory.path,
+          );
+          if (result.isLeft()) {
+            return DownloadError();
           }
-        } else if (_response is SocketException) {
-          yield DownloadConnectionFailed();
-        } else {
-          yield DownloadError();
+        }
+
+        if (event is SciTechDownloadBookEvent) {
+          if ((event.book.fileSize ~/ 1000000) > 200 &&
+              await canLaunch(event.downloadLink)) {
+            yield FileNeedsToBeDownloadedFromBrowser(url: event.downloadLink);
+          } else {
+            yield await performDownload();
+          }
+        } else if (event is FictionDownloadBookEvent) {
+          yield await performDownload();
         }
       }
     }

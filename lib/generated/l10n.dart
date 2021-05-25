@@ -55,10 +55,10 @@ class S {
     );
   }
 
-  /// `LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nBy now, this app only provide access to the Sci-Tech section.\n\nThe destination folder for downloaded files is the default Downloads directory.`
+  /// `LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nThe destination folder for downloaded files is the default Downloads directory.`
   String get searchBookScreenApplicationLegalese {
     return Intl.message(
-      'LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nBy now, this app only provide access to the Sci-Tech section.\n\nThe destination folder for downloaded files is the default Downloads directory.',
+      'LibGen Mobile is a FLOSS (Free/Libre Open Source Software) project. The developer is in any way related with Library Genesis.\n\nThe destination folder for downloaded files is the default Downloads directory.',
       name: 'searchBookScreenApplicationLegalese',
       desc: '',
       args: [],
@@ -160,6 +160,36 @@ class S {
     return Intl.message(
       'Search in',
       name: 'showFilterDialogSearchInLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get showFilterDialogLanguageLabel {
+    return Intl.message(
+      'Language',
+      name: 'showFilterDialogLanguageLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File Extension`
+  String get showFilterDialogExtensionLabel {
+    return Intl.message(
+      'File Extension',
+      name: 'showFilterDialogExtensionLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wildcard`
+  String get showFilterDialogWildcardWordsLabel {
+    return Intl.message(
+      'Wildcard',
+      name: 'showFilterDialogWildcardWordsLabel',
       desc: '',
       args: [],
     );
@@ -715,6 +745,86 @@ class S {
     );
   }
 
+  /// `EPUB`
+  String get filtersExtensionsEpub {
+    return Intl.message(
+      'EPUB',
+      name: 'filtersExtensionsEpub',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MOBI`
+  String get filtersExtensionsMobi {
+    return Intl.message(
+      'MOBI',
+      name: 'filtersExtensionsMobi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AZW`
+  String get filtersExtensionsAzw {
+    return Intl.message(
+      'AZW',
+      name: 'filtersExtensionsAzw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AZW3`
+  String get filtersExtensionsAzw3 {
+    return Intl.message(
+      'AZW3',
+      name: 'filtersExtensionsAzw3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FB2`
+  String get filtersExtensionsFb2 {
+    return Intl.message(
+      'FB2',
+      name: 'filtersExtensionsFb2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PDF`
+  String get filtersExtensionsPdf {
+    return Intl.message(
+      'PDF',
+      name: 'filtersExtensionsPdf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RTF`
+  String get filtersExtensionsRtf {
+    return Intl.message(
+      'RTF',
+      name: 'filtersExtensionsRtf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TXT`
+  String get filtersExtensionsTxt {
+    return Intl.message(
+      'TXT',
+      name: 'filtersExtensionsTxt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Close`
   String get infoDialogAlertDialogRightButtonText {
     return Intl.message(
@@ -738,6 +848,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'ja', countryCode: 'JP'),
       Locale.fromSubtags(languageCode: 'pl', countryCode: 'PL'),
       Locale.fromSubtags(languageCode: 'pt', countryCode: 'BR'),
+      Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
     ];
   }
 

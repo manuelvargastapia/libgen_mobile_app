@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:libgen/screens/book_details/widgets/info_table.dart';
+import 'package:libgen/domain/i_book_model.dart';
+import 'package:libgen/screens/book_details/widgets/fiction_info_table.dart';
+import 'package:libgen/screens/book_details/widgets/sci_tech_info_table.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
-import 'package:libgen/domain/book_model.dart';
+import 'package:libgen/domain/book_sci_tech_model.dart';
 import 'package:libgen/screens/book_details/widgets/expandable_text.dart';
 import 'package:libgen/screens/book_details/widgets/image_with_placeholder.dart';
 import 'package:libgen/generated/l10n.dart';
@@ -39,12 +41,13 @@ class BookDetailsPresenter extends StatelessWidget {
                     content: book.description,
                   ),
                 SizedBox(height: 24),
-                if (book.contents != null)
-                  _buildContentSection(
-                    context: context,
-                    title: S.of(context).bookDetailsPresenterTOC,
-                    content: book.contents,
-                  ),
+                if (book is BookSciTechModel)
+                  if ((book as BookSciTechModel).contents != null)
+                    _buildContentSection(
+                      context: context,
+                      title: S.of(context).bookDetailsPresenterTOC,
+                      content: (book as BookSciTechModel).contents,
+                    ),
                 SizedBox(height: 24),
                 _buildInfoTable(context, book),
               ],
@@ -168,7 +171,9 @@ class BookDetailsPresenter extends StatelessWidget {
           style: Theme.of(context).textTheme.headline1,
         ),
         _buildDivider(),
-        InfoTable(book),
+        book is BookSciTechModel
+            ? SciTechInfoTable(book)
+            : FictionInfoTable(book),
       ],
     );
   }

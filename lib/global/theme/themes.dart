@@ -73,6 +73,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
     ),
     buttonColor: _secondarySwatch[400],
     accentIconTheme: IconThemeData(color: Colors.black54),
+    toggleableActiveColor: _secondarySwatch[400],
   ),
   AppTheme.BlueDark: ThemeData(
     brightness: Brightness.dark,
@@ -106,6 +107,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
     ),
     buttonColor: _secondarySwatch[400],
     accentIconTheme: IconThemeData(color: Colors.white70),
+    toggleableActiveColor: _secondarySwatch[400],
   ),
 };
 

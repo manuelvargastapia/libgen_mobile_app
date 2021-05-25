@@ -4,17 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
 import 'package:libgen/blocs/download_bloc.dart';
+import 'package:libgen/blocs/events/fiction_languages_events.dart';
+import 'package:libgen/blocs/fiction_languages_bloc.dart';
 import 'package:libgen/blocs/hive_bloc.dart';
 import 'package:libgen/blocs/theme_cubit.dart';
 import 'package:libgen/data/download_repository.dart';
+import 'package:libgen/data/fiction_languages_repository.dart';
 import 'package:libgen/data/hive_repositories/suggestion_repository.dart';
 import 'package:libgen/domain/suggestion.dart';
 import 'package:libgen/global/theme/themes.dart';
+import 'package:libgen/screens/search_book/sci_tech_search_book_screen.dart';
 import 'package:package_info/package_info.dart';
 import 'blocs/book_bloc.dart';
 import 'blocs/states/theme_states.dart';
 import 'data/book_repository.dart';
-import 'screens/search_book/search_book_screen.dart';
 import 'generated/l10n.dart';
 
 class LibGenApp extends StatelessWidget {
@@ -46,6 +49,12 @@ class LibGenApp extends StatelessWidget {
                   downloadRepository: DownloadRepository(),
                 ),
               ),
+              BlocProvider(
+                create: (context) => FictionLanguagesBloc(
+                  fictionLanguagesRepository: FictionLanguagesRepository(),
+                )..add(LanguagesFetchEvent()),
+                lazy: false,
+              ),
               BlocProvider(create: (context) => ThemeCubit()),
             ],
             child: BlocBuilder<ThemeCubit, ThemeState>(
@@ -60,7 +69,7 @@ class LibGenApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                home: SearchBookScreen(packageInfo),
+                home: SciTechSearchBookScreen(packageInfo),
               ),
             ),
           );
