@@ -7,15 +7,13 @@ Feel free to collaborate.
 Check the <a href="https://github.com/manuelvargastapia/libgen_mobile_app">repo</a>
 
 Features:
-<ul>
-  <li> Search books by title, author, and other parameters</li>
-  <li> See detailed info about the book (pages, size, etc)</li>
-  <li> Download the book (directly to Downloads folder)</li>
-  <li> Switch between light and dark theme</li>
-  <li> Languages: English, Spanish, Polish, Portuguese, German, Japanese, French and Chinese</li>
-  <li> The app provides access to Sci-Tech and Fiction sections</li>
-</ul>
 
-New features are in development.
+* Search books by title, author, and other parameters
+* See detailed info about the book (pages, size, etc)
+* Download the book (directly to Downloads folder)
+* Switch between light and dark theme
+* Languages: English, Spanish, Polish, Portuguese, German, Japanese, French and Chinese
+* The app provides access to Sci-Tech and Fiction sections
+
 The only permission required is <b>Storage</b>. It's used only to place the downloaded files in Downloads directory.
 Powered by <a href="https://flutter.dev">Flutter</a>.
