@@ -4,9 +4,10 @@ part 'download_link_model.g.dart';
 
 @JsonSerializable()
 class DownloadLinkModel {
-  String downloadLink;
+  String url;
+  String label;
 
-  DownloadLinkModel(this.downloadLink);
+  DownloadLinkModel(this.url, this.label);
 
   factory DownloadLinkModel.fromJson(Map<String, dynamic> json) =>
       _$DownloadLinkModelFromJson(json);

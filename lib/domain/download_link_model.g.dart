@@ -8,11 +8,13 @@ part of 'download_link_model.dart';
 
 DownloadLinkModel _$DownloadLinkModelFromJson(Map<String, dynamic> json) {
   return DownloadLinkModel(
-    json['downloadLink'] as String,
+    json['url'] as String,
+    json['label'] as String,
   );
 }
 
 Map<String, dynamic> _$DownloadLinkModelToJson(DownloadLinkModel instance) =>
     <String, dynamic>{
-      'downloadLink': instance.downloadLink,
+      'url': instance.url,
+      'label': instance.label,
     };
