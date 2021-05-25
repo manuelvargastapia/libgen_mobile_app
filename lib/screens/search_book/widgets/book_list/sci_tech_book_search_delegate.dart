@@ -99,7 +99,7 @@ class SciTechBookSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query.trim().length < 4) {
+    if (query.trim().length < 2) {
       return Container();
     }
 
