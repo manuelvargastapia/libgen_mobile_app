@@ -7,7 +7,7 @@
     "resultsBuilderTotalResultsCounterMessage": "结果",
     "resultsBuilderNoMoreResultsMessage": "没有更多结果！",
     "resultsBuilderNoResultsForSearchTermMessage": "没有 \"{searchTerm}\" 的搜索结果",
-    "resultsBuilderGenericErrorMessage": "哎呀，出了点问题。\n请稍候再试"
+    "resultsBuilderGenericErrorMessage": "哎呀，出了点问题。\n请稍候再试",
     "resultsBuilderConnectionFailedErrorMessage": "网络错误。\n请检查你的互联网连接。",
     "showFilterDialogTitle": "过滤器",
     "showFilterDialogCancel": "取消",
