@@ -1,5 +1,10 @@
 # LibGen Mobile
 
+---
+### Looking for maintainers!
+Due to my limited amount of time, I haven't been able to keep this project updated. The app and the server still are running and I plan it to keep like that, but currently, I'm not able to build more features. At least not at the required pace. So, contact me or simply fork and code. I'll remain aware and try to help with anything. Thanks.
+---
+
 [![F-Droid](https://img.shields.io/f-droid/v/com.manuelvargastapia.libgen?color=%231976d2)](https://f-droid.org/packages/com.manuelvargastapia.libgen) [![GitHub](https://img.shields.io/github/license/manuelvargastapia/libgen_mobile_app?color=%2335c202)](https://github.com/manuelvargastapia/libgen_mobile_app/blob/main/LICENSE)
 
 <a href="https://f-droid.org/packages/com.manuelvargastapia.libgen" target="_blank">
